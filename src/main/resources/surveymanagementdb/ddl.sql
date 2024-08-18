@@ -105,3 +105,15 @@ CREATE TABLE users_roles (
     FOREIGN KEY (user_id) REFERENCES users(id),
     PRIMARY KEY (role_id, user_id)
 );
+
+DELIMITER $$
+
+CREATE TRIGGER after_user_insert
+AFTER INSERT ON users
+FOR EACH ROW
+BEGIN
+    INSERT INTO users_roles (role_id, user_id)
+    VALUES (1, NEW.id);
+END$$
+
+DELIMITER ;

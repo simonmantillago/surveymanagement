@@ -75,7 +75,7 @@ public class UpdateRoleUi extends JFrame {
 
         // Añadir los componentes al contenedor
         addComponent(jLabel1, 0, 0, 2);
-        addComponent(new JLabel("Role Code:"), 1, 0);
+        addComponent(new JLabel("Role:"), 1, 0);
         addComponent(roleOptions, 1, 1);
         addComponent(jButton4, 2, 0, 2);
         addComponent(new JLabel("Role Name:"), 3, 0);

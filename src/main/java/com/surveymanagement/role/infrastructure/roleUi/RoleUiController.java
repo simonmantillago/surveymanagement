@@ -92,7 +92,7 @@ public class RoleUiController {
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
 
-        JButton btnDelete = createStyledButton("Delete Customer", buttonSize, buttonFont);
+        JButton btnDelete = createStyledButton("Delete Role", buttonSize, buttonFont);
         btnDelete.addActionListener(e -> {
             DeleteRoleUi deleteCustomerUi = new DeleteRoleUi(deleteRoleUseCase, this);
             deleteCustomerUi.showDeleteCustomer();

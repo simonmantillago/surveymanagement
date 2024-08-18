@@ -167,6 +167,8 @@ public class UpdateUserUi extends JFrame {
         jTextField3.setVisible(false);
         jButton1.setVisible(false);
         jButton2.setVisible(false);
+        revalidate();
+        repaint();
     }
 
     private void showComponents() {
@@ -175,6 +177,7 @@ public class UpdateUserUi extends JFrame {
         jTextField3.setVisible(true);
         jButton1.setVisible(true);
         jButton2.setVisible(true);
+       
     }
 
 
