@@ -49,15 +49,15 @@ public class RoleRepository implements RoleService {
 
     @Override
     public void updateRole(Role role) {
-        String query = "UPDATE roles SET name = ? WHERE name = ?";
+        String query = "UPDATE roles SET name = ? WHERE id = ?";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, role.getName());
-            ps.setString(2, role.getName());
+            ps.setInt(2, role.getId());
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Role updated successfully!");
-            } else {
+            } else {  
                 System.out.println("Role update failed!");
             }
         } catch (SQLException e) {
@@ -74,7 +74,7 @@ public class RoleRepository implements RoleService {
                     if (rs.next()) {
                         Role role = new Role(
                             rs.getInt("id"),
-                            rs.getString("namerole")
+                            rs.getString("name")
                         );
                         return Optional.of(role);
                     }

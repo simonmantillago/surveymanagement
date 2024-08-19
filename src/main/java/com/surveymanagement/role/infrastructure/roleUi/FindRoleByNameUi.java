@@ -74,7 +74,7 @@ public class FindRoleByNameUi extends JFrame {
         add(scrollPane, gbc);
 
         JButton btnClose = new JButton("Close");
-        btnClose.addActionListener(e -> {              dispose();
+        btnClose.addActionListener(e -> {  dispose();
             roleUiController.showCrudOptions();
         });
         addComponent(btnClose, 4, 0, 2);
