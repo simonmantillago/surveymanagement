@@ -67,7 +67,7 @@ public class SurveyRepository implements  SurveyService{
     }
     @Override
     public Optional<Survey> findSurveyByName(String name) {
-        String query = "SELECT id, name, description FROM survey WHERE name = ?";
+        String query = "SELECT id , created_at, updated_at, name, description FROM survey WHERE name = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, name);
@@ -75,6 +75,8 @@ public class SurveyRepository implements  SurveyService{
                 if (rs.next()) {
                     Survey survey = new Survey(
                             rs.getInt("id"),
+                            rs.getString("created_at"),
+                            rs.getString("updated_at"),
                             rs.getString("name"),
                             rs.getString("description"));
                     return Optional.of(survey);
@@ -88,7 +90,7 @@ public class SurveyRepository implements  SurveyService{
     }
     @Override
     public Optional<Survey> findSurveyByCode(int id) {
-        String query = "SELECT id, name, description FROM survey WHERE id = ?";
+        String query = "SELECT id, created_at, updated_at, name, description FROM survey WHERE id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
@@ -96,6 +98,8 @@ public class SurveyRepository implements  SurveyService{
                 if (rs.next()) {
                     Survey survey = new Survey(
                             rs.getInt("id"),
+                            rs.getString("created_at"),
+                            rs.getString("updated_at"),
                             rs.getString("name"),
                             rs.getString("description"));
                     return Optional.of(survey);
@@ -110,7 +114,7 @@ public class SurveyRepository implements  SurveyService{
     @Override
     public List<Survey> findAllSurvey() {
     List<Survey> surveys = new ArrayList<>();
-        String query = "SELECT id, name FROM survey";
+        String query = "SELECT id, created_at, updated_at, description, name FROM survey";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             try (ResultSet rs = ps.executeQuery()) {

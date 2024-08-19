@@ -4,13 +4,13 @@ import com.surveymanagement.survey.domain.entity.Survey;
 import com.surveymanagement.survey.domain.service.SurveyService;
 
 public class CreateSurveyUseCase {
-    private final SurveyService modeAdministrationService;
+    private final SurveyService surveyService;
 
-    public CreateSurveyUseCase(SurveyService modeAdministrationService){
-        this.modeAdministrationService = modeAdministrationService;
+    public CreateSurveyUseCase(SurveyService surveyService){
+        this.surveyService = surveyService;
     }
 
     public void execute(Survey Survey){
-        modeAdministrationService.createSurvey(Survey);
+        surveyService.createSurvey(Survey);
     }
 }

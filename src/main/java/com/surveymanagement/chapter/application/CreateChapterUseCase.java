@@ -4,13 +4,13 @@ import com.surveymanagement.chapter.domain.entity.Chapter;
 import com.surveymanagement.chapter.domain.service.ChapterService;
 
 public class CreateChapterUseCase {
-    private final ChapterService modeAdministrationService;
+    private final ChapterService chapterService;
 
-    public CreateChapterUseCase(ChapterService modeAdministrationService){
-        this.modeAdministrationService = modeAdministrationService;
+    public CreateChapterUseCase(ChapterService chapterService){
+        this.chapterService = chapterService;
     }
 
     public void execute(Chapter Chapter){
-        modeAdministrationService.createChapter(Chapter);
+        chapterService.createChapter(Chapter);
     }
 }

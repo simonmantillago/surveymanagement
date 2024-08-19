@@ -5,13 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
 import com.surveymanagement.chapter.domain.entity.Chapter;
 import com.surveymanagement.chapter.domain.service.ChapterService;
-import com.surveymanagement.survey.domain.entity.Survey;
 
 public class ChapterRepository implements ChapterService{
     private Connection connection;
@@ -72,7 +72,7 @@ public class ChapterRepository implements ChapterService{
 
     @Override
     public Optional<Chapter> findChapterByName(String name, int survey_id) {
-            String query = "SELECT id, survey_id, chapter_number, chapter_title FROM chapter WHERE (name = ? && survey_id = ?)";
+        String query = "SELECT id, created_at, survey_id, updated_at, chapter_number, chapter_title FROM chapter WHERE (name = ? && survey_id = ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, name);
@@ -81,7 +81,9 @@ public class ChapterRepository implements ChapterService{
                 if (rs.next()) {
                     Chapter chapter = new Chapter(
                             rs.getInt("id"),
+                            rs.getString("created_at"),
                             rs.getInt("survey_id"),
+                            rs.getString("updated_at"),
                             rs.getString("chapter_number"),
                             rs.getString("chapter_title"));
                     return Optional.of(chapter);
@@ -96,20 +98,76 @@ public class ChapterRepository implements ChapterService{
 
     @Override
     public Optional<Chapter> findChapterByCode(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findChapterByCode'");
+        String query = "SELECT id, created_at, survey_id, updated_at, chapter_number, chapter_title FROM chapter WHERE (id = ?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Chapter chapter = new Chapter(
+                            rs.getInt("id"),
+                            rs.getString("created_at"),
+                            rs.getInt("survey_id"),
+                            rs.getString("updated_at"),
+                            rs.getString("chapter_number"),
+                            rs.getString("chapter_title"));
+                    return Optional.of(chapter);
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
     }
 
     @Override
     public List<Chapter> findAllChapter() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAllChapter'");
+    List<Chapter> chapters = new ArrayList<>();
+        String query = "SELECT id, created_at, survey_id, updated_at, chapter_number, chapter_title FROM chapter";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Chapter chapter = new Chapter(
+                            rs.getInt("id"),
+                            rs.getString("created_at"),
+                            rs.getInt("survey_id"),
+                            rs.getString("updated_at"),
+                            rs.getString("chapter_number"),
+                            rs.getString("chapter_title"));
+                        chapters.add(chapter);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return chapters;
     }
 
     @Override
     public List<Chapter> findChapterBySurvey(int survey_id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findChapterByChapter'");
+        List<Chapter> chapters = new ArrayList<>();
+        String query = "SELECT id, created_at, survey_id, updated_at, chapter_number, chapter_title FROM Chapter where survey_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, survey_id);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Chapter chapter = new Chapter(
+                        rs.getInt("id"),
+                            rs.getString("created_at"),
+                            survey_id,
+                            rs.getString("updated_at"),
+                            rs.getString("chapter_number"),
+                            rs.getString("chapter_title"));
+                            chapters.add(chapter);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return chapters;
     }
 
 }

@@ -65,7 +65,7 @@ public class CategoryCatalogRepository implements  CategoryCatalogService{
     }
     @Override
     public Optional<CategoryCatalog> findCategoryCatalogByName(String name) {
-        String query = "SELECT id, name FROM categorycatalog WHERE name = ?";
+        String query = "SELECT id, created_at, updated_at, name FROM categorycatalog WHERE name = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, name);
@@ -73,6 +73,8 @@ public class CategoryCatalogRepository implements  CategoryCatalogService{
                 if (rs.next()) {
                     CategoryCatalog categorycatalog = new CategoryCatalog(
                             rs.getInt("id"),
+                            rs.getString("created_at"),
+                            rs.getString("updated_at"),
                             rs.getString("name"));
                     return Optional.of(categorycatalog);
                 }
@@ -85,7 +87,7 @@ public class CategoryCatalogRepository implements  CategoryCatalogService{
     }
     @Override
     public Optional<CategoryCatalog> findCategoryCatalogByCode(int id) {
-        String query = "SELECT id, name FROM categorycatalog WHERE id = ?";
+        String query = "SELECT id, created_at, updated_at, name FROM categorycatalog WHERE id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
@@ -93,6 +95,8 @@ public class CategoryCatalogRepository implements  CategoryCatalogService{
                 if (rs.next()) {
                     CategoryCatalog categorycatalog = new CategoryCatalog(
                             rs.getInt("id"),
+                            rs.getString("created_at"),
+                            rs.getString("updated_at"),
                             rs.getString("name"));
                     return Optional.of(categorycatalog);
                 }
@@ -106,7 +110,7 @@ public class CategoryCatalogRepository implements  CategoryCatalogService{
     @Override
     public List<CategoryCatalog> findAllCategoryCatalog() {
     List<CategoryCatalog> categorycatalogs = new ArrayList<>();
-        String query = "SELECT id, name FROM categorycatalog";
+        String query = "SELECT id, created_at, updated_at, name FROM categorycatalog";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             try (ResultSet rs = ps.executeQuery()) {
