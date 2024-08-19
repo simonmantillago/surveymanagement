@@ -1,4 +1,4 @@
-package com.surveymanagement.role.infrastructure.roleUi;
+package com.surveymanagement.user.infrastructure.userUi;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -12,32 +12,36 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.surveymanagement.Main;
-import com.surveymanagement.role.application.CreateRoleUseCase;
-import com.surveymanagement.role.application.DeleteRoleUseCase;
-import com.surveymanagement.role.application.FindRoleByNameUseCase;
-import com.surveymanagement.role.application.UpdateRoleUseCase;
+import com.surveymanagement.user.application.CreateUserUseCase;
+import com.surveymanagement.user.application.DeleteUserUseCase;
+import com.surveymanagement.user.application.FindAllUserUseCase;
+import com.surveymanagement.user.application.FindUserByIdUseCase;
+import com.surveymanagement.user.application.UpdateUserUseCase;
 
-public class RoleUiController {
-    private final CreateRoleUseCase createRoleUseCase;
-    private final FindRoleByNameUseCase findRoleByNameUseCase;
-    private final UpdateRoleUseCase updateRoleUseCase;
-    private final DeleteRoleUseCase deleteRoleUseCase;
+public class UserUiController {
+    private final CreateUserUseCase createUserUseCase;
+    private final FindUserByIdUseCase findUserByNameUseCase;
+    private final UpdateUserUseCase updateUserUseCase;
+    private final DeleteUserUseCase deleteUserUseCase;
+    private final FindAllUserUseCase findAllUserUseCase;
+
     private JFrame frame;
 
     
 
 
 
-    public RoleUiController(CreateRoleUseCase createRoleUseCase, FindRoleByNameUseCase findRoleByNameUseCase,
-            UpdateRoleUseCase updateRoleUseCase, DeleteRoleUseCase deleteRoleUseCase) {
-        this.createRoleUseCase = createRoleUseCase;
-        this.findRoleByNameUseCase = findRoleByNameUseCase;
-        this.updateRoleUseCase = updateRoleUseCase;
-        this.deleteRoleUseCase = deleteRoleUseCase;
+    public UserUiController(CreateUserUseCase createUserUseCase, FindUserByIdUseCase findUserByNameUseCase,
+            UpdateUserUseCase updateUserUseCase, DeleteUserUseCase deleteUserUseCase, FindAllUserUseCase findAllUserUseCase) {
+        this.createUserUseCase = createUserUseCase;
+        this.findUserByNameUseCase = findUserByNameUseCase;
+        this.updateUserUseCase = updateUserUseCase;
+        this.deleteUserUseCase = deleteUserUseCase;
+        this.findAllUserUseCase = findAllUserUseCase;
     }
 
     public void showCrudOptions() {
-        frame = new JFrame("Roles");
+        frame = new JFrame("Users");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 500);
         frame.setLocationRelativeTo(null);
@@ -48,7 +52,7 @@ public class RoleUiController {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Añadir título grande
-        JLabel titleLabel = new JLabel("Roles");
+        JLabel titleLabel = new JLabel("Users");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(titleLabel);
@@ -63,38 +67,47 @@ public class RoleUiController {
         Dimension buttonSize = new Dimension(250, 50);
         Font buttonFont = new Font("Arial", Font.BOLD, 18);
 
-        // Botón Create Role
-        JButton btnCreate = createStyledButton("Create Role", buttonSize, buttonFont);
+        // Botón Create User
+        JButton btnCreate = createStyledButton("Create User", buttonSize, buttonFont);
         btnCreate.addActionListener(e -> {
-            CreateRoleUi roleUi = new CreateRoleUi(createRoleUseCase, this);
-            roleUi.frmRegRole();
+            CreateUserUi userUi = new CreateUserUi(createUserUseCase, this);
+            userUi.frmRegUser();
             frame.setVisible(false);
         });
         buttonPanel.add(btnCreate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnUpdate = createStyledButton("Update Role", buttonSize, buttonFont);
+        JButton btnUpdate = createStyledButton("Update User", buttonSize, buttonFont);
         btnUpdate.addActionListener(e -> {
-            UpdateRoleUi updateRoleUi = new UpdateRoleUi(updateRoleUseCase, findRoleByNameUseCase, this);
-            updateRoleUi.frmUpdateRole();
+            UpdateUserUi updateUserUi = new UpdateUserUi(updateUserUseCase, findUserByNameUseCase, this);
+            updateUserUi.frmUpdateUser();
             frame.setVisible(false);
         });
         buttonPanel.add(btnUpdate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnFind = createStyledButton("Find Role", buttonSize, buttonFont);
+        
+        JButton btnFindAll = createStyledButton("Find All Users", buttonSize, buttonFont);
+        btnFindAll.addActionListener(e -> {
+            FindAllUserUi findAllUserUi = new FindAllUserUi(findAllUserUseCase, this);
+            findAllUserUi.showAllUsers();
+            frame.setVisible(false);
+        });
+        buttonPanel.add(btnFindAll);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+
+        JButton btnFind = createStyledButton("Find User", buttonSize, buttonFont);
         btnFind.addActionListener(e -> {
-            FindRoleByNameUi findRoleByNameUi = new FindRoleByNameUi(findRoleByNameUseCase, this);
-            findRoleByNameUi.showFindRole();
+            FindUserByIdUi findUserByNameUi = new FindUserByIdUi(findUserByNameUseCase, this);
+            findUserByNameUi.showFindUser();
             frame.setVisible(false);
         });
         buttonPanel.add(btnFind);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-
         JButton btnDelete = createStyledButton("Delete Customer", buttonSize, buttonFont);
         btnDelete.addActionListener(e -> {
-            DeleteRoleUi deleteCustomerUi = new DeleteRoleUi(deleteRoleUseCase, this);
+            DeleteUserUi deleteCustomerUi = new DeleteUserUi(deleteUserUseCase, this);
             deleteCustomerUi.showDeleteCustomer();
             frame.setVisible(false);
         });
@@ -107,6 +120,7 @@ public class RoleUiController {
             Main.createAndShowMainUI(); 
         });
         buttonPanel.add(btnBackToMain);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
         mainPanel.add(buttonPanel);
         frame.add(mainPanel);
