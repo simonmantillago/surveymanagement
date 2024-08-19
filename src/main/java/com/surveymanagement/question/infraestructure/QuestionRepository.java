@@ -3,11 +3,14 @@ package com.surveymanagement.question.infraestructure;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
+import com.surveymanagement.chapter.domain.entity.Chapter;
 import com.surveymanagement.question.domain.entity.Question;
 import com.surveymanagement.question.domain.service.QuestionService;
 
@@ -70,22 +73,106 @@ public class QuestionRepository implements QuestionService {
         }
         @Override
         public Optional<Question> findQuestionByName(String name, int chapter_id) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'findQuestionByName'");
+            try {
+                String query = "SELECT id, chapter_id, created_at, survey_id, updated_at, question_number, response_type, comment_question, question_text FROM questions WHERE (name = ? && chapter_id = ?)";
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setString(1, name);
+                ps.setInt(2, chapter_id);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        Question question = new Question(
+                                rs.getInt("id"),
+                                rs.getInt("chapter_id"),
+                                rs.getString("created_at"),
+                                rs.getString("updated_at"),
+                                rs.getString("question_number"),
+                                rs.getString("response_type"),
+                                rs.getString("comment_question"),
+                                rs.getString("question_text"));
+                        return Optional.of(question);
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty(); 
         }
         @Override
         public Optional<Question> findQuestionByCode(int id) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'findQuestionByCode'");
+            try {
+                String query = "SELECT id, chapter_id, created_at, survey_id, updated_at, question_number, response_type, comment_question, question_text FROM questions WHERE (id = ?)";
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setInt(1, id);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        Question question = new Question(
+                                rs.getInt("id"),
+                                rs.getInt("chapter_id"),
+                                rs.getString("created_at"),
+                                rs.getString("updated_at"),
+                                rs.getString("question_number"),
+                                rs.getString("response_type"),
+                                rs.getString("comment_question"),
+                                rs.getString("question_text"));
+                        return Optional.of(question);
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty(); 
         }
         @Override
         public List<Question> findAllQuestion() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'findAllQuestion'");
+            List<Question> questions = new ArrayList<>();
+            String query = "SELECT id, chapter_id, created_at, survey_id, updated_at, question_number, response_type, comment_question, question_text FROM questions";
+            try {
+                PreparedStatement ps = connection.prepareStatement(query);
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        Question question = new Question(
+                            rs.getInt("id"),
+                            rs.getInt("chapter_id"),
+                            rs.getString("created_at"),
+                            rs.getString("updated_at"),
+                            rs.getString("question_number"),
+                            rs.getString("response_type"),
+                            rs.getString("comment_question"),
+                            rs.getString("question_text"));
+                            questions.add(question);
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return questions;
         }
         @Override
         public List<Question> findQuestionByChapter(int chapter_id) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'findQuestionByChapter'");
-        }
+            List<Question> questions = new ArrayList<>();
+            String query = "SELECT id, chapter_id, created_at, survey_id, updated_at, question_number, response_type, comment_question, question_text  FROM Questions where chapter_id = ?";
+            try {
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setInt(1, chapter_id);
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        Question question = new Question(
+                            rs.getInt("id"),
+                            rs.getInt("chapter_id"),
+                            rs.getString("created_at"),
+                            rs.getString("updated_at"),
+                            rs.getString("question_number"),
+                            rs.getString("response_type"),
+                            rs.getString("comment_question"),
+                            rs.getString("question_text"));
+                            questions.add(question);
+                    }
+                        
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return questions; }
 }
