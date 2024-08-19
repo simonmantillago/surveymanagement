@@ -8,7 +8,7 @@ import com.surveymanagement.role.domain.entity.Role;
 public interface RoleService {
     void createRole (Role role);
     void updateRole (Role role);
-    Role deleteRole (String codeRole);
-    Optional<Role> findRoleById(String codeRole);
+    Role deleteRole (String roleName);
+    Optional<Role> findRoleByName(String roleName);
     List<Role> findAllRole();
 }

@@ -3,7 +3,9 @@ package com.surveymanagement.role.infrastructure;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
@@ -30,7 +32,7 @@ public class RoleRepository implements RoleService {
     @Override
     public void createRole(Role role) {
         try {
-            String query = "INSERT INTO surveymanagement (name) VALUES (?)";
+            String query = "INSERT INTO roles (name) VALUES (?)";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, role.getName());
 
@@ -47,10 +49,10 @@ public class RoleRepository implements RoleService {
 
     @Override
     public void updateRole(Role role) {
-        String query = "UPDATE role SET name = ? WHERE id = ?";
+        String query = "UPDATE roles SET name = ? WHERE name = ?";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, role.getName());
-            ps.setInt(2, role.getId());
+            ps.setString(2, role.getName());
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -64,21 +66,84 @@ public class RoleRepository implements RoleService {
     }
 
     @Override
-    public Role deleteRole(String codeRole) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteRole'");
+    public Optional<Role> findRoleByName(String roleName) {
+            String query = "SELECT id,name FROM roles WHERE name = ?";
+            try (PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setString(1, roleName);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        Role role = new Role(
+                            rs.getInt("id"),
+                            rs.getString("namerole")
+                        );
+                        return Optional.of(role);
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return Optional.empty();
     }
 
     @Override
-    public Optional<Role> findRoleById(String codeRole) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findRoleById'");
+    public Role deleteRole(String roleName) {
+        Role role = null;
+        String selectQuery = "SELECT * FROM roles WHERE name = ?";
+        String deleteQuery = "DELETE FROM roles WHERE name = ?";
+
+        try (PreparedStatement selectPs = connection.prepareStatement(selectQuery);
+             PreparedStatement deletePs = connection.prepareStatement(deleteQuery)) {
+
+            // First, fetch the role
+            selectPs.setString(1, roleName);
+            try (ResultSet rs = selectPs.executeQuery()) {
+                if (rs.next()) {
+                    role = new Role(
+                        rs.getInt("id"),
+                        rs.getString("name")
+                    );
+                }
+            }
+
+            // If role exists, delete it
+            if (role != null) {
+                deletePs.setString(1, roleName);
+                int rowsAffected = deletePs.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Role deleted successfully!");
+                    return role;
+                }
+            }
+
+            System.out.println("Role deletion failed. Role not found.");
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<Role> findAllRole() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAllRole'");
+        List<Role> roles = new ArrayList<>();
+        String query = "SELECT id,name FROM roles";
+        
+        try (PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery()) {
+            
+            while (rs.next()) {
+                Role role = new Role(
+                    rs.getInt("id"),
+                    rs.getString("name")
+                );
+                roles.add(role);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return roles;
     }
-
 }
+
+
