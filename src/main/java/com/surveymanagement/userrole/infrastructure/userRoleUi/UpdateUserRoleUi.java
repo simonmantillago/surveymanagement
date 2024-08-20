@@ -120,13 +120,9 @@ public class UpdateUserRoleUi extends JFrame {
 
             String selectedRoleName = (String) roleOptions.getSelectedItem();
             Optional<Role> selectedRole = findRoleByNameUseCase.execute(selectedRoleName);
-
-            if (selectedRole.isPresent()) {
-                userRole.setRoleId(selectedRole.get().getId());
-            } else {
-                throw new RuntimeException("Selected role not found");
-            }
-
+    	    
+            userRole.setRoleId(selectedRole.get().getId());
+            
             updateUserRoleUseCase.execute(userRole);
             JOptionPane.showMessageDialog(this, "UserRole updated successfully!");
 
