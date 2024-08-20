@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
-import com.surveymanagement.chapter.domain.entity.Chapter;
 import com.surveymanagement.question.domain.entity.Question;
 import com.surveymanagement.question.domain.service.QuestionService;
 
