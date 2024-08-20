@@ -2,7 +2,6 @@ package com.surveymanagement.user.infrastructure.userUi;
 
 import java.awt.*;
 import java.util.Optional;
-import java.util.List;
 import javax.swing.*;
 
 import com.surveymanagement.user.application.UpdateUserUseCase;

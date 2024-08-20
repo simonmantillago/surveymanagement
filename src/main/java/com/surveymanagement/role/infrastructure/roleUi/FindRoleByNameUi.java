@@ -14,15 +14,15 @@ import com.surveymanagement.role.domain.service.RoleService;
 import com.surveymanagement.role.infrastructure.RoleRepository;
 
 public class FindRoleByNameUi extends JFrame {
-    private final FindRoleByNameUseCase findRoleByIdUseCase;
+    private final FindRoleByNameUseCase findRoleByNameUseCase;
     private final RoleUiController roleUiController;
     private JComboBox<String> roleOptions; 
     private JTextArea resultArea;
 
 
 
-    public FindRoleByNameUi(FindRoleByNameUseCase findRoleByIdUseCase, RoleUiController roleUiController) {
-        this.findRoleByIdUseCase = findRoleByIdUseCase;
+    public FindRoleByNameUi(FindRoleByNameUseCase findRoleByNameUseCase, RoleUiController roleUiController) {
+        this.findRoleByNameUseCase = findRoleByNameUseCase;
         this.roleUiController = roleUiController;
     }
 
@@ -96,7 +96,7 @@ public class FindRoleByNameUi extends JFrame {
 
     private void findRole() {
         String roleName = roleOptions.getSelectedItem().toString();
-        Optional<Role> roleOpt = findRoleByIdUseCase.execute(roleName);
+        Optional<Role> roleOpt = findRoleByNameUseCase.execute(roleName);
         if (roleOpt.isPresent()) {
             Role role = roleOpt.get();
             String message = String.format(

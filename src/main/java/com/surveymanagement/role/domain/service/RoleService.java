@@ -10,5 +10,6 @@ public interface RoleService {
     void updateRole (Role role);
     Role deleteRole (String roleName);
     Optional<Role> findRoleByName(String roleName);
+    Optional<Role> findRoleById(String roleId);
     List<Role> findAllRole();
 }

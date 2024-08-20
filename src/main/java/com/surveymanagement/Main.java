@@ -16,8 +16,13 @@ import com.surveymanagement.user.application.UpdateUserUseCase;
 import com.surveymanagement.user.domain.service.UserService;
 import com.surveymanagement.user.infrastructure.UserRepository;
 import com.surveymanagement.user.infrastructure.userUi.UserUiController;
-
-
+import com.surveymanagement.userrole.application.CreateUserRoleUseCase;
+import com.surveymanagement.userrole.application.DeleteUserRoleUseCase;
+import com.surveymanagement.userrole.application.FindUserRoleByIdUseCase;
+import com.surveymanagement.userrole.application.UpdateUserRoleUseCase;
+import com.surveymanagement.userrole.infrastructure.UserRoleRepository;
+import com.surveymanagement.userrole.infrastructure.userRoleUi.UserRoleUiController;
+import com.surveymanagement.userrole.domain.service.UserRoleService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -71,36 +76,59 @@ public class Main {
         buttonPanel.add(btnUsers);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
+        JButton btnUserRoles = createStyledButton("UserRoles", buttonSize, buttonFont);
+        btnUserRoles.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnUserRoles.addActionListener(e -> {
+            frame.setVisible(false);
+            openUserRoleUiController();
+        });
+
+        buttonPanel.add(btnUserRoles);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+
         mainPanel.add(buttonPanel);
         frame.add(mainPanel);
         frame.setVisible(true);
     }
 
     private static void openRoleUiController() {
-    RoleService roleService = new RoleRepository();
+        RoleService roleService = new RoleRepository();
 
-    CreateRoleUseCase createRoleUseCase = new CreateRoleUseCase(roleService);
-    FindRoleByNameUseCase findRoleByNameUseCase = new FindRoleByNameUseCase(roleService);
-    UpdateRoleUseCase updateRoleUseCase = new UpdateRoleUseCase(roleService);
-    DeleteRoleUseCase deleteRoleUseCase = new DeleteRoleUseCase(roleService);
+        CreateRoleUseCase createRoleUseCase = new CreateRoleUseCase(roleService);
+        FindRoleByNameUseCase findRoleByNameUseCase = new FindRoleByNameUseCase(roleService);
+        UpdateRoleUseCase updateRoleUseCase = new UpdateRoleUseCase(roleService);
+        DeleteRoleUseCase deleteRoleUseCase = new DeleteRoleUseCase(roleService);
 
 
-    RoleUiController roleUiController = new RoleUiController(createRoleUseCase, findRoleByNameUseCase, updateRoleUseCase, deleteRoleUseCase);
-    roleUiController.showCrudOptions();
+        RoleUiController roleUiController = new RoleUiController(createRoleUseCase, findRoleByNameUseCase, updateRoleUseCase, deleteRoleUseCase);
+        roleUiController.showCrudOptions();
     }
 
     private static void openUserUiController() {
-    UserService userService = new UserRepository();
+        UserService userService = new UserRepository();
 
-    CreateUserUseCase createUserUseCase = new CreateUserUseCase(userService);
-    FindUserByIdUseCase findUserByIdUseCase = new FindUserByIdUseCase(userService);
-    UpdateUserUseCase updateUserUseCase = new UpdateUserUseCase(userService);
-    DeleteUserUseCase deleteUserUseCase = new DeleteUserUseCase(userService);
-    FindAllUserUseCase findAllUserUseCase = new FindAllUserUseCase(userService);
+        CreateUserUseCase createUserUseCase = new CreateUserUseCase(userService);
+        FindUserByIdUseCase findUserByIdUseCase = new FindUserByIdUseCase(userService);
+        UpdateUserUseCase updateUserUseCase = new UpdateUserUseCase(userService);
+        DeleteUserUseCase deleteUserUseCase = new DeleteUserUseCase(userService);
+        FindAllUserUseCase findAllUserUseCase = new FindAllUserUseCase(userService);
 
 
-    UserUiController userUiController = new UserUiController(createUserUseCase, findUserByIdUseCase, updateUserUseCase, deleteUserUseCase, findAllUserUseCase);
-    userUiController.showCrudOptions();
+        UserUiController userUiController = new UserUiController(createUserUseCase, findUserByIdUseCase, updateUserUseCase, deleteUserUseCase, findAllUserUseCase);
+        userUiController.showCrudOptions();
+    }
+    private static void openUserRoleUiController() {
+        UserRoleService userRoleService = new UserRoleRepository();
+
+        CreateUserRoleUseCase createUserRoleUseCase = new CreateUserRoleUseCase(userRoleService);
+        FindUserRoleByIdUseCase findUserRoleByIdUseCase = new FindUserRoleByIdUseCase(userRoleService);
+        UpdateUserRoleUseCase updateUserRoleUseCase = new UpdateUserRoleUseCase(userRoleService);
+        DeleteUserRoleUseCase deleteUserRoleUseCase = new DeleteUserRoleUseCase(userRoleService);
+  
+
+
+        UserRoleUiController userRoleUiController = new UserRoleUiController(createUserRoleUseCase, findUserRoleByIdUseCase, updateUserRoleUseCase, deleteUserRoleUseCase);
+        userRoleUiController.showCrudOptions();
     }
 
     private static JButton createStyledButton(String text, Dimension size, Font font) {

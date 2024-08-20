@@ -86,6 +86,27 @@ public class RoleRepository implements RoleService {
     }
 
     @Override
+    public Optional<Role> findRoleById(String roleId) {
+            String query = "SELECT id,name FROM roles WHERE id = ?";
+            try (PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setString(1, roleId);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        Role role = new Role(
+                            rs.getInt("id"),
+                            rs.getString("name")
+                        );
+                        return Optional.of(role);
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return Optional.empty();
+    }
+
+
+    @Override
     public Role deleteRole(String roleName) {
         Role role = null;
         String selectQuery = "SELECT * FROM roles WHERE name = ?";
