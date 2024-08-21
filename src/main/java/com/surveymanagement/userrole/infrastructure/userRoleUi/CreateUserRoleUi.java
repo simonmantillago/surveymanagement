@@ -53,7 +53,7 @@ public class CreateUserRoleUi extends JFrame {
 
     private void initComponents(FindAllRoleUseCase findAllRoleUseCase,FindRoleByNameUseCase findRoleByNameUseCase) {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Create UserRole");
+        setTitle("Create Assign Role");
         setSize(500, 500);
         setLayout(new GridBagLayout());
 

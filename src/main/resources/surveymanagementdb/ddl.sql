@@ -1,4 +1,4 @@
-
+DROP DATABASE surveymanagement;
 CREATE DATABASE IF NOT EXISTS surveymanagement;
 USE surveymanagement;
 
@@ -113,7 +113,9 @@ AFTER INSERT ON users
 FOR EACH ROW
 BEGIN
     INSERT INTO users_roles (role_id, user_id)
-    VALUES (1, NEW.id);
+    VALUES (2, NEW.id);
 END$$
 
 DELIMITER ;
+
+

@@ -26,7 +26,7 @@ public class DeleteUserRoleUi extends JFrame {
     
     public void showDeleteCustomer() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Delete UserRole");
+        setTitle("Delete User Role");
         setSize(500, 500);
         
 
@@ -42,7 +42,7 @@ public class DeleteUserRoleUi extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         
-        JLabel titleLabel = new JLabel("Delete UserRole");
+        JLabel titleLabel = new JLabel("Delete User Role");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         addComponent(titleLabel, 0, 0, 2);

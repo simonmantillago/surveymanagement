@@ -28,7 +28,7 @@ public class FindUserRoleByNameUi extends JFrame {
 
     public void showFindUserRole() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Find UserRole");
+        setTitle("Find User Role");
         setSize(500, 500);
 
 
@@ -43,12 +43,12 @@ public class FindUserRoleByNameUi extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel titleLabel = new JLabel("Find UserRole");
+        JLabel titleLabel = new JLabel("Find User Role");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         addComponent(titleLabel, 0, 0, 2);
 
-        JLabel lblId = new JLabel("UserRole to find:");
+        JLabel lblId = new JLabel("User Id to find:");
         addComponent(lblId, 1, 0);
 
         userIdToFind = new JTextField();
@@ -102,9 +102,9 @@ public class FindUserRoleByNameUi extends JFrame {
         if (userRoleOpt.isPresent()) {
             UserRole userRole = userRoleOpt.get();
             String message = String.format(
-                "UserRole found:\n\n" +
+                "User found:\n\n" +
                 "Role Id: %s\n" +
-                "UserName: %s\n",
+                "Username: %s\n",
                 userRole.getRoleId(),
                 foundUser.getUsername()
             );

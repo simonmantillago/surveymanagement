@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.surveymanagement.Main;
+import com.surveymanagement.login.infrastructure.loginUi.LoginUiController;
 import com.surveymanagement.role.application.CreateRoleUseCase;
 import com.surveymanagement.role.application.DeleteRoleUseCase;
 import com.surveymanagement.role.application.FindRoleByNameUseCase;
@@ -104,7 +105,7 @@ public class RoleUiController {
         JButton btnBackToMain = createStyledButton("Back to Main Menu", buttonSize, buttonFont);
         btnBackToMain.addActionListener(e -> {
             frame.dispose(); 
-            Main.createAndShowMainUI(); 
+            LoginUiController.createAndShowMainUI(); 
         });
         buttonPanel.add(btnBackToMain);
 

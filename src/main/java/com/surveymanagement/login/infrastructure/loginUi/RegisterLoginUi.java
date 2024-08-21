@@ -4,8 +4,6 @@ import com.surveymanagement.user.application.CreateUserUseCase;
 import com.surveymanagement.user.domain.entity.User;
 
 import java.awt.*;
-import java.util.Optional;
-
 import javax.swing.*;
 
 public class RegisterLoginUi extends JFrame {
@@ -21,12 +19,13 @@ public class RegisterLoginUi extends JFrame {
 
     public RegisterLoginUi(CreateUserUseCase createUserUseCase, LoginUiController loginUiController) { 
         this.createUserUseCase = createUserUseCase;
-        this.loginUiController = loginUiController; 
+        this.loginUiController = loginUiController;
+        initComponents(); // Añadido para inicializar componentes dentro del constructor
+        setVisible(true);
     }
 
-    public void frmRegUser() {
-        initComponents();
-        setVisible(true);
+    public static void frmRegUser(CreateUserUseCase createUserUseCase, LoginUiController loginUiController) {
+        SwingUtilities.invokeLater(() -> new RegisterLoginUi(createUserUseCase, loginUiController));
     }
 
     private void initComponents() {
@@ -41,7 +40,6 @@ public class RegisterLoginUi extends JFrame {
         jTextField1 = new JTextField();
         jTextField2 = new JTextField();
 
-
         jButton1 = new JButton("Reset");
         jButton2 = new JButton("Save");
         jButton3 = new JButton("Go back");
@@ -49,11 +47,10 @@ public class RegisterLoginUi extends JFrame {
         jButton1.addActionListener(e -> resetFields());
         jButton2.addActionListener(e -> saveUser());
         jButton3.addActionListener(e -> {
-            dispose();
-            // loginUiController.(); 
+            dispose(); // Cierra la ventana de registro
+            loginUiController.setVisible(true); // Vuelve a mostrar la ventana de login
         });
 
-      
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10); 
@@ -64,7 +61,6 @@ public class RegisterLoginUi extends JFrame {
         addComponent(jTextField1, 1, 1);
         addComponent(new JLabel("Password:"), 2, 0);
         addComponent(jTextField2, 2, 1);
-
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(jButton2);
@@ -100,19 +96,17 @@ public class RegisterLoginUi extends JFrame {
             user.setUsername(jTextField1.getText());
             user.setPassword(jTextField2.getText());
 
-
             createUserUseCase.execute(user);
             JOptionPane.showMessageDialog(this, "User added successfully!");
             resetFields();
+            dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
- 
     private void resetFields() {
         jTextField1.setText("");
         jTextField2.setText("");
-
     }
 }

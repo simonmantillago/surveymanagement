@@ -29,7 +29,7 @@ public class LoginRepository implements LoginService {
     }
 
     @Override
-public Optional<Login> checkUserRole(String username, String password) {
+    public Optional<Login> checkUserRole(String username, String password) {
     String query = "SELECT u.id, u.username, u.password, r.name AS role_name " +
                    "FROM users u " +
                    "JOIN users_roles ur ON u.id = ur.user_id " +

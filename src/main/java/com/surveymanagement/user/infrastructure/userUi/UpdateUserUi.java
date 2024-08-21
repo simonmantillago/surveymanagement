@@ -80,7 +80,7 @@ public class UpdateUserUi extends JFrame {
         addComponent(jButton4, 2, 0, 2);
         addComponent(new JLabel("Active User:"), 3, 0);
         addComponent(isEnabledCheck, 3, 1);
-        addComponent(new JLabel("UserName:"), 4, 0);
+        addComponent(new JLabel("Username:"), 4, 0);
         addComponent(jTextField2, 4, 1);
         addComponent(new JLabel("Password:"), 5, 0);
         addComponent(jTextField3, 5, 1);

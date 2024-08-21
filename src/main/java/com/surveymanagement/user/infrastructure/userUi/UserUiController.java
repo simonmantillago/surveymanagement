@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.surveymanagement.Main;
+import com.surveymanagement.login.infrastructure.loginUi.LoginUiController;
 import com.surveymanagement.user.application.CreateUserUseCase;
 import com.surveymanagement.user.application.DeleteUserUseCase;
 import com.surveymanagement.user.application.FindAllUserUseCase;
@@ -105,7 +106,7 @@ public class UserUiController {
         buttonPanel.add(btnFind);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnDelete = createStyledButton("Delete Customer", buttonSize, buttonFont);
+        JButton btnDelete = createStyledButton("Delete User", buttonSize, buttonFont);
         btnDelete.addActionListener(e -> {
             DeleteUserUi deleteCustomerUi = new DeleteUserUi(deleteUserUseCase, this);
             deleteCustomerUi.showDeleteCustomer();
@@ -117,7 +118,7 @@ public class UserUiController {
         JButton btnBackToMain = createStyledButton("Back to Main Menu", buttonSize, buttonFont);
         btnBackToMain.addActionListener(e -> {
             frame.dispose(); 
-            Main.createAndShowMainUI(); 
+            LoginUiController.createAndShowMainUI(); 
         });
         buttonPanel.add(btnBackToMain);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));

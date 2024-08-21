@@ -43,13 +43,13 @@ public class UpdateUserRoleUi extends JFrame {
 
     private void initComponents(FindAllRoleUseCase findAllRoleUseCase) {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Update UserRole");
+        setTitle("Update Assign Role");
         setSize(500, 500);
 
         // Establecer el layout antes de agregar componentes
         setLayout(new GridBagLayout());
 
-        JLabel jLabel1 = new JLabel("Update UserRole");
+        JLabel jLabel1 = new JLabel("Update Assign Role");
         jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 24));
         jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
         
@@ -80,7 +80,7 @@ public class UpdateUserRoleUi extends JFrame {
         addComponent(new JLabel("User Id:"), 1, 0);
         addComponent(jTextField2, 1, 1);
         addComponent(jButton4, 2, 0, 2);
-        addComponent(new JLabel("UserRole Code:"), 3, 0);
+        addComponent(new JLabel("Role:"), 3, 0);
         addComponent(roleOptions, 3, 1);
 
         // Panel de botones
