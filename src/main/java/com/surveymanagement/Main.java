@@ -12,13 +12,18 @@ import com.surveymanagement.categorycatalog.application.CreateCategoryCatalogUse
 import com.surveymanagement.categorycatalog.application.DeleteCategoryCatalogUseCase;
 import com.surveymanagement.categorycatalog.application.FindAllCategoryCatalogUseCase;
 import com.surveymanagement.categorycatalog.application.FindCategoryCatalogByCodeUseCase;
-import com.surveymanagement.categorycatalog.application.FindCategoryCatalogByNameUseCase;
 import com.surveymanagement.categorycatalog.application.UpdateCategoryCatalogUseCase;
 import com.surveymanagement.categorycatalog.domain.service.CategoryCatalogService;
-import com.surveymanagement.categorycatalog.infraestructure.CategoryCatalogRepository;
-import com.surveymanagement.categorycatalog.infraestructure.catalogrepositoryui.CategoryCatalogUI;
-
-
+import com.surveymanagement.categorycatalog.infrastructure.CategoryCatalogRepository;
+import com.surveymanagement.categorycatalog.infrastructure.categorycatalogui.CategoryCatalogUI;
+import com.surveymanagement.survey.application.CreateSurveyUseCase;
+import com.surveymanagement.survey.application.DeleteSurveyUseCase;
+import com.surveymanagement.survey.application.FindAllSurveyUseCase;
+import com.surveymanagement.survey.application.FindSurveyByCodeUseCase;
+import com.surveymanagement.survey.application.UpdateSurveyUseCase;
+import com.surveymanagement.survey.domain.service.SurveyService;
+import com.surveymanagement.survey.infrastructure.SurveyRepository;
+import com.surveymanagement.survey.infrastructure.surveyui.SurveyUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +37,7 @@ public class Main {
         });
     }
 
-    private static void createAndShowMainUI() {
+    public static void createAndShowMainUI() {
         JFrame frame = new JFrame("Survey Management");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300, 200);
@@ -57,6 +62,8 @@ public class Main {
             frame.setVisible(false);
             openRoleUiController();
         });
+        buttonPanel.add(btnRoles);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
         JButton btnCategoryCatalog = createStyledButton("Category Catalog", buttonSize, buttonFont);
         btnCategoryCatalog.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -64,10 +71,16 @@ public class Main {
             frame.setVisible(false);
             openCategoryCatalogUI();
         });
-
-
-        buttonPanel.add(btnRoles);
         buttonPanel.add(btnCategoryCatalog);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+
+        JButton btnSurvey = createStyledButton("Surveys", buttonSize, buttonFont);
+        btnSurvey.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnSurvey.addActionListener(e -> {
+            frame.setVisible(false);
+            openSurveyUI();
+        });
+        buttonPanel.add(btnSurvey);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
         mainPanel.add(buttonPanel);
@@ -95,12 +108,25 @@ public class Main {
     DeleteCategoryCatalogUseCase deleteCategoryCatalogUseCase = new DeleteCategoryCatalogUseCase(categorycatalogService);
     FindAllCategoryCatalogUseCase findAllCategoryCatalogUseCase = new FindAllCategoryCatalogUseCase(categorycatalogService);
     FindCategoryCatalogByCodeUseCase findCategoryCatalogByCodeUseCase = new FindCategoryCatalogByCodeUseCase(categorycatalogService);
-    FindCategoryCatalogByNameUseCase findCategoryCatalogByNameUseCase = new FindCategoryCatalogByNameUseCase(categorycatalogService);
     UpdateCategoryCatalogUseCase updateCategoryCatalogUseCase = new UpdateCategoryCatalogUseCase(categorycatalogService);
     
 
-    CategoryCatalogUI categorycatalogUI = new CategoryCatalogUI(createCategoryCatalogUseCase, deleteCategoryCatalogUseCase, findAllCategoryCatalogUseCase, findCategoryCatalogByCodeUseCase, findCategoryCatalogByNameUseCase, updateCategoryCatalogUseCase);
+    CategoryCatalogUI categorycatalogUI = new CategoryCatalogUI(createCategoryCatalogUseCase, deleteCategoryCatalogUseCase, findAllCategoryCatalogUseCase, findCategoryCatalogByCodeUseCase, updateCategoryCatalogUseCase);
     categorycatalogUI.showCrudOptions();
+    }
+
+    private static void openSurveyUI() {
+    SurveyService surveyService = new SurveyRepository();
+
+    CreateSurveyUseCase createSurveyUseCase = new CreateSurveyUseCase(surveyService);
+    DeleteSurveyUseCase deleteSurveyUseCase = new DeleteSurveyUseCase(surveyService);
+    FindAllSurveyUseCase findAllSurveyUseCase = new FindAllSurveyUseCase(surveyService);
+    FindSurveyByCodeUseCase findSurveyByCodeUseCase = new FindSurveyByCodeUseCase(surveyService);
+    UpdateSurveyUseCase updateSurveyUseCase = new UpdateSurveyUseCase(surveyService);
+    
+
+    SurveyUI surveyUI = new SurveyUI(createSurveyUseCase, deleteSurveyUseCase, findAllSurveyUseCase, findSurveyByCodeUseCase, updateSurveyUseCase);
+    surveyUI.showCrudOptions();
     }
 
     private static JButton createStyledButton(String text, Dimension size, Font font) {

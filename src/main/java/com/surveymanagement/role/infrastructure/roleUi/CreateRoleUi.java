@@ -81,9 +81,9 @@ public class CreateRoleUi extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    private void addComponent(Component component, int row, int col) {
-        addComponent(component, row, col, 1);
-    }
+        private void addComponent(Component component, int row, int col) {
+            addComponent(component, row, col, 1);
+        }
 
     private void addComponent(Component component, int row, int col, int width) {
         GridBagConstraints gbc = new GridBagConstraints();
