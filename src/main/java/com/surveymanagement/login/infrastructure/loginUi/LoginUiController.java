@@ -1,8 +1,7 @@
-package com.surveymanagement.login.infrastructure.loginUi;
+package com.surveymanagement.login.infrastructure.loginui;
 
 import javax.swing.*;
 
-import com.surveymanagement.Main;
 import com.surveymanagement.login.application.CheckUserRoleUseCase;
 import com.surveymanagement.login.domain.entity.Login;
 import com.surveymanagement.role.application.CreateRoleUseCase;
@@ -11,7 +10,7 @@ import com.surveymanagement.role.application.FindRoleByNameUseCase;
 import com.surveymanagement.role.application.UpdateRoleUseCase;
 import com.surveymanagement.role.domain.service.RoleService;
 import com.surveymanagement.role.infrastructure.RoleRepository;
-import com.surveymanagement.role.infrastructure.roleUi.RoleUiController;
+import com.surveymanagement.role.infrastructure.roleui.RoleUiController;
 import com.surveymanagement.user.application.CreateUserUseCase;
 import com.surveymanagement.user.application.DeleteUserUseCase;
 import com.surveymanagement.user.application.FindAllUserUseCase;
@@ -19,14 +18,14 @@ import com.surveymanagement.user.application.FindUserByIdUseCase;
 import com.surveymanagement.user.application.UpdateUserUseCase;
 import com.surveymanagement.user.domain.service.UserService;
 import com.surveymanagement.user.infrastructure.UserRepository;
-import com.surveymanagement.user.infrastructure.userUi.UserUiController;
+import com.surveymanagement.user.infrastructure.userui.UserUiController;
 import com.surveymanagement.userrole.application.CreateUserRoleUseCase;
 import com.surveymanagement.userrole.application.DeleteUserRoleUseCase;
 import com.surveymanagement.userrole.application.FindUserRoleByIdUseCase;
 import com.surveymanagement.userrole.application.UpdateUserRoleUseCase;
 import com.surveymanagement.userrole.domain.service.UserRoleService;
 import com.surveymanagement.userrole.infrastructure.UserRoleRepository;
-import com.surveymanagement.userrole.infrastructure.userRoleUi.UserRoleUiController;
+import com.surveymanagement.userrole.infrastructure.userroleui.UserRoleUiController;
 
 import java.awt.*;
 import java.util.Optional;
@@ -69,9 +68,10 @@ public class LoginUiController extends JFrame {
 
     
         createUser.addActionListener(e -> RegisterLoginUi.frmRegUser(createUserUseCase, this));
+        createUser.addActionListener(e -> resetFields());
         loginBtn.addActionListener(e -> performLogin());
 
-        // Layout and positioning code here...
+       
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10); 
@@ -155,7 +155,6 @@ public static void createAndShowMainUI() {
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Estilo común para los botones
         Dimension buttonSize = new Dimension(250, 50);
         Font buttonFont = new Font("Arial", Font.BOLD, 18);
 
@@ -243,6 +242,10 @@ public static void createAndShowMainUI() {
         button.setFont(font);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         return button;
+    }
+    private void resetFields() {
+        jTextField1.setText("");
+        jTextField2.setText("");
     }
 
 }

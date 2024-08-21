@@ -1,4 +1,4 @@
-package com.surveymanagement.user.infrastructure.userUi;
+package com.surveymanagement.user.infrastructure.userui;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -11,8 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.surveymanagement.Main;
-import com.surveymanagement.login.infrastructure.loginUi.LoginUiController;
+import com.surveymanagement.login.infrastructure.loginui.LoginUiController;
 import com.surveymanagement.user.application.CreateUserUseCase;
 import com.surveymanagement.user.application.DeleteUserUseCase;
 import com.surveymanagement.user.application.FindAllUserUseCase;

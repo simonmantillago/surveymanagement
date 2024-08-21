@@ -1,4 +1,4 @@
-package com.surveymanagement.userrole.infrastructure.userRoleUi;
+package com.surveymanagement.userrole.infrastructure.userroleui;
 
 import java.awt.Component;
 import java.awt.Font;
