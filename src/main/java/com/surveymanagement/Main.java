@@ -15,8 +15,8 @@ public class Main {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            // startLoginProcess();
-            LoginUiController.createAndShowMainUI();
+            startLoginProcess();
+            // LoginUiController.createAndShowMainUI();
         });
     }
    public static void startLoginProcess() {
