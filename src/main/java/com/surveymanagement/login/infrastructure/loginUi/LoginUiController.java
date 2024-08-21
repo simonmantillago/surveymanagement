@@ -8,14 +8,15 @@ import com.surveymanagement.categorycatalog.application.FindAllCategoryCatalogUs
 import com.surveymanagement.categorycatalog.application.FindCategoryCatalogByCodeUseCase;
 import com.surveymanagement.categorycatalog.application.UpdateCategoryCatalogUseCase;
 import com.surveymanagement.categorycatalog.domain.service.CategoryCatalogService;
-import com.surveymanagement.categorycatalog.infraestructure.CategoryCatalogRepository;
+import com.surveymanagement.categorycatalog.infrastructure.CategoryCatalogRepository;
+import com.surveymanagement.categorycatalog.infrastructure.categorycatalogui.CategoryCatalogUI;
 import com.surveymanagement.chapter.application.CreateChapterUseCase;
 import com.surveymanagement.chapter.application.DeleteChapterUseCase;
-import com.surveymanagement.chapter.application.FindAllChapterUseCase;
 import com.surveymanagement.chapter.application.FindChapterByCodeUseCase;
 import com.surveymanagement.chapter.application.UpdateChapterUseCase;
 import com.surveymanagement.chapter.domain.service.ChapterService;
-import com.surveymanagement.chapter.infraestructure.ChapterRepository;
+import com.surveymanagement.chapter.infrastructure.ChapterRepository;
+import com.surveymanagement.chapter.infrastructure.chapterui.ChapterUI;
 import com.surveymanagement.login.application.CheckUserRoleUseCase;
 import com.surveymanagement.login.domain.entity.Login;
 import com.surveymanagement.role.application.CreateRoleUseCase;
@@ -31,7 +32,8 @@ import com.surveymanagement.survey.application.FindAllSurveyUseCase;
 import com.surveymanagement.survey.application.FindSurveyByCodeUseCase;
 import com.surveymanagement.survey.application.UpdateSurveyUseCase;
 import com.surveymanagement.survey.domain.service.SurveyService;
-import com.surveymanagement.survey.infraestructure.SurveyRepository;
+import com.surveymanagement.survey.infrastructure.SurveyRepository;
+import com.surveymanagement.survey.infrastructure.surveyui.SurveyUI;
 import com.surveymanagement.user.application.CreateUserUseCase;
 import com.surveymanagement.user.application.DeleteUserUseCase;
 import com.surveymanagement.user.application.FindAllUserUseCase;
@@ -165,7 +167,7 @@ public class LoginUiController extends JFrame {
 public static void createAndShowMainUI() {
         JFrame frame = new JFrame("Survey Management");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 200);
+        frame.setSize(300, 400);
         frame.setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel();
@@ -316,12 +318,11 @@ public static void createAndShowMainUI() {
 
     CreateChapterUseCase createChapterUseCase = new CreateChapterUseCase(surveyService);
     DeleteChapterUseCase deleteChapterUseCase = new DeleteChapterUseCase(surveyService);
-    FindAllChapterUseCase findAllChapterUseCase = new FindAllChapterUseCase(surveyService);
     FindChapterByCodeUseCase findChapterByCodeUseCase = new FindChapterByCodeUseCase(surveyService);
     UpdateChapterUseCase updateChapterUseCase = new UpdateChapterUseCase(surveyService);
     
 
-    ChapterUI chapterUI = new ChapterUI(createChapterUseCase, deleteChapterUseCase, findAllChapterUseCase, findChapterByCodeUseCase, updateChapterUseCase);
+    ChapterUI chapterUI = new ChapterUI(createChapterUseCase, deleteChapterUseCase, findChapterByCodeUseCase, updateChapterUseCase);
     chapterUI.showCrudOptions();
     }
 

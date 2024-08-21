@@ -11,7 +11,6 @@ import java.util.Properties;
 
 import com.surveymanagement.responseoption.domain.entity.ResponseOption;
 import com.surveymanagement.responseoption.domain.service.ResponseOptionService;
-import com.surveymanagement.role.domain.entity.Role;
 
 public class ResponseOptionRepository implements ResponseOptionService {
     private Connection connection;
