@@ -1,4 +1,4 @@
-package com.surveymanagement.role.infrastructure.roleUi;
+package com.surveymanagement.role.infrastructure.roleui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -98,7 +98,7 @@ public class DeleteRoleUi extends JFrame {
         if (deletedRole != null) {
             String message = String.format(
                 "Role deleted successfully:\n\n" +
-                "ID: %d\n" +
+                "Role Id: %d\n" +
                 "Name: %s\n",
                 deletedRole.getId(),
                 deletedRole.getName()

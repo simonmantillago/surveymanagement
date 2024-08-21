@@ -1,4 +1,4 @@
-package com.surveymanagement.role.infrastructure.roleUi;
+package com.surveymanagement.role.infrastructure.roleui;
 
 import java.util.Optional;
 import java.util.List;
@@ -101,7 +101,7 @@ public class FindRoleByNameUi extends JFrame {
             Role role = roleOpt.get();
             String message = String.format(
                 "Role found:\n\n" +
-                "ID: %s\n" +
+                "Role Id: %s\n" +
                 "Role Name: %s\n",
                 role.getId(),
                 role.getName()

@@ -1,4 +1,4 @@
-package com.surveymanagement.role.infrastructure.roleUi;
+package com.surveymanagement.role.infrastructure.roleui;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.surveymanagement.Main;
+import com.surveymanagement.login.infrastructure.loginui.LoginUiController;
 import com.surveymanagement.role.application.CreateRoleUseCase;
 import com.surveymanagement.role.application.DeleteRoleUseCase;
 import com.surveymanagement.role.application.FindRoleByNameUseCase;
@@ -92,7 +92,7 @@ public class RoleUiController {
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
 
-        JButton btnDelete = createStyledButton("Delete Customer", buttonSize, buttonFont);
+        JButton btnDelete = createStyledButton("Delete Role", buttonSize, buttonFont);
         btnDelete.addActionListener(e -> {
             DeleteRoleUi deleteCustomerUi = new DeleteRoleUi(deleteRoleUseCase, this);
             deleteCustomerUi.showDeleteCustomer();
@@ -104,7 +104,7 @@ public class RoleUiController {
         JButton btnBackToMain = createStyledButton("Back to Main Menu", buttonSize, buttonFont);
         btnBackToMain.addActionListener(e -> {
             frame.dispose(); 
-            Main.createAndShowMainUI(); 
+            LoginUiController.createAndShowMainUI(); 
         });
         buttonPanel.add(btnBackToMain);
 

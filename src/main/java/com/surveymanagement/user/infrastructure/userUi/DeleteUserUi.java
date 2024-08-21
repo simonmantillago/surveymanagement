@@ -1,4 +1,4 @@
-package com.surveymanagement.user.infrastructure.userUi;
+package com.surveymanagement.user.infrastructure.userui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -89,7 +89,7 @@ public class DeleteUserUi extends JFrame {
         if (deletedUser != null) {
             String message = String.format(
                 "User deleted successfully:\n\n" +
-                "ID: %d\n" +
+                "Id: %d\n" +
                 "Active: %b\n" +
                 "Username: %s\n"+
                 "Password: %s\n",
@@ -100,7 +100,7 @@ public class DeleteUserUi extends JFrame {
             );
             resultArea.setText(message);
         } else {
-            resultArea.setText("User deletion failed. User not found.");
+            resultArea.setText("User deletion failed.");
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.surveymanagement.user.infrastructure.userUi;
+package com.surveymanagement.user.infrastructure.userui;
 
 import java.awt.*;
 import java.util.Optional;
@@ -80,7 +80,7 @@ public class UpdateUserUi extends JFrame {
         addComponent(jButton4, 2, 0, 2);
         addComponent(new JLabel("Active User:"), 3, 0);
         addComponent(isEnabledCheck, 3, 1);
-        addComponent(new JLabel("UserName:"), 4, 0);
+        addComponent(new JLabel("Username:"), 4, 0);
         addComponent(jTextField2, 4, 1);
         addComponent(new JLabel("Password:"), 5, 0);
         addComponent(jTextField3, 5, 1);
@@ -167,6 +167,8 @@ public class UpdateUserUi extends JFrame {
         jTextField3.setVisible(false);
         jButton1.setVisible(false);
         jButton2.setVisible(false);
+        revalidate();
+        repaint();
     }
 
     private void showComponents() {
@@ -175,6 +177,7 @@ public class UpdateUserUi extends JFrame {
         jTextField3.setVisible(true);
         jButton1.setVisible(true);
         jButton2.setVisible(true);
+       
     }
 
 

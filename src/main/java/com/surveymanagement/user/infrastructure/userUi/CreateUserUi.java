@@ -1,4 +1,4 @@
-package com.surveymanagement.user.infrastructure.userUi;
+package com.surveymanagement.user.infrastructure.userui;
 
 import java.awt.Component;
 import java.awt.Font;
@@ -69,7 +69,7 @@ public class CreateUserUi extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         addComponent(jLabel1, 0, 0, 2);
-        addComponent(new JLabel("UserName:"), 1, 0);
+        addComponent(new JLabel("Username:"), 1, 0);
         addComponent(jTextField1, 1, 1);
         addComponent(new JLabel("Password:"), 2, 0);
         addComponent(jTextField2, 2, 1);

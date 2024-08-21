@@ -1,4 +1,4 @@
-package com.surveymanagement.userrole.infrastructure.userRoleUi;
+package com.surveymanagement.userrole.infrastructure.userroleui;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.surveymanagement.Main;
+import com.surveymanagement.login.infrastructure.loginui.LoginUiController;
 import com.surveymanagement.userrole.application.CreateUserRoleUseCase;
 import com.surveymanagement.userrole.application.DeleteUserRoleUseCase;
 import com.surveymanagement.userrole.application.FindUserRoleByIdUseCase;
@@ -37,7 +37,7 @@ public class UserRoleUiController {
     }
 
     public void showCrudOptions() {
-        frame = new JFrame("UserRoles");
+        frame = new JFrame("Assign Role");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 500);
         frame.setLocationRelativeTo(null);
@@ -48,7 +48,7 @@ public class UserRoleUiController {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Añadir título grande
-        JLabel titleLabel = new JLabel("UserRoles");
+        JLabel titleLabel = new JLabel("Assign Role");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(titleLabel);
@@ -63,17 +63,17 @@ public class UserRoleUiController {
         Dimension buttonSize = new Dimension(250, 50);
         Font buttonFont = new Font("Arial", Font.BOLD, 18);
 
-        // Botón Create UserRole
-        JButton btnCreate = createStyledButton("Create UserRole", buttonSize, buttonFont);
-        btnCreate.addActionListener(e -> {
-            CreateUserRoleUi userRoleUi = new CreateUserRoleUi(createUserRoleUseCase, this);
-            userRoleUi.frmRegUserRole();
-            frame.setVisible(false);
-        });
-        buttonPanel.add(btnCreate);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        // // Botón Create UserRole
+        // JButton btnCreate = createStyledButton("Create UserRole", buttonSize, buttonFont);
+        // btnCreate.addActionListener(e -> {
+        //     CreateUserRoleUi userRoleUi = new CreateUserRoleUi(createUserRoleUseCase, this);
+        //     userRoleUi.frmRegUserRole();
+        //     frame.setVisible(false);
+        // });
+        // buttonPanel.add(btnCreate);
+        // buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnUpdate = createStyledButton("Update UserRole", buttonSize, buttonFont);
+        JButton btnUpdate = createStyledButton("Update User Role", buttonSize, buttonFont);
         btnUpdate.addActionListener(e -> {
             UpdateUserRoleUi updateUserRoleUi = new UpdateUserRoleUi(updateUserRoleUseCase, findUserRoleByIdUseCase, this);
             updateUserRoleUi.frmUpdateUserRole();
@@ -82,7 +82,7 @@ public class UserRoleUiController {
         buttonPanel.add(btnUpdate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnFind = createStyledButton("Find UserRole", buttonSize, buttonFont);
+        JButton btnFind = createStyledButton("Find User Role", buttonSize, buttonFont);
         btnFind.addActionListener(e -> {
             FindUserRoleByNameUi findUserRoleByNameUi = new FindUserRoleByNameUi(findUserRoleByIdUseCase, this);
             findUserRoleByNameUi.showFindUserRole();
@@ -92,7 +92,7 @@ public class UserRoleUiController {
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
 
-        JButton btnDelete = createStyledButton("Delete UserRoler", buttonSize, buttonFont);
+        JButton btnDelete = createStyledButton("Delete User Roler", buttonSize, buttonFont);
         btnDelete.addActionListener(e -> {
             DeleteUserRoleUi deleteCustomerUi = new DeleteUserRoleUi(deleteUserRoleUseCase, this);
             deleteCustomerUi.showDeleteCustomer();
@@ -104,7 +104,7 @@ public class UserRoleUiController {
         JButton btnBackToMain = createStyledButton("Back to Main Menu", buttonSize, buttonFont);
         btnBackToMain.addActionListener(e -> {
             frame.dispose(); 
-            Main.createAndShowMainUI(); 
+           LoginUiController.createAndShowMainUI(); 
         });
         buttonPanel.add(btnBackToMain);
 

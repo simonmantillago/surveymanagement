@@ -1,4 +1,4 @@
-package com.surveymanagement.user.infrastructure.userUi;
+package com.surveymanagement.user.infrastructure.userui;
 
 import java.util.Optional;
 
@@ -91,8 +91,8 @@ public class FindUserByIdUi extends JFrame {
         if (userOpt.isPresent()) {
             User user = userOpt.get();
             String message = String.format(
-                "User deleted successfully:\n\n" +
-                "ID: %d\n" +
+                "User found successfully:\n\n" +
+                "Id: %d\n" +
                 "Active: %b\n" +
                 "Username: %s\n"+
                 "Password: %s\n",

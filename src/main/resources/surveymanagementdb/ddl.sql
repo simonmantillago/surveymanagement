@@ -1,4 +1,4 @@
-
+DROP DATABASE surveymanagement;
 CREATE DATABASE IF NOT EXISTS surveymanagement;
 USE surveymanagement;
 
@@ -53,7 +53,6 @@ CREATE TABLE response_options (
     parentresponse_id INT,
     question_id INT NOT NULL,
     updated_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-    typecomponenthtml VARCHAR(30),
     comment_response TEXT,
     option_text TEXT,
     FOREIGN KEY (question_id) REFERENCES questions(id),
@@ -68,7 +67,6 @@ CREATE TABLE subresponse_options (
     created_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
     responseoptions_id INT,
     updated_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-    component_html VARCHAR(255),
     subresponse_text VARCHAR(255),
     FOREIGN KEY (responseoptions_id) REFERENCES response_options(id)
 );
@@ -105,3 +103,17 @@ CREATE TABLE users_roles (
     FOREIGN KEY (user_id) REFERENCES users(id),
     PRIMARY KEY (role_id, user_id)
 );
+
+DELIMITER $$
+
+CREATE TRIGGER after_user_insert
+AFTER INSERT ON users
+FOR EACH ROW
+BEGIN
+    INSERT INTO users_roles (role_id, user_id)
+    VALUES (2, NEW.id);
+END$$
+
+DELIMITER ;
+
+

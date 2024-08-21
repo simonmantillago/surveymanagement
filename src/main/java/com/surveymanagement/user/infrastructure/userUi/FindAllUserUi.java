@@ -1,4 +1,4 @@
-package com.surveymanagement.user.infrastructure.userUi;
+package com.surveymanagement.user.infrastructure.userui;
 
 
 
@@ -52,7 +52,7 @@ public class FindAllUserUi {
     }
 
     private JTable createUserTable() {
-        String[] columnNames = {"ID","IsActive","UserName", "Password"};
+        String[] columnNames = {"Id","IsActive","Username", "Password"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
         List<User> users = findAllUserUseCase.execute();
