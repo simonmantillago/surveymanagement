@@ -1,4 +1,4 @@
-package com.surveymanagement.login.infrastructure.loginui;
+package com.surveymanagement.login.infrastructure.loginUi;
 
 import javax.swing.*;
 
@@ -25,7 +25,7 @@ import com.surveymanagement.role.application.FindRoleByNameUseCase;
 import com.surveymanagement.role.application.UpdateRoleUseCase;
 import com.surveymanagement.role.domain.service.RoleService;
 import com.surveymanagement.role.infrastructure.RoleRepository;
-import com.surveymanagement.role.infrastructure.roleui.RoleUiController;
+import com.surveymanagement.role.infrastructure.roleUi.RoleUiController;
 import com.surveymanagement.survey.application.CreateSurveyUseCase;
 import com.surveymanagement.survey.application.DeleteSurveyUseCase;
 import com.surveymanagement.survey.application.FindAllSurveyUseCase;
@@ -41,14 +41,14 @@ import com.surveymanagement.user.application.FindUserByIdUseCase;
 import com.surveymanagement.user.application.UpdateUserUseCase;
 import com.surveymanagement.user.domain.service.UserService;
 import com.surveymanagement.user.infrastructure.UserRepository;
-import com.surveymanagement.user.infrastructure.userui.UserUiController;
+import com.surveymanagement.user.infrastructure.userUi.UserUiController;
 import com.surveymanagement.userrole.application.CreateUserRoleUseCase;
 import com.surveymanagement.userrole.application.DeleteUserRoleUseCase;
 import com.surveymanagement.userrole.application.FindUserRoleByIdUseCase;
 import com.surveymanagement.userrole.application.UpdateUserRoleUseCase;
 import com.surveymanagement.userrole.domain.service.UserRoleService;
 import com.surveymanagement.userrole.infrastructure.UserRoleRepository;
-import com.surveymanagement.userrole.infrastructure.userroleui.UserRoleUiController;
+import com.surveymanagement.userrole.infrastructure.userRoleUi.UserRoleUiController;
 
 import java.awt.*;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.surveymanagement.user.infrastructure.userui;
+package com.surveymanagement.user.infrastructure.userUi;
 
 import java.awt.Component;
 import java.awt.Font;

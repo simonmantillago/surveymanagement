@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.surveymanagement.login.infrastructure.loginui.LoginUiController;
+import com.surveymanagement.login.infrastructure.loginUi.LoginUiController;
 import com.surveymanagement.survey.application.CreateSurveyUseCase;
 import com.surveymanagement.survey.application.DeleteSurveyUseCase;
 import com.surveymanagement.survey.application.FindAllSurveyUseCase;

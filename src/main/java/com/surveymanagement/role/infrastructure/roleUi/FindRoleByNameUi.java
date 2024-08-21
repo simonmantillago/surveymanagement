@@ -1,4 +1,4 @@
-package com.surveymanagement.role.infrastructure.roleui;
+package com.surveymanagement.role.infrastructure.roleUi;
 
 import java.util.Optional;
 import java.util.List;

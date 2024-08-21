@@ -1,4 +1,4 @@
-package com.surveymanagement.userrole.infrastructure.userroleui;
+package com.surveymanagement.userrole.infrastructure.userRoleUi;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.surveymanagement.login.infrastructure.loginui.LoginUiController;
+import com.surveymanagement.login.infrastructure.loginUi.LoginUiController;
 import com.surveymanagement.userrole.application.CreateUserRoleUseCase;
 import com.surveymanagement.userrole.application.DeleteUserRoleUseCase;
 import com.surveymanagement.userrole.application.FindUserRoleByIdUseCase;

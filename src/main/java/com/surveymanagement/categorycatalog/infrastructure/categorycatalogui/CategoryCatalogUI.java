@@ -16,7 +16,7 @@ import com.surveymanagement.categorycatalog.application.DeleteCategoryCatalogUse
 import com.surveymanagement.categorycatalog.application.FindAllCategoryCatalogUseCase;
 import com.surveymanagement.categorycatalog.application.FindCategoryCatalogByCodeUseCase;
 import com.surveymanagement.categorycatalog.application.UpdateCategoryCatalogUseCase;
-import com.surveymanagement.login.infrastructure.loginui.LoginUiController;
+import com.surveymanagement.login.infrastructure.loginUi.LoginUiController;
 
 public class CategoryCatalogUI {
     private final CreateCategoryCatalogUseCase createCategoryCatalogUseCase;

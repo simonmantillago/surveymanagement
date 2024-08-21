@@ -1,4 +1,4 @@
-package com.surveymanagement.login.infrastructure.loginui;
+package com.surveymanagement.login.infrastructure.loginUi;
 
 import com.surveymanagement.user.application.CreateUserUseCase;
 import com.surveymanagement.user.domain.entity.User;

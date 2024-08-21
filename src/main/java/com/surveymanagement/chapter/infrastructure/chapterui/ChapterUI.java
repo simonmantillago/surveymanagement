@@ -16,7 +16,7 @@ import com.surveymanagement.chapter.application.CreateChapterUseCase;
 import com.surveymanagement.chapter.application.DeleteChapterUseCase;
 import com.surveymanagement.chapter.application.FindChapterByCodeUseCase;
 import com.surveymanagement.chapter.application.UpdateChapterUseCase;
-import com.surveymanagement.login.infrastructure.loginui.LoginUiController;
+import com.surveymanagement.login.infrastructure.loginUi.LoginUiController;
 
 
 public class ChapterUI {
