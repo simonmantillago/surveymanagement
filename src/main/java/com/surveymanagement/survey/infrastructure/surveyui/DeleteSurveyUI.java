@@ -23,7 +23,7 @@ public class DeleteSurveyUI extends JFrame{
         this.surveyui = surveyui;
     }
 
-    private JComboBox<String> catalogs;
+    private JComboBox<String> surveyBox;
     private JTextArea resultArea;
     
     public void showDeleteSurvey(){
@@ -53,12 +53,12 @@ public class DeleteSurveyUI extends JFrame{
         JLabel labelCategory = new JLabel("Catalog Category:");
         addComponent(labelCategory, 1, 0, 1);
 
-        catalogs = new JComboBox<>();
+        surveyBox = new JComboBox<>();
         List<Survey> surveys = findAllSurveyUseCase.findAllSurvey();
         for (Survey survey : surveys) {
-            catalogs.addItem(String.valueOf(survey.getId())+". " + survey.getName());
+            surveyBox.addItem(String.valueOf(survey.getId())+". " + survey.getName());
         }
-        addComponent(catalogs, 1, 1, 1);
+        addComponent(surveyBox, 1, 1, 1);
 
         JButton btnDelete = new JButton("Delete");
         btnDelete.addActionListener(e -> deleteSurvey());
@@ -91,18 +91,10 @@ public class DeleteSurveyUI extends JFrame{
         add(component, gbc);
     }
 
-    private String TextBeforeDot(String text) {
-        // Buscar la posición del primer punto en la cadena
-        int position = text.indexOf('.');
-        if (position != -1) {
-            return text.substring(0, position);
-        } else {
-            return text;
-        }
-    }
+
 
         private void deleteSurvey() {
-        int surveyCode = Integer.parseInt(TextBeforeDot(catalogs.getSelectedItem().toString()));
+        int surveyCode = Integer.parseInt(TextBeforeDot(surveyBox.getSelectedItem().toString()));
         SurveyService surveyService = new SurveyRepository();
         FindSurveyByCodeUseCase findSurveyByCodeUseCase = new FindSurveyByCodeUseCase(surveyService);
         Optional<Survey> foundSurvey = findSurveyByCodeUseCase.findSurveyByCode(surveyCode);
@@ -121,6 +113,16 @@ public class DeleteSurveyUI extends JFrame{
             resultArea.setText(message);
         } else {
             resultArea.setText("Survey deletion failed. Survey not found.");
+        }
+    }
+
+    private String TextBeforeDot(String text) {
+        // Buscar la posición del primer punto en la cadena
+        int position = text.indexOf('.');
+        if (position != -1) {
+            return text.substring(0, position);
+        } else {
+            return text;
         }
     }
 }

@@ -24,6 +24,14 @@ import com.surveymanagement.survey.application.UpdateSurveyUseCase;
 import com.surveymanagement.survey.domain.service.SurveyService;
 import com.surveymanagement.survey.infrastructure.SurveyRepository;
 import com.surveymanagement.survey.infrastructure.surveyui.SurveyUI;
+import com.surveymanagement.chapter.domain.service.ChapterService;
+import com.surveymanagement.chapter.infrastructure.ChapterRepository;
+import com.surveymanagement.chapter.infrastructure.chapterui.ChapterUI;
+import com.surveymanagement.chapter.application.CreateChapterUseCase;
+import com.surveymanagement.chapter.application.DeleteChapterUseCase;
+import com.surveymanagement.chapter.application.FindAllChapterUseCase;
+import com.surveymanagement.chapter.application.FindChapterByCodeUseCase;
+import com.surveymanagement.chapter.application.UpdateChapterUseCase;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +48,7 @@ public class Main {
     public static void createAndShowMainUI() {
         JFrame frame = new JFrame("Survey Management");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 200);
+        frame.setSize(500, 500);
         frame.setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel();
@@ -81,6 +89,15 @@ public class Main {
             openSurveyUI();
         });
         buttonPanel.add(btnSurvey);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+
+        JButton btnChapter = createStyledButton("Chapter", buttonSize, buttonFont);
+        btnChapter.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnChapter.addActionListener(e -> {
+            frame.setVisible(false);
+            openChapterUI();
+        });
+        buttonPanel.add(btnChapter);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
         mainPanel.add(buttonPanel);
@@ -126,6 +143,20 @@ public class Main {
     
 
     SurveyUI surveyUI = new SurveyUI(createSurveyUseCase, deleteSurveyUseCase, findAllSurveyUseCase, findSurveyByCodeUseCase, updateSurveyUseCase);
+    surveyUI.showCrudOptions();
+    }
+
+    private static void openChapterUI() {
+    ChapterService surveyService = new ChapterRepository();
+
+    CreateChapterUseCase createChapterUseCase = new CreateChapterUseCase(surveyService);
+    DeleteChapterUseCase deleteChapterUseCase = new DeleteChapterUseCase(surveyService);
+    FindAllChapterUseCase findAllChapterUseCase = new FindAllChapterUseCase(surveyService);
+    FindChapterByCodeUseCase findChapterByCodeUseCase = new FindChapterByCodeUseCase(surveyService);
+    UpdateChapterUseCase updateChapterUseCase = new UpdateChapterUseCase(surveyService);
+    
+
+    ChapterUI surveyUI = new ChapterUI(createChapterUseCase, deleteChapterUseCase, findAllChapterUseCase, findChapterByCodeUseCase, updateChapterUseCase);
     surveyUI.showCrudOptions();
     }
 

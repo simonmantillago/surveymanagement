@@ -100,8 +100,8 @@ public class SurveyRepository implements  SurveyService{
                             rs.getInt("id"),
                             rs.getString("created_at"),
                             rs.getString("updated_at"),
-                            rs.getString("name"),
-                            rs.getString("description"));
+                            rs.getString("description"),
+                            rs.getString("name"));
                     return Optional.of(survey);
                 }
 

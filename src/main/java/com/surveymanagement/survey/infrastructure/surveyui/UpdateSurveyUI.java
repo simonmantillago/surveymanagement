@@ -135,8 +135,8 @@ public class UpdateSurveyUI extends JFrame{
             if (surveyToUpdate.isPresent()) {
                 Survey foundSurvey = surveyToUpdate.get();
                 foundId = foundSurvey.getId();
-                description.setText(foundSurvey.getName());
-                name.setText(foundSurvey.getDescription());
+                description.setText(foundSurvey.getDescription());
+                name.setText(foundSurvey.getName());
                 surveyOptions.setEditable(false);
                 showComponents();
                 revalidate(); // Asegura que el layout se actualice

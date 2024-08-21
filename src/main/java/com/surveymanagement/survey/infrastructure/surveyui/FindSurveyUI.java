@@ -98,8 +98,8 @@ public class FindSurveyUI extends JFrame {
                 "Survey Name: %s\n" +
                 "Survey Description: %s\n",
                 survey.getId(),
-                survey.getDescription(),
-                survey.getName()
+                survey.getName(),
+                survey.getDescription()
             );
             resultArea.setText(message);
         } else {
