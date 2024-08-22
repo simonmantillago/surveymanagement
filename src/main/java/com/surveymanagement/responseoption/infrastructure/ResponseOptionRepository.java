@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.ArrayList;
+
 
 import com.surveymanagement.responseoption.domain.entity.ResponseOption;
 import com.surveymanagement.responseoption.domain.service.ResponseOptionService;
@@ -150,8 +152,30 @@ public class ResponseOptionRepository implements ResponseOptionService {
 
     @Override
     public List<ResponseOption> findResponseOptionByQuestion(int questionId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findResponseOptionByQuestion'");
+        List<ResponseOption> responseOptions = new ArrayList<>();
+        String query = "SELECT id, option_value, categorycatalog_id, created_at, parentresponse_id, question_id, updated_at, comment_response, option_text FROM response_options WHERE question_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, questionId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    ResponseOption responseOption = new ResponseOption(
+                        rs.getInt("id"),
+                        rs.getInt("option_value"),
+                        rs.getInt("categorycatalog_id"),
+                        rs.getString("created_at"),
+                        rs.getInt("parentresponse_id"),
+                        questionId,
+                        rs.getString("updated_at"),
+                        rs.getString("comment_response"),
+                        rs.getString("option_text")); 
+                        responseOptions.add(responseOption);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return responseOptions;
     }
 
 }
