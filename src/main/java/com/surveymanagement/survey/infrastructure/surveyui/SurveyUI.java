@@ -43,8 +43,7 @@ private final CreateSurveyUseCase createSurveyUseCase;
     }
 
     public void showCrudOptions(){
-
-        frame = new JFrame("Category Catalogs");
+        frame = new JFrame("Surveys");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 500);
         frame.setLocationRelativeTo(null);
@@ -55,7 +54,7 @@ private final CreateSurveyUseCase createSurveyUseCase;
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Añadir título grande
-        JLabel titleLabel = new JLabel("Countries");
+        JLabel titleLabel = new JLabel("Surveys");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(titleLabel);
@@ -71,7 +70,7 @@ private final CreateSurveyUseCase createSurveyUseCase;
         Font buttonFont = new Font("Arial", Font.BOLD, 18);
 
         // Botón Create Survey
-        JButton btnCreate = createStyledButton("Create Survey", buttonSize, buttonFont);
+        JButton btnCreate = createStyledButton("Create", buttonSize, buttonFont);
         btnCreate.addActionListener(e -> {
             AddSurveyUI addsurveyUi = new AddSurveyUI(createSurveyUseCase, this);
             addsurveyUi.frmRegSurvey();
@@ -80,7 +79,7 @@ private final CreateSurveyUseCase createSurveyUseCase;
         buttonPanel.add(btnCreate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnUpdate = createStyledButton("Update Survey", buttonSize, buttonFont);
+        JButton btnUpdate = createStyledButton("Update", buttonSize, buttonFont);
         btnUpdate.addActionListener(e -> {
             UpdateSurveyUI updateSurveyUi = new UpdateSurveyUI(updateSurveyUseCase, findSurveyByCodeUseCase, this);
             updateSurveyUi.frmUpdateSurvey();
@@ -89,7 +88,7 @@ private final CreateSurveyUseCase createSurveyUseCase;
         buttonPanel.add(btnUpdate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnFind = createStyledButton("Find Survey", buttonSize, buttonFont);
+        JButton btnFind = createStyledButton("Find", buttonSize, buttonFont);
         btnFind.addActionListener(e -> {
             FindSurveyUI findSurveyUI = new FindSurveyUI(findSurveyByCodeUseCase, this);
             findSurveyUI.showFindSurvey();
@@ -98,7 +97,7 @@ private final CreateSurveyUseCase createSurveyUseCase;
         buttonPanel.add(btnFind);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnDelete = createStyledButton("Delete Customer", buttonSize, buttonFont);
+        JButton btnDelete = createStyledButton("Delete", buttonSize, buttonFont);
         btnDelete.addActionListener(e -> {
             DeleteSurveyUI deleteCustomerUI = new DeleteSurveyUI(deleteSurveyUseCase, this);
             deleteCustomerUI.showDeleteSurvey();

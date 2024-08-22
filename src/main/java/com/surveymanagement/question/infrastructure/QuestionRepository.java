@@ -70,37 +70,12 @@ public class QuestionRepository implements QuestionService {
             }
             return null;
         }
-        @Override
-        public Optional<Question> findQuestionByName(String name, int chapter_id) {
-            try {
-                String query = "SELECT id, chapter_id, created_at, survey_id, updated_at, question_number, response_type, comment_question, question_text FROM questions WHERE (name = ? && chapter_id = ?)";
-                PreparedStatement ps = connection.prepareStatement(query);
-                ps.setString(1, name);
-                ps.setInt(2, chapter_id);
-                try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        Question question = new Question(
-                                rs.getInt("id"),
-                                rs.getInt("chapter_id"),
-                                rs.getString("created_at"),
-                                rs.getString("updated_at"),
-                                rs.getString("question_number"),
-                                rs.getString("response_type"),
-                                rs.getString("comment_question"),
-                                rs.getString("question_text"));
-                        return Optional.of(question);
-                }
+        
 
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return Optional.empty(); 
-        }
         @Override
         public Optional<Question> findQuestionByCode(int id) {
             try {
-                String query = "SELECT id, chapter_id, created_at, survey_id, updated_at, question_number, response_type, comment_question, question_text FROM questions WHERE (id = ?)";
+                String query = "SELECT id, chapter_id, created_at, updated_at, question_number, response_type, comment_question, question_text FROM questions WHERE (id = ?)";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, id);
                 try (ResultSet rs = ps.executeQuery()) {
@@ -126,7 +101,7 @@ public class QuestionRepository implements QuestionService {
         @Override
         public List<Question> findAllQuestion() {
             List<Question> questions = new ArrayList<>();
-            String query = "SELECT id, chapter_id, created_at, survey_id, updated_at, question_number, response_type, comment_question, question_text FROM questions";
+            String query = "SELECT id, chapter_id, created_at, updated_at, question_number, response_type, comment_question, question_text FROM questions";
             try {
                 PreparedStatement ps = connection.prepareStatement(query);
                 try (ResultSet rs = ps.executeQuery()) {
@@ -151,7 +126,7 @@ public class QuestionRepository implements QuestionService {
         @Override
         public List<Question> findQuestionByChapter(int chapter_id) {
             List<Question> questions = new ArrayList<>();
-            String query = "SELECT id, chapter_id, created_at, survey_id, updated_at, question_number, response_type, comment_question, question_text  FROM Questions where chapter_id = ?";
+            String query = "SELECT id, chapter_id, created_at, updated_at, question_number, response_type, comment_question, question_text  FROM Questions where chapter_id = ?";
             try {
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, chapter_id);

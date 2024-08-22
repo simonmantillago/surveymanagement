@@ -50,7 +50,7 @@ public class FindChapterUI extends JFrame{
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel titleLabel = new JLabel("Delete Role");
+        JLabel titleLabel = new JLabel("Find Chapter");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         addComponent(titleLabel, 0, 0, 2);
