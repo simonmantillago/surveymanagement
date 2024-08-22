@@ -9,7 +9,6 @@ public interface QuestionService {
 void createQuestion(Question question);
     void updateQuestion(Question question);
     Question deleteQuestion(int id);
-    Optional<Question> findQuestionByName (String name, int chapter_id);
     Optional<Question> findQuestionByCode (int id);
     List<Question> findAllQuestion();
     List<Question> findQuestionByChapter(int chapter_id);
