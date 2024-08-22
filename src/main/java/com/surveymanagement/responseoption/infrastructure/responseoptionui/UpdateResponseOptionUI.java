@@ -33,7 +33,7 @@ import com.surveymanagement.survey.domain.entity.Survey;
 import com.surveymanagement.survey.domain.service.SurveyService;
 import com.surveymanagement.survey.infrastructure.SurveyRepository;
 
-public class UpdateQuestionUI extends JFrame{
+public class UpdateResponseOptionUI extends JFrame{
     private final UpdateQuestionUseCase updateQuestionUseCase;
         private final FindQuestionByCodeUseCase findQuestionByCodeUseCase;
         private final QuestionUI questionUI;
@@ -47,7 +47,7 @@ public class UpdateQuestionUI extends JFrame{
         private int surveyID, questionID, chapterID;
         private String surveyName, chapterName;
     
-        public UpdateQuestionUI(UpdateQuestionUseCase updateQuestionUseCase, FindQuestionByCodeUseCase findQuestionByCodeUseCase, QuestionUI questionUI) {
+        public UpdateResponseOptionUI(UpdateQuestionUseCase updateQuestionUseCase, FindQuestionByCodeUseCase findQuestionByCodeUseCase, QuestionUI questionUI) {
             this.updateQuestionUseCase = updateQuestionUseCase;
             this.findQuestionByCodeUseCase = findQuestionByCodeUseCase;
             this.questionUI = questionUI;

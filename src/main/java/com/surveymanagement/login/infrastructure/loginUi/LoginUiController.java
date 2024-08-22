@@ -26,6 +26,13 @@ import com.surveymanagement.question.application.FindAllQuestionUseCase;
 import com.surveymanagement.question.application.FindQuestionByCodeUseCase;
 import com.surveymanagement.question.application.UpdateQuestionUseCase;
 import com.surveymanagement.question.infrastructure.questionui.QuestionUI;
+import com.surveymanagement.responseoption.application.CreateResponseOptionUseCase;
+import com.surveymanagement.responseoption.application.DeleteResponseOptionUseCase;
+import com.surveymanagement.responseoption.application.FindResponseOptionByIdUseCase;
+import com.surveymanagement.responseoption.application.UpdateResponseOptionUseCase;
+import com.surveymanagement.responseoption.infrastructure.responseoptionui.ResponseOptionUI;
+import com.surveymanagement.responseoption.domain.service.ResponseOptionService;
+import com.surveymanagement.responseoption.infrastructure.ResponseOptionRepository;
 import com.surveymanagement.question.domain.service.QuestionService;
 import com.surveymanagement.question.infrastructure.QuestionRepository;
 
@@ -250,6 +257,15 @@ public static void createAndShowMainUI() {
         buttonPanel.add(btnChapter);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
+        JButton btnResponseOption = createStyledButton("ResponseOption", buttonSize, buttonFont);
+        btnResponseOption.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnResponseOption.addActionListener(e -> {
+            frame.setVisible(false);
+            openResponseOptionUI();
+        });
+        buttonPanel.add(btnResponseOption);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+
         mainPanel.add(buttonPanel);
         frame.add(mainPanel);
         frame.setVisible(true);
@@ -361,6 +377,18 @@ public static void createAndShowMainUI() {
     FindAllQuestionUseCase findAllQuestionUseCase = new FindAllQuestionUseCase(surveyService);
 
     QuestionUI questionUI = new QuestionUI(createQuestionUseCase, deleteQuestionUseCase, findQuestionByCodeUseCase, updateQuestionUseCase, findAllQuestionUseCase);
+    questionUI.showCrudOptions();
+    }
+
+    private static void openResponseOptionUI() {
+    ResponseOptionService surveyService = new ResponseOptionRepository();
+
+    CreateResponseOptionUseCase createResponseOptionUseCase = new CreateResponseOptionUseCase(surveyService);
+    DeleteResponseOptionUseCase deleteResponseOptionUseCase = new DeleteResponseOptionUseCase(surveyService);
+    FindResponseOptionByIdUseCase findResponseOptionByIdUseCase = new FindResponseOptionByIdUseCase(surveyService);
+    UpdateResponseOptionUseCase updateResponseOptionUseCase = new UpdateResponseOptionUseCase(surveyService);
+
+    ResponseOptionUI questionUI = new ResponseOptionUI(createResponseOptionUseCase, deleteResponseOptionUseCase, findResponseOptionByIdUseCase, updateResponseOptionUseCase);
     questionUI.showCrudOptions();
     }
 

@@ -32,7 +32,48 @@ public class ResponseOptionRepository implements ResponseOptionService {
     
     @Override
     public void createResponseOption(ResponseOption responseOption) {
+        
         try {
+        if(responseOption.getCategoryCatalogId()==0 && responseOption.getParentResponseId()==0 ){
+            String query = "INSERT INTO response_options (option_value,question_id,comment_response,option_text) VALUES (?,?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, responseOption.getOptionValue());
+            ps.setInt(2, responseOption.getQuestionId());
+            ps.setString(3, responseOption.getCommentResponse());
+            ps.setString(4, responseOption.getOptionText());
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("ResponseOption added successfully!");
+            } else {
+            }
+
+        }else if(responseOption.getCategoryCatalogId()==0){
+            String query = "INSERT INTO response_options (option_value,categorycatalog_id,parentresponse_id,question_id,comment_response,option_text) VALUES (?,NULL,?,?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, responseOption.getOptionValue());
+            ps.setInt(2, responseOption.getParentResponseId());
+            ps.setInt(3, responseOption.getQuestionId());
+            ps.setString(4, responseOption.getCommentResponse());
+            ps.setString(5, responseOption.getOptionText());
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("ResponseOption added successfully!");
+            } else {
+            }
+        } else if(responseOption.getParentResponseId()==0){
+            String query = "INSERT INTO response_options (option_value,categorycatalog_id,parentresponse_id,question_id,comment_response,option_text) VALUES (?,?,NULL,?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, responseOption.getOptionValue());
+            ps.setInt(2, responseOption.getCategoryCatalogId());
+            ps.setInt(3, responseOption.getQuestionId());
+            ps.setString(4, responseOption.getCommentResponse());
+            ps.setString(5, responseOption.getOptionText());
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("ResponseOption added successfully!");
+            } else {
+            }
+        } else {
             String query = "INSERT INTO response_options (option_value,categorycatalog_id,parentresponse_id,question_id,comment_response,option_text) VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, responseOption.getOptionValue());
@@ -41,13 +82,14 @@ public class ResponseOptionRepository implements ResponseOptionService {
             ps.setInt(4, responseOption.getQuestionId());
             ps.setString(5, responseOption.getCommentResponse());
             ps.setString(6, responseOption.getOptionText());
-
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("ResponseOption added successfully!");
             } else {
                 System.out.println("ResponseOption addition failed!");
             }
+        }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,7 +126,7 @@ public class ResponseOptionRepository implements ResponseOptionService {
         String deleteQuery = "DELETE FROM response_options WHERE id = ?";
 
         try (PreparedStatement selectPs = connection.prepareStatement(selectQuery);
-             PreparedStatement deletePs = connection.prepareStatement(deleteQuery)) {
+            PreparedStatement deletePs = connection.prepareStatement(deleteQuery)) {
 
             // First, fetch the role
             selectPs.setInt(1, responseOptionId);
