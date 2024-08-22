@@ -1,30 +1,30 @@
 package com.surveymanagement.subresponseoption.domain.entity;
 
-public class SupResponseOptions {
+public class SubResponseOption {
     private int id;
     private int subResponseNumber;
     private String createdAt;
-    private int responseOptionId;
+    private int ResponseOptionId;
     private String updateAt;
     private String subResponseText;
     
-    public SupResponseOptions(int id, int subResponseNumber, String createdAt, int responseOptionId, String updateAt,
+    public SubResponseOption(int id, int subResponseNumber, String createdAt, int ResponseOptionId, String updateAt,
             String subResponseText) {
         this.id = id;
         this.subResponseNumber = subResponseNumber;
         this.createdAt = createdAt;
-        this.responseOptionId = responseOptionId;
+        this.ResponseOptionId = ResponseOptionId;
         this.updateAt = updateAt;
         this.subResponseText = subResponseText;
     }
 
-    public SupResponseOptions() {
+    public SubResponseOption() {
     }
 
-    public SupResponseOptions(int id, int subResponseNumber, int responseOptionId, String subResponseText) {
+    public SubResponseOption(int id, int subResponseNumber, int ResponseOptionId, String subResponseText) {
         this.id = id;
         this.subResponseNumber = subResponseNumber;
-        this.responseOptionId = responseOptionId;
+        this.ResponseOptionId = ResponseOptionId;
         this.subResponseText = subResponseText;
     }
 
@@ -53,11 +53,11 @@ public class SupResponseOptions {
     }
 
     public int getResponseOptionId() {
-        return responseOptionId;
+        return ResponseOptionId;
     }
 
-    public void setResponseOptionId(int responseOptionId) {
-        this.responseOptionId = responseOptionId;
+    public void setResponseOptionId(int ResponseOptionId) {
+        this.ResponseOptionId = ResponseOptionId;
     }
 
     public String getUpdateAt() {
