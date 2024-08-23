@@ -79,9 +79,9 @@ public class ResponseOptionUI {
 
         JButton btnUpdate = createStyledButton("Update", buttonSize, buttonFont);
         btnUpdate.addActionListener(e -> {
-            // UpdateResponseOptionUI updateResponseOptionUi = new UpdateResponseOptionUI(updateResponseOptionUseCase, findResponseOptionByCodeUseCase, this);
-            // updateResponseOptionUi.frmUpdateResponseOption();
-            // frame.setVisible(false);
+            UpdateResponseOptionUI updateResponseOptionUi = new UpdateResponseOptionUI(updateResponseOptionUseCase, findResponseOptionByIdUseCase, this);
+            updateResponseOptionUi.frmUpdateResponseOption();
+            frame.setVisible(false);
         });
         buttonPanel.add(btnUpdate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
