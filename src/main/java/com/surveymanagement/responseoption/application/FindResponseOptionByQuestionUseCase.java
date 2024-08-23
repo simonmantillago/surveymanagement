@@ -15,4 +15,6 @@ public class FindResponseOptionByQuestionUseCase {
     public List<ResponseOption> execute(int responseOptionId) {
         return responseOptionService.findResponseOptionByQuestion(responseOptionId);
     }
+
+
 }

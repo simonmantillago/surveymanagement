@@ -192,7 +192,7 @@ public class AddResponseOptionUI  extends JFrame {
                 responseOption.setCategoryCatalogId(0);
             }
             responseOption.setOptionValue(Integer.parseInt(option_value.getText().trim()));
-            responseOption.setQuestionId(Integer.parseInt(TextBeforeDot(categorycatalogBox.getSelectedItem().toString())));
+            responseOption.setQuestionId(Integer.parseInt(TextBeforeDot(QuestionBox.getSelectedItem().toString())));
             
             if(isParent.isSelected()){
 

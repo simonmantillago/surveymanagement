@@ -15,20 +15,20 @@ import com.surveymanagement.responseoption.domain.entity.ResponseOption;
 import com.surveymanagement.responseoption.domain.service.ResponseOptionService;
 
 public class ResponseOptionRepository implements ResponseOptionService {
-    private Connection connection;
+        private Connection connection;
 
-    public ResponseOptionRepository() {
-        try {
-            Properties props = new Properties();
-            props.load(getClass().getClassLoader().getResourceAsStream("configdb.properties"));
-            String url = props.getProperty("url");
-            String user = props.getProperty("user");
-            String password = props.getProperty("password");
-            connection = DriverManager.getConnection(url, user, password);
-        } catch (Exception e) {
-            e.printStackTrace();
+        public ResponseOptionRepository() {
+            try {
+                Properties props = new Properties();
+                props.load(getClass().getClassLoader().getResourceAsStream("configdb.properties"));
+                String url = props.getProperty("url");
+                String user = props.getProperty("user");
+                String password = props.getProperty("password");
+                connection = DriverManager.getConnection(url, user, password);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-    }
     
     @Override
     public void createResponseOption(ResponseOption responseOption) {
