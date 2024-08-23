@@ -33,6 +33,13 @@ import com.surveymanagement.responseoption.application.UpdateResponseOptionUseCa
 import com.surveymanagement.responseoption.infrastructure.responseoptionui.ResponseOptionUI;
 import com.surveymanagement.responseoption.domain.service.ResponseOptionService;
 import com.surveymanagement.responseoption.infrastructure.ResponseOptionRepository;
+import com.surveymanagement.subresponseoption.application.CreateSubResponseOptionUseCase;
+import com.surveymanagement.subresponseoption.application.DeleteSubResponseOptionUseCase;
+import com.surveymanagement.subresponseoption.application.FindSubResponseOptionByIdUseCase;
+import com.surveymanagement.subresponseoption.application.UpdateSubResponseOptionUseCase;
+import com.surveymanagement.subresponseoption.infrastructure.subresponseoptionui.SubResponseOptionUi;
+import com.surveymanagement.subresponseoption.domain.service.SubResponseOptionService;
+import com.surveymanagement.subresponseoption.infrastructure.SubResponseOptionRepository;
 import com.surveymanagement.question.domain.service.QuestionService;
 import com.surveymanagement.question.infrastructure.QuestionRepository;
 
@@ -184,7 +191,7 @@ public class LoginUiController extends JFrame {
 public static void createAndShowMainUI() {
         JFrame frame = new JFrame("Survey Management");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 400);
+        frame.setSize(300, 600);
         frame.setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel();
@@ -230,15 +237,6 @@ public static void createAndShowMainUI() {
         buttonPanel.add(btnUserRoles);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnCategoryCatalog = createStyledButton("Category Catalog", buttonSize, buttonFont);
-        btnCategoryCatalog.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnCategoryCatalog.addActionListener(e -> {
-            frame.setVisible(false);
-            openCategoryCatalogUI();
-        });
-        buttonPanel.add(btnCategoryCatalog);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
-
         JButton btnSurvey = createStyledButton("Surveys", buttonSize, buttonFont);
         btnSurvey.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnSurvey.addActionListener(e -> {
@@ -248,6 +246,8 @@ public static void createAndShowMainUI() {
         buttonPanel.add(btnSurvey);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
+        
+        
         JButton btnChapter = createStyledButton("Chapter", buttonSize, buttonFont);
         btnChapter.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnChapter.addActionListener(e -> {
@@ -255,6 +255,24 @@ public static void createAndShowMainUI() {
             openChapterUI();
         });
         buttonPanel.add(btnChapter);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        
+        JButton btnQuestion = createStyledButton("Question", buttonSize, buttonFont);
+        btnQuestion.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnQuestion.addActionListener(e -> {
+            frame.setVisible(false);
+            openQuestionUI();
+        });
+        buttonPanel.add(btnQuestion);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+
+        JButton btnCategoryCatalog = createStyledButton("Category Catalog", buttonSize, buttonFont);
+        btnCategoryCatalog.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnCategoryCatalog.addActionListener(e -> {
+            frame.setVisible(false);
+            openCategoryCatalogUI();
+        });
+        buttonPanel.add(btnCategoryCatalog);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
         JButton btnResponseOption = createStyledButton("ResponseOption", buttonSize, buttonFont);
@@ -266,18 +284,15 @@ public static void createAndShowMainUI() {
         buttonPanel.add(btnResponseOption);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        mainPanel.add(buttonPanel);
-        frame.add(mainPanel);
-        frame.setVisible(true);
-
-        JButton btnQuestion = createStyledButton("Question", buttonSize, buttonFont);
-        btnQuestion.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnQuestion.addActionListener(e -> {
+        JButton btnSubResponseOption = createStyledButton("SubResponseOption", buttonSize, buttonFont);
+        btnSubResponseOption.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnSubResponseOption.addActionListener(e -> {
             frame.setVisible(false);
-            openQuestionUI();
+            openSubResponseOptionUI();
         });
-        buttonPanel.add(btnQuestion);
+        buttonPanel.add(btnSubResponseOption);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+
     
         mainPanel.add(buttonPanel);
         frame.add(mainPanel);
@@ -381,15 +396,26 @@ public static void createAndShowMainUI() {
     }
 
     private static void openResponseOptionUI() {
-    ResponseOptionService surveyService = new ResponseOptionRepository();
+    ResponseOptionService responseOptionService = new ResponseOptionRepository();
 
-    CreateResponseOptionUseCase createResponseOptionUseCase = new CreateResponseOptionUseCase(surveyService);
-    DeleteResponseOptionUseCase deleteResponseOptionUseCase = new DeleteResponseOptionUseCase(surveyService);
-    FindResponseOptionByIdUseCase findResponseOptionByIdUseCase = new FindResponseOptionByIdUseCase(surveyService);
-    UpdateResponseOptionUseCase updateResponseOptionUseCase = new UpdateResponseOptionUseCase(surveyService);
+    CreateResponseOptionUseCase createResponseOptionUseCase = new CreateResponseOptionUseCase(responseOptionService);
+    DeleteResponseOptionUseCase deleteResponseOptionUseCase = new DeleteResponseOptionUseCase(responseOptionService);
+    FindResponseOptionByIdUseCase findResponseOptionByIdUseCase = new FindResponseOptionByIdUseCase(responseOptionService);
+    UpdateResponseOptionUseCase updateResponseOptionUseCase = new UpdateResponseOptionUseCase(responseOptionService);
 
     ResponseOptionUI questionUI = new ResponseOptionUI(createResponseOptionUseCase, deleteResponseOptionUseCase, findResponseOptionByIdUseCase, updateResponseOptionUseCase);
     questionUI.showCrudOptions();
+    }
+    private static void openSubResponseOptionUI() {
+    SubResponseOptionService subResponseOptionService = new SubResponseOptionRepository();
+
+    CreateSubResponseOptionUseCase createSubResponseOptionUseCase = new CreateSubResponseOptionUseCase(subResponseOptionService);
+    DeleteSubResponseOptionUseCase deleteSubResponseOptionUseCase = new DeleteSubResponseOptionUseCase(subResponseOptionService);
+    FindSubResponseOptionByIdUseCase findSubResponseOptionByIdUseCase = new FindSubResponseOptionByIdUseCase(subResponseOptionService);
+    UpdateSubResponseOptionUseCase updateSubResponseOptionUseCase = new UpdateSubResponseOptionUseCase(subResponseOptionService);
+
+    SubResponseOptionUi subResponseOptionUi = new SubResponseOptionUi(createSubResponseOptionUseCase, findSubResponseOptionByIdUseCase, updateSubResponseOptionUseCase, deleteSubResponseOptionUseCase);
+    subResponseOptionUi.showCrudOptions();
     }
 
     private static JButton createStyledButton(String text, Dimension size, Font font) {
