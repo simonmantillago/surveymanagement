@@ -22,17 +22,17 @@ import com.surveymanagement.subresponseoption.application.UpdateSubResponseOptio
 
 public class SubResponseOptionUi {
     private final CreateSubResponseOptionUseCase createSubResponseOptionUseCase;
-    private final FindSubResponseOptionByIdUseCase findSubResponseOptionByNameUseCase;
+    private final FindSubResponseOptionByIdUseCase findSubResponseOptionByIdUseCase;
     private final UpdateSubResponseOptionUseCase updateSubResponseOptionUseCase;
     private final DeleteSubResponseOptionUseCase deleteSubResponseOptionUseCase;
     private JFrame frame;
 
     public SubResponseOptionUi(CreateSubResponseOptionUseCase createSubResponseOptionUseCase,
-            FindSubResponseOptionByIdUseCase findSubResponseOptionByNameUseCase,
+            FindSubResponseOptionByIdUseCase findSubResponseOptionByIdUseCase,
             UpdateSubResponseOptionUseCase updateSubResponseOptionUseCase,
             DeleteSubResponseOptionUseCase deleteSubResponseOptionUseCase) {
         this.createSubResponseOptionUseCase = createSubResponseOptionUseCase;
-        this.findSubResponseOptionByNameUseCase = findSubResponseOptionByNameUseCase;
+        this.findSubResponseOptionByIdUseCase = findSubResponseOptionByIdUseCase;
         this.updateSubResponseOptionUseCase = updateSubResponseOptionUseCase;
         this.deleteSubResponseOptionUseCase = deleteSubResponseOptionUseCase;
     }
@@ -83,14 +83,14 @@ public class SubResponseOptionUi {
         // buttonPanel.add(btnUpdate);
         // buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        // JButton btnFind = createStyledButton("Find SubResponseOption", buttonSize, buttonFont);
-        // btnFind.addActionListener(e -> {
-        //     FindSubResponseOptionByNameUi findSubResponseOptionByNameUi = new FindSubResponseOptionByNameUi(findSubResponseOptionByNameUseCase, this);
-        //     findSubResponseOptionByNameUi.showFindSubResponseOption();
-        //     frame.setVisible(false);
-        // });
-        // buttonPanel.add(btnFind);
-        // buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        JButton btnFind = createStyledButton("Find SubResponseOption", buttonSize, buttonFont);
+        btnFind.addActionListener(e -> {
+            FindSubResponseOptionUI findSubResponseOptionUI = new FindSubResponseOptionUI(findSubResponseOptionByIdUseCase, this);
+            findSubResponseOptionUI.showFindSubResponseOption();
+            frame.setVisible(false);
+        });
+        buttonPanel.add(btnFind);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
 
         // JButton btnDelete = createStyledButton("Delete SubResponseOption", buttonSize, buttonFont);

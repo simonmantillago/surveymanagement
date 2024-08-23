@@ -5,14 +5,14 @@ import com.surveymanagement.subresponseoption.domain.service.SubResponseOptionSe
 
 import java.util.List;
 
-public class FindSubResponseOptionByQuestionUseCase {
+public class FindSubResponseOptionByResponseOptionUseCase {
     private final SubResponseOptionService subResponseOptionService;
 
-    public FindSubResponseOptionByQuestionUseCase(SubResponseOptionService subResponseOptionService) {
+    public FindSubResponseOptionByResponseOptionUseCase(SubResponseOptionService subResponseOptionService) {
         this.subResponseOptionService = subResponseOptionService;
     }
 
-    public List<SubResponseOption> execute(int subResponseOptionId) {
-        return subResponseOptionService.findSubResponseOptionByResponseOption(subResponseOptionId);
+    public List<SubResponseOption> execute(int responseOptionId) {
+        return subResponseOptionService.findSubResponseOptionByResponseOption(responseOptionId);
     }
 }

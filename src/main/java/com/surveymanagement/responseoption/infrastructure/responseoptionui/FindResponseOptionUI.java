@@ -23,6 +23,7 @@ import com.surveymanagement.chapter.application.FindChapterBySurveyUseCase;
 import com.surveymanagement.chapter.domain.service.ChapterService;
 import com.surveymanagement.chapter.infrastructure.ChapterRepository;
 import com.surveymanagement.question.application.FindQuestionByChapterUseCase;
+import com.surveymanagement.question.application.FindQuestionByCodeUseCase;
 import com.surveymanagement.question.domain.entity.Question;
 import com.surveymanagement.question.domain.service.QuestionService;
 import com.surveymanagement.question.infrastructure.QuestionRepository;
@@ -37,7 +38,7 @@ public class FindResponseOptionUI extends JFrame{
 
     private JComboBox<String> responseoptionBox, chapterBox, surveyBox, questionBox;
     private JTextArea resultArea;
-    int chapterID, surveyID;
+    int chapterID, surveyID,questionID;
     
     public void showFindResponseOption(){
 
@@ -185,19 +186,21 @@ public class FindResponseOptionUI extends JFrame{
 
     private void updateResponseOptionBox() {
         responseoptionBox.removeAllItems(); 
-        int chapterid = Integer.parseInt(TextBeforeDot(chapterBox.getSelectedItem().toString()));
-        ChapterService chapterService = new ChapterRepository();
-        FindChapterByCodeUseCase findChapterByCodeUseCase = new FindChapterByCodeUseCase(chapterService);
-        Optional<Chapter> chapterFound = findChapterByCodeUseCase.findChapterByCode(chapterid);
-        if (chapterFound.isPresent()){
-        this.chapterID =chapterFound.get().getId();
+        int questionid = Integer.parseInt(TextBeforeDot(questionBox.getSelectedItem().toString()));
+        QuestionService questionService = new QuestionRepository();
+        FindQuestionByCodeUseCase findQuestionByCodeUseCase = new FindQuestionByCodeUseCase(questionService);
+        Optional<Question> questionFound = findQuestionByCodeUseCase.findQuestionByCode(questionid);
+        if (questionFound.isPresent()){
+        this.questionID =questionFound.get().getId();
         ResponseOptionService responseoptionService = new ResponseOptionRepository();
         FindResponseOptionByQuestionUseCase findResponseOptionByQuestionUseCase = new FindResponseOptionByQuestionUseCase(responseoptionService);
-        List<ResponseOption> ResponseOptions = findResponseOptionByQuestionUseCase.execute(chapterID);
+        List<ResponseOption> ResponseOptions = findResponseOptionByQuestionUseCase.execute(questionID);
         for(ResponseOption ResponseOptionitem : ResponseOptions){
             responseoptionBox.addItem(ResponseOptionitem.getId()+". "+ ResponseOptionitem.getOptionText());
         };
-    }}
+        
+        }
+    }
         private void updateChapterBox() {
         chapterBox.removeAllItems(); 
         int surveyid = Integer.parseInt(TextBeforeDot(surveyBox.getSelectedItem().toString()));

@@ -139,7 +139,7 @@ public class SubResponseOptionRepository implements SubResponseOptionService {
     @Override
     public List<SubResponseOption> findSubResponseOptionByResponseOption(int responseOptionId) {
         List<SubResponseOption> subResponseOptionIds = new ArrayList<>();
-        String query = "SELECT * FROM subresponse_options WHERE question_id = ?";
+        String query = "SELECT * FROM subresponse_options WHERE responseoptions_id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, responseOptionId);

@@ -203,6 +203,8 @@ public class CreateSubResponseOptionUi extends JFrame{
                 chapterBox.addItem(Chapteritem.getId()+". "+ Chapteritem.getChapter_title());
             };
         }
+        revalidate(); // Asegura que el layout se actualice
+        repaint();
     }
 
     private void updateQuestionBox() {
@@ -223,6 +225,8 @@ public class CreateSubResponseOptionUi extends JFrame{
         for(Question Questionitem : Questions){
             QuestionBox.addItem(Questionitem.getId()+". "+ Questionitem.getQuestion_text());
         };
+        revalidate(); // Asegura que el layout se actualice
+        repaint();
     }}
 
     private void updateResponseOptionBox() {
@@ -243,5 +247,7 @@ public class CreateSubResponseOptionUi extends JFrame{
         for(ResponseOption ResponseOptionitem : responseOptions){
             responseOptionBox.addItem(ResponseOptionitem.getId()+". "+ ResponseOptionitem.getOptionText());
         };
+        revalidate(); // Asegura que el layout se actualice
+        repaint();
     }}
 }

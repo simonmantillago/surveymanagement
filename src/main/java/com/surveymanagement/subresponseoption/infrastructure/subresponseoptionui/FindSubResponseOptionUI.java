@@ -13,7 +13,7 @@ import com.surveymanagement.responseoption.domain.entity.ResponseOption;
 import com.surveymanagement.responseoption.domain.service.ResponseOptionService;
 import com.surveymanagement.responseoption.infrastructure.ResponseOptionRepository;
 import com.surveymanagement.subresponseoption.application.FindSubResponseOptionByIdUseCase;
-import com.surveymanagement.subresponseoption.application.FindSubResponseOptionByQuestionUseCase;
+import com.surveymanagement.subresponseoption.application.FindSubResponseOptionByResponseOptionUseCase;
 import com.surveymanagement.subresponseoption.domain.entity.SubResponseOption;
 import com.surveymanagement.subresponseoption.domain.service.SubResponseOptionService;
 import com.surveymanagement.subresponseoption.infrastructure.SubResponseOptionRepository;
@@ -28,6 +28,7 @@ import com.surveymanagement.chapter.application.FindChapterBySurveyUseCase;
 import com.surveymanagement.chapter.domain.service.ChapterService;
 import com.surveymanagement.chapter.infrastructure.ChapterRepository;
 import com.surveymanagement.question.application.FindQuestionByChapterUseCase;
+import com.surveymanagement.question.application.FindQuestionByCodeUseCase;
 import com.surveymanagement.question.domain.entity.Question;
 import com.surveymanagement.question.domain.service.QuestionService;
 import com.surveymanagement.question.infrastructure.QuestionRepository;
@@ -47,22 +48,20 @@ public class FindSubResponseOptionUI extends JFrame{
 
     private JComboBox<String> responseoptionBox, chapterBox, surveyBox, questionBox ,subresponseoptionBox;
     private JTextArea resultArea;
-    int chapterID, surveyID;  //////////////revisar aca
+    int chapterID, surveyID, questionID, responseOptionID;  //////////////revisar aca
     
-    public void showFindResponseOption(){
+    public void showFindSubResponseOption(){
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Find Category Catalog");
+        setTitle("Find SubResponse Option");
         setSize(500, 500);
         
-        ResponseOptionService responseoptionService = new ResponseOptionRepository();
-        FindResponseOptionByIdUseCase findResponseOptionByCodeyUseCase = new FindResponseOptionByIdUseCase(responseoptionService);
-        initComponents(findResponseOptionByCodeyUseCase);
+        initComponents();
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-    private void initComponents(FindResponseOptionByIdUseCase findResponseOptionByCodeyUseCase){
+    private void initComponents(){
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -81,6 +80,8 @@ public class FindSubResponseOptionUI extends JFrame{
         addComponent(labelQuestion, 3, 0, 1);
         JLabel labelResponseOption = new JLabel("ResponseOption:");
         addComponent(labelResponseOption, 4, 0, 1);
+        JLabel labelSubResponseOption = new JLabel("SubResponseOption:");
+        addComponent(labelSubResponseOption, 5, 0, 1);
 
         surveyBox = new JComboBox<>();
         SurveyService surveyService = new SurveyRepository();
@@ -117,16 +118,25 @@ public class FindSubResponseOptionUI extends JFrame{
             }
         });
         addComponent(responseoptionBox, 4, 1, 1);
+       
+        subresponseoptionBox = new JComboBox<>();
+        responseoptionBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateSubResponseOptionBox();
+            }
+        });
+        addComponent(subresponseoptionBox, 5, 1, 1);
 
         JButton btnFind = new JButton("Find");
-        btnFind.addActionListener(e -> findResponseOption());
-        addComponent(btnFind, 5, 0, 2);
+        btnFind.addActionListener(e -> findSubResponseOption());
+        addComponent(btnFind, 6, 0, 2);
 
         resultArea = new JTextArea(10, 30);
         resultArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(resultArea);
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         gbc.gridwidth = 2;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
@@ -137,7 +147,7 @@ public class FindSubResponseOptionUI extends JFrame{
             dispose();
             responseOptionUi.showCrudOptions();
         });
-        addComponent(btnClose, 7, 0, 2);
+        addComponent(btnClose, 8, 0, 2);
         revalidate(); // Asegura que el layout se actualice
         repaint(); // Redibuja la ventana
     }
@@ -153,29 +163,27 @@ public class FindSubResponseOptionUI extends JFrame{
 
 
 
-        private void findResponseOption() {
-        int responseoptionCode = Integer.parseInt(TextBeforeDot(responseoptionBox.getSelectedItem().toString()));
-        ResponseOptionService responseoptionService = new ResponseOptionRepository();
-        FindResponseOptionByIdUseCase findResponseOptionByCodeUseCase = new FindResponseOptionByIdUseCase(responseoptionService);
-        Optional<ResponseOption> foundResponseOption = findResponseOptionByCodeUseCase.execute(responseoptionCode);
+        private void findSubResponseOption() {
+        int subresponseoptionCode = Integer.parseInt(TextBeforeDot(subresponseoptionBox.getSelectedItem().toString()));
+
+        Optional<SubResponseOption> foundSubResponseOption = findSubResponseOptionByIdUseCase.execute(subresponseoptionCode);
         
-        if (foundResponseOption.isPresent()) {
+        if (foundSubResponseOption.isPresent()) {
             String message = String.format(
-                "ResponseOption deleted successfully:\n\n" +
-                "ID: %d\n" +
-                "Value: %s\n" +
-                "Category Catalog ID: %s\n" +
-                "Parent Response: %s\n" +
-                "Question ID: %s\n" +
-                "Comment: %s\n" +
-                "Text: %s\n",
-                foundResponseOption.get().getId(),
-                foundResponseOption.get().getOptionValue(),
-                foundResponseOption.get().getCategoryCatalogId(),
-                foundResponseOption.get().getParentResponseId(),
-                foundResponseOption.get().getQuestionId(),
-                foundResponseOption.get().getCommentResponse(),
-                foundResponseOption.get().getOptionText()
+                "SubResponseOption deleted successfully:\n\n" +
+                "Id: %d\n" +
+                "SubResponseNumber: %d\n" +
+                "CreatedAt: %s\n" +
+                "ResponseOptionId: %d\n" +
+                "UpdateAt: %s\n" +
+                "SubResponseText: %s\n",
+                foundSubResponseOption.get().getId(),
+                foundSubResponseOption.get().getSubResponseNumber(),
+                foundSubResponseOption.get().getCreatedAt(),
+                foundSubResponseOption.get().getResponseOptionId(),
+                foundSubResponseOption.get().getUpdateAt(),
+                foundSubResponseOption.get().getSubResponseText()
+   
             );
             resultArea.setText(message);
         } else {
@@ -184,7 +192,6 @@ public class FindSubResponseOptionUI extends JFrame{
     }
 
     private String TextBeforeDot(String text) {
-        // Buscar la posición del primer punto en la cadena
         int position = text.indexOf('.');
         if (position != -1) {
             return text.substring(0, position);
@@ -193,29 +200,17 @@ public class FindSubResponseOptionUI extends JFrame{
         }
     }
 
-    private void updateResponseOptionBox() {
-        responseoptionBox.removeAllItems(); 
-        int chapterid = Integer.parseInt(TextBeforeDot(chapterBox.getSelectedItem().toString()));
-        ChapterService chapterService = new ChapterRepository();
-        FindChapterByCodeUseCase findChapterByCodeUseCase = new FindChapterByCodeUseCase(chapterService);
-        Optional<Chapter> chapterFound = findChapterByCodeUseCase.findChapterByCode(chapterid);
-        if (chapterFound.isPresent()){
-        this.chapterID =chapterFound.get().getId();
-        ResponseOptionService responseoptionService = new ResponseOptionRepository();
-        FindResponseOptionByQuestionUseCase findResponseOptionByQuestionUseCase = new FindResponseOptionByQuestionUseCase(responseoptionService);
-        List<ResponseOption> ResponseOptions = findResponseOptionByQuestionUseCase.execute(chapterID);
-        for(ResponseOption ResponseOptionitem : ResponseOptions){
-            responseoptionBox.addItem(ResponseOptionitem.getId()+". "+ ResponseOptionitem.getOptionText());
-        };
-    }}
-        private void updateChapterBox() {
+    private void updateChapterBox() {
         chapterBox.removeAllItems(); 
         int surveyid = Integer.parseInt(TextBeforeDot(surveyBox.getSelectedItem().toString()));
+        
         SurveyService surveyService = new SurveyRepository();
         FindSurveyByCodeUseCase findSurveyByCodeUseCase = new FindSurveyByCodeUseCase(surveyService);
+        
         Optional<Survey> surveyFound = findSurveyByCodeUseCase.findSurveyByCode(surveyid);
         if (surveyFound.isPresent()){
         this.surveyID =surveyFound.get().getId();
+
         ChapterService chapterService = new ChapterRepository();
         FindChapterBySurveyUseCase findChapterBySurveyUseCase = new FindChapterBySurveyUseCase(chapterService);
         List<Chapter> Chapters = findChapterBySurveyUseCase.findChapterBySurvey(surveyID);
@@ -223,22 +218,69 @@ public class FindSubResponseOptionUI extends JFrame{
             chapterBox.addItem(Chapteritem.getId()+". "+ Chapteritem.getChapter_title());
         };
     }}
-
-        private void updateQuestionBox() { ///////////Esto esta mal
+    
+    private void updateQuestionBox() { 
         questionBox.removeAllItems(); 
         int chapterid = Integer.parseInt(TextBeforeDot(chapterBox.getSelectedItem().toString()));
+        
         ChapterService chapterService = new ChapterRepository();
         FindChapterByCodeUseCase findChapterByCodeUseCase = new FindChapterByCodeUseCase(chapterService);
+        
         Optional<Chapter> chapterFound = findChapterByCodeUseCase.findChapterByCode(chapterid);
         if (chapterFound.isPresent()){
-        this.chapterID =chapterFound.get().getId();
-        QuestionService questionService = new QuestionRepository();
-        FindQuestionByChapterUseCase findQuestionByChapterUseCase = new FindQuestionByChapterUseCase(questionService);
-        List<Question> Questions = findQuestionByChapterUseCase.findQuestionByChapter(chapterID);
-        for(Question Questionitem : Questions){
-            questionBox.addItem(Questionitem.getId()+". "+ Questionitem.getQuestion_text());
+            this.chapterID =chapterFound.get().getId();
+            
+            QuestionService questionService = new QuestionRepository();
+            FindQuestionByChapterUseCase findQuestionByChapterUseCase = new FindQuestionByChapterUseCase(questionService);
+            
+            List<Question> Questions = findQuestionByChapterUseCase.findQuestionByChapter(chapterID);
+            for(Question Questionitem : Questions){
+                questionBox.addItem(Questionitem.getId()+". "+ Questionitem.getQuestion_text());
+            };
+        }}
+        
+        private void updateResponseOptionBox() {
+            responseoptionBox.removeAllItems(); 
+            int questionid = Integer.parseInt(TextBeforeDot(questionBox.getSelectedItem().toString()));
+    
+            QuestionService questionService = new QuestionRepository();
+            FindQuestionByCodeUseCase findQuestionByCodeUseCase = new FindQuestionByCodeUseCase(questionService);
+    
+            Optional<Question> questionFound = findQuestionByCodeUseCase.findQuestionByCode(questionid);
+            if (questionFound.isPresent()){
+            this.questionID =questionFound.get().getId();
+    
+            ResponseOptionService responseoptionService = new ResponseOptionRepository();
+            FindResponseOptionByQuestionUseCase findResponseOptionByQuestionUseCase = new FindResponseOptionByQuestionUseCase(responseoptionService);
+            
+            List<ResponseOption> ResponseOptions = findResponseOptionByQuestionUseCase.execute(questionID);
+            for(ResponseOption ResponseOptionitem : ResponseOptions){
+                responseoptionBox.addItem(ResponseOptionitem.getId()+". "+ ResponseOptionitem.getOptionText());
+            };
+            
+            }
+        }
+    private void updateSubResponseOptionBox() {
+        subresponseoptionBox.removeAllItems(); 
+        int responseoptionid = Integer.parseInt(TextBeforeDot(responseoptionBox.getSelectedItem().toString()));
+
+        ResponseOptionService responseOptionService = new ResponseOptionRepository();
+        FindResponseOptionByIdUseCase findResponseOptionByIdUseCase = new FindResponseOptionByIdUseCase(responseOptionService);
+       
+        Optional<ResponseOption> reponseoptionFound = findResponseOptionByIdUseCase.execute(responseoptionid);
+        if (reponseoptionFound.isPresent()){
+        this.responseOptionID =reponseoptionFound.get().getId();
+        
+        SubResponseOptionService subResponseOptionService = new SubResponseOptionRepository();
+        FindSubResponseOptionByResponseOptionUseCase findSubResponseOptionByResponseOptionUseCase = new FindSubResponseOptionByResponseOptionUseCase(subResponseOptionService);
+        
+        List<SubResponseOption> subResponseOptions = findSubResponseOptionByResponseOptionUseCase.execute(responseOptionID);
+        for(SubResponseOption subResponseOptionitem : subResponseOptions){
+            subresponseoptionBox.addItem(subResponseOptionitem.getId()+". "+ subResponseOptionitem.getSubResponseText());
         };
-    }}
+        
+        }
+    }
 
 
 }
