@@ -35,7 +35,7 @@ public class AddChapterUI extends JFrame {
         setTitle("Create Role");
         setSize(500, 500);
 
-        JLabel title = new JLabel("Create Role");
+        JLabel title = new JLabel("Create chapter");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
         title.setHorizontalAlignment(SwingConstants.CENTER);
 

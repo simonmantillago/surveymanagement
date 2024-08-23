@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import com.surveymanagement.chapter.application.CreateChapterUseCase;
 import com.surveymanagement.chapter.application.DeleteChapterUseCase;
 import com.surveymanagement.chapter.application.FindChapterByCodeUseCase;
+import com.surveymanagement.chapter.application.FindAllChapterUseCase;
 import com.surveymanagement.chapter.application.UpdateChapterUseCase;
 import com.surveymanagement.login.infrastructure.loginUi.LoginUiController;
 
@@ -23,6 +24,7 @@ public class ChapterUI {
     private final CreateChapterUseCase createChapterUseCase;
     private final DeleteChapterUseCase deleteChapterUseCase;
     private final FindChapterByCodeUseCase findChapterByCodeUseCase;
+    private final FindAllChapterUseCase findAllChapterUseCase;
     private final UpdateChapterUseCase updateChapterUseCase;
     private JFrame frame;
 
@@ -30,16 +32,18 @@ public class ChapterUI {
             CreateChapterUseCase createChapterUseCase,
             DeleteChapterUseCase deleteChapterUseCase,
             FindChapterByCodeUseCase findChapterByCodeUseCase,
-            UpdateChapterUseCase updateChapterUseCase) {
+            UpdateChapterUseCase updateChapterUseCase,
+            FindAllChapterUseCase findAllChapterUseCase) {
         this.createChapterUseCase = createChapterUseCase;
         this.deleteChapterUseCase = deleteChapterUseCase;
         this.findChapterByCodeUseCase = findChapterByCodeUseCase;
+        this.findAllChapterUseCase = findAllChapterUseCase;
         this.updateChapterUseCase = updateChapterUseCase;
     }
 
     public void showCrudOptions(){
 
-        frame = new JFrame("Category Catalogs");
+        frame = new JFrame("Chapter");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 500);
         frame.setLocationRelativeTo(null);
@@ -50,7 +54,7 @@ public class ChapterUI {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Añadir título grande
-        JLabel titleLabel = new JLabel("Countries");
+        JLabel titleLabel = new JLabel("Chapter");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(titleLabel);
@@ -66,7 +70,7 @@ public class ChapterUI {
         Font buttonFont = new Font("Arial", Font.BOLD, 18);
 
         // Botón Create Chapter
-        JButton btnCreate = createStyledButton("Create Chapter", buttonSize, buttonFont);
+        JButton btnCreate = createStyledButton("Create", buttonSize, buttonFont);
         btnCreate.addActionListener(e -> {
             AddChapterUI addchapterUi = new AddChapterUI(createChapterUseCase, this);
             addchapterUi.frmRegChapter();
@@ -75,7 +79,7 @@ public class ChapterUI {
         buttonPanel.add(btnCreate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnUpdate = createStyledButton("Update Chapter", buttonSize, buttonFont);
+        JButton btnUpdate = createStyledButton("Update", buttonSize, buttonFont);
         btnUpdate.addActionListener(e -> {
             UpdateChapterUI updateChapterUi = new UpdateChapterUI(updateChapterUseCase, findChapterByCodeUseCase, this);
             updateChapterUi.frmUpdateChapter();
@@ -84,7 +88,7 @@ public class ChapterUI {
         buttonPanel.add(btnUpdate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnFind = createStyledButton("Find Chapter", buttonSize, buttonFont);
+        JButton btnFind = createStyledButton("Find", buttonSize, buttonFont);
         btnFind.addActionListener(e -> {
             FindChapterUI findChapterUI = new FindChapterUI(findChapterByCodeUseCase, this);
             findChapterUI.showFindChapter();
@@ -93,7 +97,7 @@ public class ChapterUI {
         buttonPanel.add(btnFind);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnDelete = createStyledButton("Delete Customer", buttonSize, buttonFont);
+        JButton btnDelete = createStyledButton("Delete", buttonSize, buttonFont);
         btnDelete.addActionListener(e -> {
             DeleteChapterUI deleteCustomerUI = new DeleteChapterUI(deleteChapterUseCase, this);
             deleteCustomerUI.showDeleteChapter();
@@ -104,8 +108,8 @@ public class ChapterUI {
 
         JButton btnFindAll = createStyledButton("Find All", buttonSize, buttonFont);
         btnFindAll.addActionListener(e -> {
-            // FindAllChapterUI findAllChapterUi = new FindAllChapterUI(findAllChapterUseCase, this);
-            // findAllChapterUi.showAllChapters();
+            FindAllChapterUI findAllChapterUi = new FindAllChapterUI(findAllChapterUseCase, this);
+            findAllChapterUi.showAllChapters();
             frame.setVisible(false);
         });
         buttonPanel.add(btnFindAll);

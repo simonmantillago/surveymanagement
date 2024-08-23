@@ -52,7 +52,7 @@ public class CategoryCatalogUI {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Añadir título grande
-        JLabel titleLabel = new JLabel("Countries");
+        JLabel titleLabel = new JLabel("Category Catalogs");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(titleLabel);
@@ -68,7 +68,7 @@ public class CategoryCatalogUI {
         Font buttonFont = new Font("Arial", Font.BOLD, 18);
 
         // Botón Create CategoryCatalog
-        JButton btnCreate = createStyledButton("Create CategoryCatalog", buttonSize, buttonFont);
+        JButton btnCreate = createStyledButton("Create", buttonSize, buttonFont);
         btnCreate.addActionListener(e -> {
             AddCategoryCatalogUI addcategorycatalogUi = new AddCategoryCatalogUI(createCategoryCatalogUseCase, this);
             addcategorycatalogUi.frmRegCategoryCatalog();
@@ -77,7 +77,7 @@ public class CategoryCatalogUI {
         buttonPanel.add(btnCreate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnUpdate = createStyledButton("Update CategoryCatalog", buttonSize, buttonFont);
+        JButton btnUpdate = createStyledButton("Update", buttonSize, buttonFont);
         btnUpdate.addActionListener(e -> {
             UpdateCategoryCatalogUI updateCategoryCatalogUi = new UpdateCategoryCatalogUI(updateCategoryCatalogUseCase, findCategoryCatalogByCodeUseCase, this);
             updateCategoryCatalogUi.frmUpdateCategoryCatalog();
@@ -86,7 +86,7 @@ public class CategoryCatalogUI {
         buttonPanel.add(btnUpdate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnFind = createStyledButton("Find CategoryCatalog", buttonSize, buttonFont);
+        JButton btnFind = createStyledButton("Find", buttonSize, buttonFont);
         btnFind.addActionListener(e -> {
             FindCategoryCatalogUI findCategoryCatalogUI = new FindCategoryCatalogUI(findCategoryCatalogByCodeUseCase, this);
             findCategoryCatalogUI.showFindCategoryCatalog();
@@ -95,7 +95,7 @@ public class CategoryCatalogUI {
         buttonPanel.add(btnFind);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnDelete = createStyledButton("Delete Customer", buttonSize, buttonFont);
+        JButton btnDelete = createStyledButton("Delete", buttonSize, buttonFont);
         btnDelete.addActionListener(e -> {
             DeleteCategoryCatalogUI deleteCustomerUI = new DeleteCategoryCatalogUI(deleteCategoryCatalogUseCase, this);
             deleteCustomerUI.showDeleteCategoryCatalog();

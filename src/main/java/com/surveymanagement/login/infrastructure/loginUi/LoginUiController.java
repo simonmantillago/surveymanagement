@@ -12,6 +12,7 @@ import com.surveymanagement.categorycatalog.infrastructure.CategoryCatalogReposi
 import com.surveymanagement.categorycatalog.infrastructure.categorycatalogui.CategoryCatalogUI;
 import com.surveymanagement.chapter.application.CreateChapterUseCase;
 import com.surveymanagement.chapter.application.DeleteChapterUseCase;
+import com.surveymanagement.chapter.application.FindAllChapterUseCase;
 import com.surveymanagement.chapter.application.FindChapterByCodeUseCase;
 import com.surveymanagement.chapter.application.UpdateChapterUseCase;
 import com.surveymanagement.chapter.domain.service.ChapterService;
@@ -19,6 +20,22 @@ import com.surveymanagement.chapter.infrastructure.ChapterRepository;
 import com.surveymanagement.chapter.infrastructure.chapterui.ChapterUI;
 import com.surveymanagement.login.application.CheckUserRoleUseCase;
 import com.surveymanagement.login.domain.entity.Login;
+import com.surveymanagement.question.application.CreateQuestionUseCase;
+import com.surveymanagement.question.application.DeleteQuestionUseCase;
+import com.surveymanagement.question.application.FindAllQuestionUseCase;
+import com.surveymanagement.question.application.FindQuestionByCodeUseCase;
+import com.surveymanagement.question.application.UpdateQuestionUseCase;
+import com.surveymanagement.question.infrastructure.questionui.QuestionUI;
+import com.surveymanagement.responseoption.application.CreateResponseOptionUseCase;
+import com.surveymanagement.responseoption.application.DeleteResponseOptionUseCase;
+import com.surveymanagement.responseoption.application.FindResponseOptionByIdUseCase;
+import com.surveymanagement.responseoption.application.UpdateResponseOptionUseCase;
+import com.surveymanagement.responseoption.infrastructure.responseoptionui.ResponseOptionUI;
+import com.surveymanagement.responseoption.domain.service.ResponseOptionService;
+import com.surveymanagement.responseoption.infrastructure.ResponseOptionRepository;
+import com.surveymanagement.question.domain.service.QuestionService;
+import com.surveymanagement.question.infrastructure.QuestionRepository;
+
 import com.surveymanagement.role.application.CreateRoleUseCase;
 import com.surveymanagement.role.application.DeleteRoleUseCase;
 import com.surveymanagement.role.application.FindRoleByNameUseCase;
@@ -240,10 +257,34 @@ public static void createAndShowMainUI() {
         buttonPanel.add(btnChapter);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
+        JButton btnResponseOption = createStyledButton("ResponseOption", buttonSize, buttonFont);
+        btnResponseOption.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnResponseOption.addActionListener(e -> {
+            frame.setVisible(false);
+            openResponseOptionUI();
+        });
+        buttonPanel.add(btnResponseOption);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+
+        mainPanel.add(buttonPanel);
+        frame.add(mainPanel);
+        frame.setVisible(true);
+
+        JButton btnQuestion = createStyledButton("Question", buttonSize, buttonFont);
+        btnQuestion.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnQuestion.addActionListener(e -> {
+            frame.setVisible(false);
+            openQuestionUI();
+        });
+        buttonPanel.add(btnQuestion);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+    
         mainPanel.add(buttonPanel);
         frame.add(mainPanel);
         frame.setVisible(true);
     }
+
+    
 
     private static void openRoleUiController() {
         RoleService roleService = new RoleRepository();
@@ -320,10 +361,35 @@ public static void createAndShowMainUI() {
     DeleteChapterUseCase deleteChapterUseCase = new DeleteChapterUseCase(surveyService);
     FindChapterByCodeUseCase findChapterByCodeUseCase = new FindChapterByCodeUseCase(surveyService);
     UpdateChapterUseCase updateChapterUseCase = new UpdateChapterUseCase(surveyService);
-    
+    FindAllChapterUseCase findAllChapterUseCase = new FindAllChapterUseCase(surveyService);
 
-    ChapterUI chapterUI = new ChapterUI(createChapterUseCase, deleteChapterUseCase, findChapterByCodeUseCase, updateChapterUseCase);
-    chapterUI.showCrudOptions();
+    ChapterUI questionUI = new ChapterUI(createChapterUseCase, deleteChapterUseCase, findChapterByCodeUseCase, updateChapterUseCase, findAllChapterUseCase);
+    questionUI.showCrudOptions();
+    }
+
+    private static void openQuestionUI() {
+    QuestionService surveyService = new QuestionRepository();
+
+    CreateQuestionUseCase createQuestionUseCase = new CreateQuestionUseCase(surveyService);
+    DeleteQuestionUseCase deleteQuestionUseCase = new DeleteQuestionUseCase(surveyService);
+    FindQuestionByCodeUseCase findQuestionByCodeUseCase = new FindQuestionByCodeUseCase(surveyService);
+    UpdateQuestionUseCase updateQuestionUseCase = new UpdateQuestionUseCase(surveyService);
+    FindAllQuestionUseCase findAllQuestionUseCase = new FindAllQuestionUseCase(surveyService);
+
+    QuestionUI questionUI = new QuestionUI(createQuestionUseCase, deleteQuestionUseCase, findQuestionByCodeUseCase, updateQuestionUseCase, findAllQuestionUseCase);
+    questionUI.showCrudOptions();
+    }
+
+    private static void openResponseOptionUI() {
+    ResponseOptionService surveyService = new ResponseOptionRepository();
+
+    CreateResponseOptionUseCase createResponseOptionUseCase = new CreateResponseOptionUseCase(surveyService);
+    DeleteResponseOptionUseCase deleteResponseOptionUseCase = new DeleteResponseOptionUseCase(surveyService);
+    FindResponseOptionByIdUseCase findResponseOptionByIdUseCase = new FindResponseOptionByIdUseCase(surveyService);
+    UpdateResponseOptionUseCase updateResponseOptionUseCase = new UpdateResponseOptionUseCase(surveyService);
+
+    ResponseOptionUI questionUI = new ResponseOptionUI(createResponseOptionUseCase, deleteResponseOptionUseCase, findResponseOptionByIdUseCase, updateResponseOptionUseCase);
+    questionUI.showCrudOptions();
     }
 
     private static JButton createStyledButton(String text, Dimension size, Font font) {
