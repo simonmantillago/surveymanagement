@@ -68,7 +68,7 @@ public class UserUiController {
         Font buttonFont = new Font("Arial", Font.BOLD, 18);
 
         // Botón Create User
-        JButton btnCreate = createStyledButton("Create User", buttonSize, buttonFont);
+        JButton btnCreate = createStyledButton("Create", buttonSize, buttonFont);
         btnCreate.addActionListener(e -> {
             CreateUserUi userUi = new CreateUserUi(createUserUseCase, this);
             userUi.frmRegUser();
@@ -77,7 +77,7 @@ public class UserUiController {
         buttonPanel.add(btnCreate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnUpdate = createStyledButton("Update User", buttonSize, buttonFont);
+        JButton btnUpdate = createStyledButton("Update", buttonSize, buttonFont);
         btnUpdate.addActionListener(e -> {
             UpdateUserUi updateUserUi = new UpdateUserUi(updateUserUseCase, findUserByNameUseCase, this);
             updateUserUi.frmUpdateUser();
@@ -87,7 +87,7 @@ public class UserUiController {
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
         
-        JButton btnFindAll = createStyledButton("Find All Users", buttonSize, buttonFont);
+        JButton btnFindAll = createStyledButton("Find All", buttonSize, buttonFont);
         btnFindAll.addActionListener(e -> {
             FindAllUserUi findAllUserUi = new FindAllUserUi(findAllUserUseCase, this);
             findAllUserUi.showAllUsers();
@@ -96,7 +96,7 @@ public class UserUiController {
         buttonPanel.add(btnFindAll);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnFind = createStyledButton("Find User", buttonSize, buttonFont);
+        JButton btnFind = createStyledButton("Find", buttonSize, buttonFont);
         btnFind.addActionListener(e -> {
             FindUserByIdUi findUserByNameUi = new FindUserByIdUi(findUserByNameUseCase, this);
             findUserByNameUi.showFindUser();
@@ -105,7 +105,7 @@ public class UserUiController {
         buttonPanel.add(btnFind);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnDelete = createStyledButton("Delete User", buttonSize, buttonFont);
+        JButton btnDelete = createStyledButton("Delete", buttonSize, buttonFont);
         btnDelete.addActionListener(e -> {
             DeleteUserUi deleteCustomerUi = new DeleteUserUi(deleteUserUseCase, this);
             deleteCustomerUi.showDeleteCustomer();

@@ -27,7 +27,7 @@ public class AddSurveyUI extends JFrame {
 
     private void initComponents(){
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Create Role");
+        setTitle("Create Survey");
         setSize(500, 500);
 
         JLabel title = new JLabel("Create Survey");

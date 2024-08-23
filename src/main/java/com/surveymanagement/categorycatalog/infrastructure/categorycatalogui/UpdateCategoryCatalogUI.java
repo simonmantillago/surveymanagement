@@ -41,13 +41,13 @@ private final UpdateCategoryCatalogUseCase updateCategoryCatalogUseCase;
 
     private void initComponents(FindAllCategoryCatalogUseCase findAllCategoryCatalogUseCase) {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Update CategoryCatalog");
+        setTitle("Update Category Catalog");
         setSize(500, 500);
 
         // Establecer el layout antes de agregar componentes
         setLayout(new GridBagLayout());
 
-        JLabel jLabel1 = new JLabel("Update CategoryCatalog");
+        JLabel jLabel1 = new JLabel("Update Category Catalog");
         jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 24));
         jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
         

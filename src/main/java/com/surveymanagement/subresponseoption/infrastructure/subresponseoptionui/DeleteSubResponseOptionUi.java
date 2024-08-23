@@ -1,5 +1,8 @@
 package com.surveymanagement.subresponseoption.infrastructure.subresponseoptionui;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,12 +10,23 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Optional;
 
+import com.surveymanagement.chapter.application.FindChapterByCodeUseCase;
+import com.surveymanagement.chapter.application.FindChapterBySurveyUseCase;
+import com.surveymanagement.chapter.domain.entity.Chapter;
+import com.surveymanagement.chapter.domain.service.ChapterService;
+import com.surveymanagement.chapter.infrastructure.ChapterRepository;
+import com.surveymanagement.question.application.FindQuestionByChapterUseCase;
+import com.surveymanagement.question.application.FindQuestionByCodeUseCase;
+import com.surveymanagement.question.domain.entity.Question;
+import com.surveymanagement.question.domain.service.QuestionService;
+import com.surveymanagement.question.infrastructure.QuestionRepository;
 import com.surveymanagement.responseoption.application.FindResponseOptionByIdUseCase;
 import com.surveymanagement.responseoption.application.FindResponseOptionByQuestionUseCase;
 import com.surveymanagement.responseoption.domain.entity.ResponseOption;
 import com.surveymanagement.responseoption.domain.service.ResponseOptionService;
 import com.surveymanagement.responseoption.infrastructure.ResponseOptionRepository;
 import com.surveymanagement.subresponseoption.application.FindSubResponseOptionByIdUseCase;
+import com.surveymanagement.subresponseoption.application.DeleteSubResponseOptionUseCase;
 import com.surveymanagement.subresponseoption.application.FindSubResponseOptionByResponseOptionUseCase;
 import com.surveymanagement.subresponseoption.domain.entity.SubResponseOption;
 import com.surveymanagement.subresponseoption.domain.service.SubResponseOptionService;
@@ -22,27 +36,17 @@ import com.surveymanagement.survey.application.FindSurveyByCodeUseCase;
 import com.surveymanagement.survey.domain.entity.Survey;
 import com.surveymanagement.survey.domain.service.SurveyService;
 import com.surveymanagement.survey.infrastructure.SurveyRepository;
-import com.surveymanagement.chapter.domain.entity.Chapter;
-import com.surveymanagement.chapter.application.FindChapterByCodeUseCase;
-import com.surveymanagement.chapter.application.FindChapterBySurveyUseCase;
-import com.surveymanagement.chapter.domain.service.ChapterService;
-import com.surveymanagement.chapter.infrastructure.ChapterRepository;
-import com.surveymanagement.question.application.FindQuestionByChapterUseCase;
-import com.surveymanagement.question.application.FindQuestionByCodeUseCase;
-import com.surveymanagement.question.domain.entity.Question;
-import com.surveymanagement.question.domain.service.QuestionService;
-import com.surveymanagement.question.infrastructure.QuestionRepository;
 
-public class FindSubResponseOptionUi extends JFrame{
-    private final FindSubResponseOptionByIdUseCase findSubResponseOptionByIdUseCase;
+public class DeleteSubResponseOptionUi extends JFrame{
+    private final DeleteSubResponseOptionUseCase deleteSubResponseOptionUseCase;
     private final SubResponseOptionUi responseOptionUi;
 
  
 
 
 
-    public FindSubResponseOptionUi(FindSubResponseOptionByIdUseCase findSubResponseOptionByIdUseCase, SubResponseOptionUi responseOptionUi) {
-        this.findSubResponseOptionByIdUseCase = findSubResponseOptionByIdUseCase;
+    public DeleteSubResponseOptionUi(DeleteSubResponseOptionUseCase deleteSubResponseOptionUseCase, SubResponseOptionUi responseOptionUi) {
+        this.deleteSubResponseOptionUseCase = deleteSubResponseOptionUseCase;
         this.responseOptionUi = responseOptionUi;
     }
 
@@ -50,10 +54,10 @@ public class FindSubResponseOptionUi extends JFrame{
     private JTextArea resultArea;
     int chapterID, surveyID, questionID, responseOptionID;  //////////////revisar aca
     
-    public void showFindSubResponseOption(){
+    public void showDeleteSubResponseOption(){
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Find Subresponse Option");
+        setTitle("Delete Subresponse Option");
         setSize(500, 600);
         
         initComponents();
@@ -67,7 +71,7 @@ public class FindSubResponseOptionUi extends JFrame{
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel titleLabel = new JLabel("Find SubresponseOption");
+        JLabel titleLabel = new JLabel("Delete SubresponseOption");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         addComponent(titleLabel, 0, 0, 2);
@@ -128,7 +132,7 @@ public class FindSubResponseOptionUi extends JFrame{
         });
         addComponent(subresponseoptionBox, 5, 1, 1);
 
-        JButton btnFind = new JButton("Find");
+        JButton btnFind = new JButton("Delete");
         btnFind.addActionListener(e -> findSubResponseOption());
         addComponent(btnFind, 6, 0, 2);
 
@@ -165,10 +169,13 @@ public class FindSubResponseOptionUi extends JFrame{
 
         private void findSubResponseOption() {
         int subresponseoptionCode = Integer.parseInt(TextBeforeDot(subresponseoptionBox.getSelectedItem().toString()));
-
+        
+        SubResponseOptionService subResponseoptionService = new SubResponseOptionRepository();
+        FindSubResponseOptionByIdUseCase findSubResponseOptionByIdUseCase = new FindSubResponseOptionByIdUseCase(subResponseoptionService);
         Optional<SubResponseOption> foundSubResponseOption = findSubResponseOptionByIdUseCase.execute(subresponseoptionCode);
         
         if (foundSubResponseOption.isPresent()) {
+            deleteSubResponseOptionUseCase.execute(foundSubResponseOption.get().getId());
             String message = String.format(
                 "SubResponseOption deleted successfully:\n\n" +
                 "Id: %d\n" +
@@ -186,8 +193,10 @@ public class FindSubResponseOptionUi extends JFrame{
    
             );
             resultArea.setText(message);
+            revalidate(); // Asegura que el layout se actualice
+            repaint(); // Redibuja la ventana
         } else {
-            resultArea.setText("ResponseOption deletion failed. ResponseOption not found.");
+            resultArea.setText("SubResponseOption deletion failed. ResponseOption not found.");
         }
     }
 

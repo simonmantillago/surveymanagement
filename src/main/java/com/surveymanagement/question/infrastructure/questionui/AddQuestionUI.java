@@ -43,10 +43,10 @@ public class AddQuestionUI  extends JFrame {
 
     private void initComponents(){
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Create Role");
+        setTitle("Create Question");
         setSize(500, 500);
 
-        JLabel title = new JLabel("Create question");
+        JLabel title = new JLabel("Create Question");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
         title.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -181,5 +181,6 @@ public class AddQuestionUI  extends JFrame {
                 for(Chapter Chapteritem : Chapters){
                     chapterBox.addItem(Chapteritem.getId()+". "+ Chapteritem.getChapter_title());
                 };
-        }}
+        }
+    }
 }

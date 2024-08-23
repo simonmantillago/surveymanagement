@@ -38,7 +38,7 @@ public class SubResponseOptionUi {
     }
 
     public void showCrudOptions() {
-        frame = new JFrame("SubResponseOptions");
+        frame = new JFrame("Subresponse Options");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 500);
         frame.setLocationRelativeTo(null);
@@ -49,7 +49,7 @@ public class SubResponseOptionUi {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Añadir título grande
-        JLabel titleLabel = new JLabel("SubResponseOptions");
+        JLabel titleLabel = new JLabel("Subresponse Options");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(titleLabel);
@@ -83,24 +83,24 @@ public class SubResponseOptionUi {
         // buttonPanel.add(btnUpdate);
         // buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnFind = createStyledButton("Find SubResponseOption", buttonSize, buttonFont);
+        JButton btnFind = createStyledButton("Find", buttonSize, buttonFont);
         btnFind.addActionListener(e -> {
-            FindSubResponseOptionUI findSubResponseOptionUI = new FindSubResponseOptionUI(findSubResponseOptionByIdUseCase, this);
-            findSubResponseOptionUI.showFindSubResponseOption();
+            FindSubResponseOptionUi findSubResponseOptionUi = new FindSubResponseOptionUi(findSubResponseOptionByIdUseCase, this);
+            findSubResponseOptionUi.showFindSubResponseOption();
             frame.setVisible(false);
         });
         buttonPanel.add(btnFind);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
 
-        // JButton btnDelete = createStyledButton("Delete SubResponseOption", buttonSize, buttonFont);
-        // btnDelete.addActionListener(e -> {
-        //     DeleteSubResponseOptionUi deleteCustomerUi = new DeleteSubResponseOptionUi(deleteSubResponseOptionUseCase, this);
-        //     deleteCustomerUi.showDeleteCustomer();
-        //     frame.setVisible(false);
-        // });
-        // buttonPanel.add(btnDelete);
-        // buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        JButton btnDelete = createStyledButton("Delete", buttonSize, buttonFont);
+        btnDelete.addActionListener(e -> {
+            DeleteSubResponseOptionUi deleteCustomerUi = new DeleteSubResponseOptionUi(deleteSubResponseOptionUseCase, this);
+            deleteCustomerUi.showDeleteSubResponseOption();
+            frame.setVisible(false);
+        });
+        buttonPanel.add(btnDelete);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
         JButton btnBackToMain = createStyledButton("Back to Main Menu", buttonSize, buttonFont);
         btnBackToMain.addActionListener(e -> {

@@ -43,7 +43,7 @@ public class FindResponseOptionUI extends JFrame{
     public void showFindResponseOption(){
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Find Category Catalog");
+        setTitle("Find Response Option");
         setSize(500, 500);
         
         ResponseOptionService responseoptionService = new ResponseOptionRepository();
@@ -59,7 +59,7 @@ public class FindResponseOptionUI extends JFrame{
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel titleLabel = new JLabel("Find ResponseOption");
+        JLabel titleLabel = new JLabel("Find Response Option");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         addComponent(titleLabel, 0, 0, 2);
@@ -152,8 +152,8 @@ public class FindResponseOptionUI extends JFrame{
         
         if (foundResponseOption.isPresent()) {
             String message = String.format(
-                "ResponseOption deleted successfully:\n\n" +
-                "ID: %d\n" +
+                "Response Option found:\n\n" +
+                "Id: %d\n" +
                 "Value: %s\n" +
                 "Category Catalog ID: %s\n" +
                 "Parent Response: %s\n" +
@@ -191,14 +191,13 @@ public class FindResponseOptionUI extends JFrame{
         FindQuestionByCodeUseCase findQuestionByCodeUseCase = new FindQuestionByCodeUseCase(questionService);
         Optional<Question> questionFound = findQuestionByCodeUseCase.findQuestionByCode(questionid);
         if (questionFound.isPresent()){
-        this.questionID =questionFound.get().getId();
-        ResponseOptionService responseoptionService = new ResponseOptionRepository();
-        FindResponseOptionByQuestionUseCase findResponseOptionByQuestionUseCase = new FindResponseOptionByQuestionUseCase(responseoptionService);
-        List<ResponseOption> ResponseOptions = findResponseOptionByQuestionUseCase.execute(questionID);
-        for(ResponseOption ResponseOptionitem : ResponseOptions){
-            responseoptionBox.addItem(ResponseOptionitem.getId()+". "+ ResponseOptionitem.getOptionText());
-        };
-        
+            this.questionID =questionFound.get().getId();
+            ResponseOptionService responseoptionService = new ResponseOptionRepository();
+            FindResponseOptionByQuestionUseCase findResponseOptionByQuestionUseCase = new FindResponseOptionByQuestionUseCase(responseoptionService);
+            List<ResponseOption> ResponseOptions = findResponseOptionByQuestionUseCase.execute(questionID);
+            for(ResponseOption ResponseOptionitem : ResponseOptions){
+                responseoptionBox.addItem(ResponseOptionitem.getId()+". "+ ResponseOptionitem.getOptionText());
+            };
         }
     }
         private void updateChapterBox() {

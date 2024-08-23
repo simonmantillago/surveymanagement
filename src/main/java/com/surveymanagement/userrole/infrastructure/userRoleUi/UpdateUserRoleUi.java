@@ -43,7 +43,7 @@ public class UpdateUserRoleUi extends JFrame {
 
     private void initComponents(FindAllRoleUseCase findAllRoleUseCase) {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Update Assign Role");
+        setTitle("Update User Role");
         setSize(500, 500);
 
         // Establecer el layout antes de agregar componentes

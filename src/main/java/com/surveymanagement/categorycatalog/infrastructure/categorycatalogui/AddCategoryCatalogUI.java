@@ -37,7 +37,7 @@ public class AddCategoryCatalogUI extends JFrame {
 
     private void initComponents(){
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Create Role");
+        setTitle("Create Category Catalog");
         setSize(500, 500);
 
         JLabel title = new JLabel("Create Category Catalog");

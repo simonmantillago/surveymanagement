@@ -52,10 +52,10 @@ public class AddResponseOptionUI  extends JFrame {
 
     private void initComponents(){
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Create Role");
+        setTitle("Create Response Option");
         setSize(500, 500);
 
-        JLabel title = new JLabel("Create responseOption");
+        JLabel title = new JLabel("Create Response Option");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
         title.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -138,7 +138,7 @@ public class AddResponseOptionUI  extends JFrame {
             categorycatalogBox.addItem(String.valueOf(categoryCatalog.getId())+". "+ categoryCatalog.getName());
         }
 
-        addComponent(title, 0, 0, 2);
+        addComponent(title, 0, 1, 2);
         addComponent(new JLabel("Survey:"), 1, 1, 1);
         addComponent(surveyBox, 1, 2, 1);
         addComponent(new JLabel("Chapter:"), 2, 1, 1);

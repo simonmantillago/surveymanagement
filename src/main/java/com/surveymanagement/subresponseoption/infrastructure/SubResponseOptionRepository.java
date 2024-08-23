@@ -73,7 +73,7 @@ public class SubResponseOptionRepository implements SubResponseOptionService {
     public SubResponseOption deleteSubResponseOption(int subResponseOptionId) {
         SubResponseOption subResponseOption = null;
         String selectQuery = "SELECT * FROM subresponse_options WHERE id = ?";
-        String deleteQuery = "DELETE FROM subesponse_options WHERE id = ?";
+        String deleteQuery = "DELETE FROM subresponse_options WHERE id = ?";
 
         try (PreparedStatement selectPs = connection.prepareStatement(selectQuery);
              PreparedStatement deletePs = connection.prepareStatement(deleteQuery)) {

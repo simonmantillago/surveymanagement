@@ -275,7 +275,7 @@ public static void createAndShowMainUI() {
         buttonPanel.add(btnCategoryCatalog);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnResponseOption = createStyledButton("ResponseOption", buttonSize, buttonFont);
+        JButton btnResponseOption = createStyledButton("Response Option", buttonSize, buttonFont);
         btnResponseOption.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnResponseOption.addActionListener(e -> {
             frame.setVisible(false);
@@ -284,7 +284,7 @@ public static void createAndShowMainUI() {
         buttonPanel.add(btnResponseOption);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnSubResponseOption = createStyledButton("SubResponseOption", buttonSize, buttonFont);
+        JButton btnSubResponseOption = createStyledButton("Subresponse Option", buttonSize, buttonFont);
         btnSubResponseOption.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnSubResponseOption.addActionListener(e -> {
             frame.setVisible(false);

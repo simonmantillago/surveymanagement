@@ -52,10 +52,10 @@ public class CreateSubResponseOptionUi extends JFrame{
 
     private void initComponents(){
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Create Role");
-        setSize(500, 500);
+        setTitle("Create Subresponse Option");
+        setSize(600, 500);
 
-        JLabel title = new JLabel("Create responseOption");
+        JLabel title = new JLabel("Create Subresponse Option");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
         title.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -116,7 +116,7 @@ public class CreateSubResponseOptionUi extends JFrame{
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
 
-        addComponent(title, 0, 0, 2);
+        addComponent(title, 0, 1, 2);
         addComponent(new JLabel("1. Survey:"), 1, 1, 1);
         addComponent(surveyBox, 1, 2, 1);
         addComponent(new JLabel("2. Chapter:"), 2, 1, 1);
@@ -230,24 +230,30 @@ public class CreateSubResponseOptionUi extends JFrame{
     }}
 
     private void updateResponseOptionBox() {
-        responseOptionBox.removeAllItems(); 
-        int questionid = Integer.parseInt(TextBeforeDot(QuestionBox.getSelectedItem().toString()));
-        
-        QuestionService questionService = new QuestionRepository();
-        FindQuestionByCodeUseCase findQuestionByCodeUseCase = new FindQuestionByCodeUseCase(questionService);
-        ResponseOptionService responseOptionService = new ResponseOptionRepository();
-        FindResponseOptionByQuestionUseCase findResponseOptionByQuestionUseCase = new FindResponseOptionByQuestionUseCase(responseOptionService);
-        
+        try{
 
-        Optional<Question> questionFound = findQuestionByCodeUseCase.findQuestionByCode(questionid);
-        if (questionFound.isPresent()){
-        int questionID =questionFound.get().getId();
+            responseOptionBox.removeAllItems(); 
+            int questionid = Integer.parseInt(TextBeforeDot(QuestionBox.getSelectedItem().toString()));
+            
+            QuestionService questionService = new QuestionRepository();
+            FindQuestionByCodeUseCase findQuestionByCodeUseCase = new FindQuestionByCodeUseCase(questionService);
+            ResponseOptionService responseOptionService = new ResponseOptionRepository();
+            FindResponseOptionByQuestionUseCase findResponseOptionByQuestionUseCase = new FindResponseOptionByQuestionUseCase(responseOptionService);
+            
+    
+            Optional<Question> questionFound = findQuestionByCodeUseCase.findQuestionByCode(questionid);
+            if (questionFound.isPresent()){
+            int questionID =questionFound.get().getId();
+    
+            List<ResponseOption> responseOptions = findResponseOptionByQuestionUseCase.execute(questionID);
+            for(ResponseOption ResponseOptionitem : responseOptions){
+                responseOptionBox.addItem(ResponseOptionitem.getId()+". "+ ResponseOptionitem.getOptionText());
+            };
+            revalidate(); // Asegura que el layout se actualice
+            repaint();
+        }
+        }catch(Exception ex){
 
-        List<ResponseOption> responseOptions = findResponseOptionByQuestionUseCase.execute(questionID);
-        for(ResponseOption ResponseOptionitem : responseOptions){
-            responseOptionBox.addItem(ResponseOptionitem.getId()+". "+ ResponseOptionitem.getOptionText());
-        };
-        revalidate(); // Asegura que el layout se actualice
-        repaint();
-    }}
+        }
+    }
 }

@@ -64,7 +64,7 @@ public class RoleUiController {
         Font buttonFont = new Font("Arial", Font.BOLD, 18);
 
         // Botón Create Role
-        JButton btnCreate = createStyledButton("Create Role", buttonSize, buttonFont);
+        JButton btnCreate = createStyledButton("Create", buttonSize, buttonFont);
         btnCreate.addActionListener(e -> {
             CreateRoleUi roleUi = new CreateRoleUi(createRoleUseCase, this);
             roleUi.frmRegRole();
@@ -73,7 +73,7 @@ public class RoleUiController {
         buttonPanel.add(btnCreate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnUpdate = createStyledButton("Update Role", buttonSize, buttonFont);
+        JButton btnUpdate = createStyledButton("Update", buttonSize, buttonFont);
         btnUpdate.addActionListener(e -> {
             UpdateRoleUi updateRoleUi = new UpdateRoleUi(updateRoleUseCase, findRoleByNameUseCase, this);
             updateRoleUi.frmUpdateRole();
@@ -82,7 +82,7 @@ public class RoleUiController {
         buttonPanel.add(btnUpdate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnFind = createStyledButton("Find Role", buttonSize, buttonFont);
+        JButton btnFind = createStyledButton("Find", buttonSize, buttonFont);
         btnFind.addActionListener(e -> {
             FindRoleByNameUi findRoleByNameUi = new FindRoleByNameUi(findRoleByNameUseCase, this);
             findRoleByNameUi.showFindRole();
@@ -92,10 +92,10 @@ public class RoleUiController {
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
 
-        JButton btnDelete = createStyledButton("Delete Role", buttonSize, buttonFont);
+        JButton btnDelete = createStyledButton("Delete", buttonSize, buttonFont);
         btnDelete.addActionListener(e -> {
-            DeleteRoleUi deleteCustomerUi = new DeleteRoleUi(deleteRoleUseCase, this);
-            deleteCustomerUi.showDeleteCustomer();
+            DeleteRoleUi deleteRoleUi = new DeleteRoleUi(deleteRoleUseCase, this);
+            deleteRoleUi.showDeleteRole();
             frame.setVisible(false);
         });
         buttonPanel.add(btnDelete);
