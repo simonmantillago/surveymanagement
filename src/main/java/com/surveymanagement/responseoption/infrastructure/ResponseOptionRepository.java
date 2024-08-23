@@ -98,24 +98,88 @@ public class ResponseOptionRepository implements ResponseOptionService {
 
     @Override
     public void updateResponseOption(ResponseOption responseOption) {
-        String query = "UPDATE response_options SET option_value = ?, categorycatalog_id = ?, parentresponse_id = ?, question_id = ?, comment_response = ?, option_text = ?  WHERE id = ?";
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setInt(1, responseOption.getOptionValue());
-            ps.setInt(2, responseOption.getCategoryCatalogId());
-            ps.setInt(3, responseOption.getParentResponseId());
-            ps.setInt(4, responseOption.getQuestionId());
-            ps.setString(5, responseOption.getCommentResponse());
-            ps.setString(6, responseOption.getOptionText());
-            ps.setInt(7, responseOption.getId());
 
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("ResponseOption updated successfully!");
-            } else {  
-                System.out.println("ResponseOption update failed!");
+
+        if(responseOption.getCategoryCatalogId()==0 && responseOption.getParentResponseId()==0 ){
+            String query = "UPDATE response_options SET option_value = ?, categorycatalog_id = NULL, parentresponse_id = NULL, question_id = ?, comment_response = ?, option_text = ?  WHERE id = ?";
+            try (PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setInt(1, responseOption.getOptionValue());
+                ps.setInt(2, responseOption.getQuestionId());
+                ps.setString(3, responseOption.getCommentResponse());
+                ps.setString(4, responseOption.getOptionText());
+                ps.setInt(5, responseOption.getId());
+    
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("ResponseOption updated successfully!");
+                } else {  
+                    System.out.println("ResponseOption update failed!");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        } else if(responseOption.getCategoryCatalogId()==0){
+            String query = "UPDATE response_options SET option_value = ?, categorycatalog_id = NULL, parentresponse_id = ?, question_id = ?, comment_response = ?, option_text = ?  WHERE id = ?";
+            try (PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setInt(1, responseOption.getOptionValue());
+                ps.setInt(2, responseOption.getParentResponseId());
+                ps.setInt(3, responseOption.getQuestionId());
+                ps.setString(4, responseOption.getCommentResponse());
+                ps.setString(5, responseOption.getOptionText());
+                ps.setInt(6, responseOption.getId());
+    
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("ResponseOption updated successfully!");
+                } else {  
+                    System.out.println("ResponseOption update failed!");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } else if(responseOption.getParentResponseId()==0){
+
+            String query = "UPDATE response_options SET option_value = ?, categorycatalog_id = ?, parentresponse_id = NULL, question_id = ?, comment_response = ?, option_text = ?  WHERE id = ?";
+            try (PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setInt(1, responseOption.getOptionValue());
+                ps.setInt(2, responseOption.getCategoryCatalogId());
+                ps.setInt(3, responseOption.getQuestionId());
+                ps.setString(4, responseOption.getCommentResponse());
+                ps.setString(5, responseOption.getOptionText());
+                ps.setInt(6, responseOption.getId());
+    
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("ResponseOption updated successfully!");
+                } else {  
+                    System.out.println("ResponseOption update failed!");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else{
+
+            String query = "UPDATE response_options SET option_value = ?, categorycatalog_id = ?, parentresponse_id = ?, question_id = ?, comment_response = ?, option_text = ?  WHERE id = ?";
+            try (PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setInt(1, responseOption.getOptionValue());
+                ps.setInt(2, responseOption.getCategoryCatalogId());
+                ps.setInt(3, responseOption.getParentResponseId());
+                ps.setInt(4, responseOption.getQuestionId());
+                ps.setString(5, responseOption.getCommentResponse());
+                ps.setString(6, responseOption.getOptionText());
+                ps.setInt(7, responseOption.getId());
+    
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("ResponseOption updated successfully!");
+                } else {  
+                    System.out.println("ResponseOption updatea");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
