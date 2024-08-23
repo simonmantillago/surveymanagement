@@ -72,7 +72,7 @@ public class UpdateResponseOptionUI extends JFrame{
 
         private void initComponents() {
             setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            setTitle("Update ResponseOption");
+            setTitle("Update Response Option");
             setSize(600, 700);
 
             // Establecer el layout antes de agregar componentes
