@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Optional;
 
-import com.surveymanagement.chapter.application.FindAllChapterUseCase;
 import com.surveymanagement.chapter.application.FindChapterByCodeUseCase;
 import com.surveymanagement.chapter.application.FindChapterBySurveyUseCase;
 import com.surveymanagement.chapter.application.UpdateChapterUseCase;
@@ -42,7 +41,6 @@ public class UpdateChapterUI extends JFrame{
     
         public void frmUpdateChapter() {
             initComponents();
-            reloadComboBoxOptions();
             setVisible(true);
         }
     
@@ -74,6 +72,7 @@ public class UpdateChapterUI extends JFrame{
             addComponent(updateSurveyBox, 4, 1, 1);
             
             chapterBox = new JComboBox<>();
+            
             surveyBox.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -162,8 +161,6 @@ public class UpdateChapterUI extends JFrame{
                 this.chapterID = foundChapter.getId();
                 title.setText(foundChapter.getChapter_title());
                 number.setText(foundChapter.getChapter_number());
-                System.out.println(this.surveyID);
-                System.out.println(this.surveyName);
                 updateSurveyBox.setSelectedItem(String.valueOf(this.surveyID) + ". " + this.surveyName);
                 surveyBox.setEditable(false);
                 chapterBox.setEditable(false);
@@ -201,14 +198,6 @@ public class UpdateChapterUI extends JFrame{
     
         private void reloadComboBoxOptions() {
             chapterBox.removeAllItems(); // Elimina todos los elementos actuales del JComboBox
-        
-            ChapterService chapterService = new ChapterRepository();
-            FindAllChapterUseCase findAllChapterUseCase = new FindAllChapterUseCase(chapterService);
-            
-            List<Chapter> chapters = findAllChapterUseCase.findAllChapter();
-            for (Chapter chapter : chapters) {
-                chapterBox.addItem(String.valueOf(chapter.getId())+ ". " + chapter.getChapter_title()); // Añade los chapters actualizados al JComboBox
-            }
         }
     
         private String TextBeforeDot(String text) {
@@ -222,18 +211,20 @@ public class UpdateChapterUI extends JFrame{
         }
     
         private void updateChapterBox() {
-            chapterBox.removeAllItems(); 
-            this.surveyID = Integer.parseInt(TextBeforeDot(surveyBox.getSelectedItem().toString()));
             SurveyService surveyService = new SurveyRepository();
             FindSurveyByCodeUseCase findSurveyByCodeUseCase = new FindSurveyByCodeUseCase(surveyService);
-            Optional<Survey> surveyFound = findSurveyByCodeUseCase.findSurveyByCode(surveyID);
-            if (surveyFound.isPresent()){
-            this.surveyName = surveyFound.get().getName();
             ChapterService chapterService = new ChapterRepository();
             FindChapterBySurveyUseCase findChapterBySurveyUseCase = new FindChapterBySurveyUseCase(chapterService);
-            List<Chapter> Chapters = findChapterBySurveyUseCase.findChapterBySurvey(surveyID);
-            for(Chapter Chapteritem : Chapters){
-                chapterBox.addItem(Chapteritem.getId()+". "+ Chapteritem.getChapter_title());
-            };
+            
+            
+            chapterBox.removeAllItems(); 
+            this.surveyID = Integer.parseInt(TextBeforeDot(surveyBox.getSelectedItem().toString()));
+            Optional<Survey> surveyFound = findSurveyByCodeUseCase.findSurveyByCode(surveyID);
+            if (surveyFound.isPresent()){
+                this.surveyName = surveyFound.get().getName();
+                List<Chapter> Chapters = findChapterBySurveyUseCase.findChapterBySurvey(surveyID);
+                for(Chapter Chapteritem : Chapters){
+                    chapterBox.addItem(Chapteritem.getId()+". "+ Chapteritem.getChapter_title());
+                };
         }}
 }
