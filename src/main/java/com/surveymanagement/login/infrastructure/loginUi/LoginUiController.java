@@ -2,6 +2,7 @@ package com.surveymanagement.login.infrastructure.loginUi;
 
 import javax.swing.*;
 
+import com.surveymanagement.Main;
 import com.surveymanagement.categorycatalog.application.CreateCategoryCatalogUseCase;
 import com.surveymanagement.categorycatalog.application.DeleteCategoryCatalogUseCase;
 import com.surveymanagement.categorycatalog.application.FindAllCategoryCatalogUseCase;
@@ -99,7 +100,9 @@ public class LoginUiController extends JFrame {
     }
 
     public void initComponents() {
+        setVisible(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getClassLoader().getResource("images/survey.png")).getImage());
         setTitle("Login");
         setSize(500, 200);
 
@@ -157,7 +160,7 @@ public class LoginUiController extends JFrame {
     }
 
     private void performLogin() {
-        String username = jTextField1.getText();
+        String username = jTextField1.getText().trim();
         String password = new String(jTextField2.getPassword());
         Optional<Login> loginOptional = checkUserRoleUseCase.execute(username, password);
 
@@ -169,6 +172,7 @@ public class LoginUiController extends JFrame {
                 dispose();
                 openAdminUi();
             } else if ("User".equalsIgnoreCase(roleName)) {
+                dispose();
                 openUserUi();
             } else {
                 JOptionPane.showMessageDialog(null, "Unauthorized role or no Role Assigned", "Error", JOptionPane.ERROR_MESSAGE);
@@ -183,9 +187,15 @@ public class LoginUiController extends JFrame {
         createAndShowMainUI();
     }
 
-    private void openUserUi() {
-        JOptionPane.showMessageDialog(null, "Popo", "Error", JOptionPane.ERROR_MESSAGE);
+    public static void openUserUi() { // cambiar el public
+        
+        SurveyService surveyService = new SurveyRepository();
+        FindAllSurveyUseCase findAllSurveyUseCase = new FindAllSurveyUseCase(surveyService);
+        LoginUserUI loginUserUI = new LoginUserUI(findAllSurveyUseCase);
+
+        loginUserUI.FindSurvey();
     }
+
 
         
 public static void createAndShowMainUI() {
@@ -291,6 +301,15 @@ public static void createAndShowMainUI() {
             openSubResponseOptionUI();
         });
         buttonPanel.add(btnSubResponseOption);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+
+        JButton gobackBtn = createStyledButton("Go back", buttonSize, buttonFont);
+        gobackBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        gobackBtn.addActionListener(e -> {
+            frame.setVisible(false);
+            Main.startLoginProcess();
+        });
+        buttonPanel.add(gobackBtn);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
     

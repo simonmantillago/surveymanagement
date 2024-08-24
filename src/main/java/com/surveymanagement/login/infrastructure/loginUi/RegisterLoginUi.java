@@ -30,6 +30,7 @@ public class RegisterLoginUi extends JFrame {
 
     private void initComponents() {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getClassLoader().getResource("images/survey.png")).getImage());
         setTitle("Create User");
         setSize(500, 500);
 
