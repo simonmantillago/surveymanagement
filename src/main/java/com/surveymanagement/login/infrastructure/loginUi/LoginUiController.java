@@ -118,7 +118,7 @@ public class LoginUiController extends JFrame {
         createUser.addActionListener(e -> resetFields());
         loginBtn.addActionListener(e -> performLogin());
 
-       
+    
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10); 
@@ -179,12 +179,17 @@ public class LoginUiController extends JFrame {
     }
 
     private void openAdminUi() {
-       
+    
         createAndShowMainUI();
     }
 
-    private void openUserUi() {
-        JOptionPane.showMessageDialog(null, "Popo", "Error", JOptionPane.ERROR_MESSAGE);
+    public static void openUserUi() { // cambiar el public
+
+        SurveyService surveyService = new SurveyRepository();
+        FindAllSurveyUseCase findAllSurveyUseCase = new FindAllSurveyUseCase(surveyService);
+        LoginUserUI loginUserUI = new LoginUserUI(findAllSurveyUseCase);
+
+        loginUserUI.FindSurvey();
     }
 
         

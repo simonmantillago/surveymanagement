@@ -16,7 +16,6 @@ import com.surveymanagement.login.infrastructure.loginUi.LoginUiController;
 import com.surveymanagement.responseoption.application.CreateResponseOptionUseCase;
 import com.surveymanagement.responseoption.application.DeleteResponseOptionUseCase;
 import com.surveymanagement.responseoption.application.FindResponseOptionByIdUseCase;
-import com.surveymanagement.responseoption.application.FindResponseOptionByQuestionUseCase;
 import com.surveymanagement.responseoption.application.UpdateResponseOptionUseCase;
 
 

@@ -284,4 +284,32 @@ public class ResponseOptionRepository implements ResponseOptionService {
         return responseOptions;
     }
 
+    @Override
+    public List<ResponseOption> findResponseOptionByParentId(int parentresponseid) {
+        List<ResponseOption> responseOptions = new ArrayList<>();
+        String query = "SELECT id, option_value, categorycatalog_id, created_at, parentresponse_id, question_id, updated_at, comment_response, option_text FROM response_options WHERE parentresponse_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, parentresponseid);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    ResponseOption responseOption = new ResponseOption(
+                        rs.getInt("id"),
+                        rs.getInt("option_value"),
+                        rs.getInt("categorycatalog_id"),
+                        rs.getString("created_at"),
+                        parentresponseid,
+                        rs.getInt("question_id"),
+                        rs.getString("updated_at"),
+                        rs.getString("comment_response"),
+                        rs.getString("option_text")); 
+                        responseOptions.add(responseOption);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return responseOptions;
+    }
+
 }

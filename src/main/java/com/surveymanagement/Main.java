@@ -4,6 +4,10 @@ import com.surveymanagement.login.application.CheckUserRoleUseCase;
 import com.surveymanagement.login.domain.service.LoginService;
 import com.surveymanagement.login.infrastructure.LoginRepository;
 import com.surveymanagement.login.infrastructure.loginUi.LoginUiController;
+import com.surveymanagement.login.infrastructure.loginUi.LoginUserUI;
+import com.surveymanagement.survey.application.FindAllSurveyUseCase;
+import com.surveymanagement.survey.domain.service.SurveyService;
+import com.surveymanagement.survey.infrastructure.SurveyRepository;
 import com.surveymanagement.user.application.CreateUserUseCase;
 import com.surveymanagement.user.domain.service.UserService;
 import com.surveymanagement.user.infrastructure.UserRepository;
@@ -16,16 +20,19 @@ public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // startLoginProcess(); 
-            LoginUiController.createAndShowMainUI(); //Just for tests uncomment this line
+            // LoginUiController.createAndShowMainUI(); //Just for tests uncomment this line
+            LoginUiController.openUserUi();
         });
     }
-   public static void startLoginProcess() {
+    public static void startLoginProcess() {
         LoginService loginService = new LoginRepository();
         CheckUserRoleUseCase checkUserRoleUseCase = new CheckUserRoleUseCase(loginService);
+        
         UserService userService = new UserRepository();
         CreateUserUseCase createUserUseCase = new CreateUserUseCase(userService);
         LoginUiController loginUiController = new LoginUiController(createUserUseCase,checkUserRoleUseCase);
         
+
         loginUiController.frmRegLogin();
     }
 }

@@ -11,4 +11,5 @@ public interface ResponseOptionService {
     ResponseOption deleteResponseOption (int responseOptionId);
     Optional<ResponseOption> findResponseOptionById(int responseOptionId);
     List<ResponseOption> findResponseOptionByQuestion(int questionId);
+    List<ResponseOption> findResponseOptionByParentId(int questionId);
 }
