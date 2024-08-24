@@ -30,18 +30,37 @@ public class ResponseQuestionRepository implements ResponseQuestionService {
     @Override
     public void createResposeQuestion(ResponseQuestion responseQuestion) {
         try {
-            String query = "INSERT INTO response_questions (response_id,subresponse_id,responsetext) VALUES (?,?,?)";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, responseQuestion.getResponseId());
-            ps.setInt(2, responseQuestion.getSubresponseId());
-            ps.setString(3, responseQuestion.getResponseText());
-          
 
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("ResponseQuestion added successfully!");
-            } else {
-                System.out.println("ResponseQuestion addition failed!");
+            if(responseQuestion.getResponseId()==0){
+                
+            
+                String query = "INSERT INTO response_question (response_id,subresponses_id,responsetext) VALUES (NULL,?,?)";
+                PreparedStatement ps = connection.prepareStatement(query);
+                
+                ps.setInt(1, responseQuestion.getSubresponseId());
+                ps.setString(2, responseQuestion.getResponseText());
+            
+
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("ResponseQuestion added successfully!");
+                } else {
+                    System.out.println("ResponseQuestion addition failed!");
+                }
+
+            } else if(responseQuestion.getSubresponseId()==0){
+                String query = "INSERT INTO response_question (response_id,subresponses_id,responsetext) VALUES (?,NULL,?)";
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setInt(1, responseQuestion.getResponseId());
+                ps.setString(2, responseQuestion.getResponseText());
+            
+
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("ResponseQuestion added successfully!");
+                } else {
+                    System.out.println("ResponseQuestion addition failed!");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,8 +70,8 @@ public class ResponseQuestionRepository implements ResponseQuestionService {
     @Override
     public ResponseQuestion deleteResponseQuestion(int resposeQuestioId) {
         ResponseQuestion responseOption = null;
-        String selectQuery = "SELECT * FROM response_questions WHERE id = ?";
-        String deleteQuery = "DELETE FROM response_questions WHERE id = ?";
+        String selectQuery = "SELECT * FROM response_question WHERE id = ?";
+        String deleteQuery = "DELETE FROM response_question WHERE id = ?";
 
         try (PreparedStatement selectPs = connection.prepareStatement(selectQuery);
             PreparedStatement deletePs = connection.prepareStatement(deleteQuery)) {
@@ -64,7 +83,7 @@ public class ResponseQuestionRepository implements ResponseQuestionService {
                     responseOption = new ResponseQuestion(
                         rs.getInt("id"),
                         rs.getInt("response_id"),
-                        rs.getInt("subresponse_id"),
+                        rs.getInt("subresponses_id"),
                         rs.getString("responsetext")
                     );
                 }
@@ -90,7 +109,7 @@ public class ResponseQuestionRepository implements ResponseQuestionService {
     @Override
     public List<ResponseQuestion> findAllResponseQuestion() {
         List<ResponseQuestion> responseQuestions = new ArrayList<>();
-        String query = "SELECT * FROM response_questions";
+        String query = "SELECT * FROM response_question";
         
         try (PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery()) {
@@ -99,7 +118,7 @@ public class ResponseQuestionRepository implements ResponseQuestionService {
                 ResponseQuestion responseQuestion = new ResponseQuestion(
                     rs.getInt("id"),
                     rs.getInt("response_id"),
-                    rs.getInt("subresponse_id"),
+                    rs.getInt("subresponses_id"),
                     rs.getString("responsetext")
                 );
                 responseQuestions.add(responseQuestion);

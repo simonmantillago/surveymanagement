@@ -11,6 +11,10 @@ import com.surveymanagement.responseoption.application.FindResponseOptionByQuest
 import com.surveymanagement.responseoption.domain.entity.ResponseOption;
 import com.surveymanagement.responseoption.domain.service.ResponseOptionService;
 import com.surveymanagement.responseoption.infrastructure.ResponseOptionRepository;
+import com.surveymanagement.responsequestion.application.CreateResponseQuestionUseCase;
+import com.surveymanagement.responsequestion.domain.entity.ResponseQuestion;
+import com.surveymanagement.responsequestion.domain.service.ResponseQuestionService;
+import com.surveymanagement.responsequestion.infrastructure.ResponseQuestionRepository;
 import com.surveymanagement.subresponseoption.application.FindSubResponseOptionByResponseOptionUseCase;
 import com.surveymanagement.subresponseoption.domain.entity.SubResponseOption;
 import com.surveymanagement.subresponseoption.domain.service.SubResponseOptionService;
@@ -35,6 +39,9 @@ public class LoginStartSurveyUI extends JFrame {
     private Map<Integer, JCheckBox> responseOptionCheckboxMap = new HashMap<>();
     private Map<Integer, List<JCheckBox>> subResponseOptionCheckboxMap = new HashMap<>();
     private JScrollPane scrollPane;
+
+    private Map<Integer, String> selectedResponseOptions = new HashMap<>(); // Map to store selected ResponseOptions
+    private Map<Integer, String> selectedSubResponseOptions = new HashMap<>(); // Map to store selected SubResponseOptions
 
     public LoginStartSurveyUI() {
     }
@@ -63,20 +70,18 @@ public class LoginStartSurveyUI extends JFrame {
         FindSubResponseOptionByResponseOptionUseCase findSubResponseOptionByResponseOptionUseCase = new FindSubResponseOptionByResponseOptionUseCase(subResponseOptionService);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Create Role");
-        setSize(800, 600); // Tamaño inicial del JFrame
+        setTitle("Start Survey");
+        setSize(700, 600); 
         setIconImage(new ImageIcon(getClass().getClassLoader().getResource("images/survey.png")).getImage());
 
-        // Crear y configurar el título
         JLabel title = new JLabel(foundSurvey.get().getName());
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
         title.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // Crear el JPanel de contenido
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         int row = 0;
@@ -93,31 +98,32 @@ public class LoginStartSurveyUI extends JFrame {
                 gbc.gridy = row++;
                 gbc.gridx = 1;
                 contentPanel.add(labelquestion, gbc);
+                
                 if ("single_choice".equals(question.getResponse_type())){
-
-                    ButtonGroup buttonGroup = new ButtonGroup(); // ButtonGroup para las opciones principales
+                    ButtonGroup buttonGroup = new ButtonGroup();
                     List<ResponseOption> responseOptions = responseOptionByQuestionUseCase.execute(question.getId());
                 
                     for (ResponseOption responseOption : responseOptions) {
-                        if (responseOption.getParentResponseId() == 0) {  // Es una opción primaria
+                        if (responseOption.getParentResponseId() == 0) {  
                             JRadioButton radioButton = new JRadioButton(responseOption.getOptionText());
                             gbc.gridy = row++;
                             gbc.gridx = 1;
                             contentPanel.add(radioButton, gbc);
                             buttonGroup.add(radioButton);
+
+                            // Save the selected response in the map
+                            radioButton.addActionListener(e -> {
+                                selectedResponseOptions.put(responseOption.getId(), responseOption.getOptionText());
+                            });
                 
-                            // Iterar sobre las opciones para encontrar subopciones
                             for (ResponseOption subOption : responseOptions) {
-                                if (subOption.getParentResponseId() == responseOption.getId()) {  // Subopción encontrada
+                                if (subOption.getParentResponseId() == responseOption.getId()) {  
                                     JRadioButton subRadioButton = new JRadioButton(subOption.getOptionText());
                                     subRadioButton.setVisible(false);
                                     gbc.gridy = row++;
                                     gbc.gridx = 2;
                                     contentPanel.add(subRadioButton, gbc);
-                                    
-                                    // No agregar subRadioButton al mismo ButtonGroup para evitar deseleccionar el radioButton principal
-                
-                                    // Crear un nuevo ButtonGroup para las sub-subopciones
+
                                     ButtonGroup subButtonGroup = new ButtonGroup();
                 
                                     List<SubResponseOption> subResponseOptions = findSubResponseOptionByResponseOptionUseCase.execute(subOption.getId());
@@ -129,11 +135,15 @@ public class LoginStartSurveyUI extends JFrame {
                                         gbc.gridy = row++;
                                         gbc.gridx = 3;
                                         contentPanel.add(subSubOptionButton, gbc);
-                                        subButtonGroup.add(subSubOptionButton); // Agregar al ButtonGroup de sub-subopciones
+                                        subButtonGroup.add(subSubOptionButton);
                                         subOptionButtons.add(subSubOptionButton);
+
+                                        // Save the selected sub-response in the map
+                                        subSubOptionButton.addActionListener(e -> {
+                                            selectedSubResponseOptions.put(subResponseOption.getId(), subResponseOption.getSubResponseText());
+                                        });
                                     }
                 
-                                    // Mostrar/ocultar subopciones dependiendo de la selección de la subopción
                                     subRadioButton.addItemListener(e -> {
                                         boolean selected = (e.getStateChange() == ItemEvent.SELECTED);
                                         for (JRadioButton subOptionButton : subOptionButtons) {
@@ -141,7 +151,6 @@ public class LoginStartSurveyUI extends JFrame {
                                         }
                                     });
                 
-                                    // Mostrar/ocultar la subopción cuando la opción primaria es seleccionada
                                     radioButton.addItemListener(e -> {
                                         boolean selected = (e.getStateChange() == ItemEvent.SELECTED);
                                         subRadioButton.setVisible(selected);
@@ -149,9 +158,8 @@ public class LoginStartSurveyUI extends JFrame {
                                 }
                             }
                 
-                            // Si no hay subopciones directas, agregar las subresponses directamente a la opción primaria
                             List<SubResponseOption> subResponseOptions = findSubResponseOptionByResponseOptionUseCase.execute(responseOption.getId());
-                            ButtonGroup subButtonGroup = new ButtonGroup(); // ButtonGroup para las subresponses directas
+                            ButtonGroup subButtonGroup = new ButtonGroup();
                             List<JRadioButton> subOptionButtons = new ArrayList<>();
                 
                             for (SubResponseOption subResponseOption : subResponseOptions) {
@@ -160,11 +168,15 @@ public class LoginStartSurveyUI extends JFrame {
                                 gbc.gridy = row++;
                                 gbc.gridx = 2;
                                 contentPanel.add(subSubOptionButton, gbc);
-                                subButtonGroup.add(subSubOptionButton); // Agregar al ButtonGroup
+                                subButtonGroup.add(subSubOptionButton);
                                 subOptionButtons.add(subSubOptionButton);
+
+                                // Save the selected sub-response in the map
+                                subSubOptionButton.addActionListener(e -> {
+                                    selectedSubResponseOptions.put(subResponseOption.getId(), subResponseOption.getSubResponseText());
+                                });
                             }
                 
-                            // Mostrar/ocultar subresponses dependiendo de la selección de la opción primaria
                             radioButton.addItemListener(e -> {
                                 boolean selected = (e.getStateChange() == ItemEvent.SELECTED);
                                 for (JRadioButton subOptionButton : subOptionButtons) {
@@ -173,7 +185,6 @@ public class LoginStartSurveyUI extends JFrame {
                             });
                         }
                     }
-                    
                 } else if("multiple_choice".equals(question.getResponse_type())){
                     List<ResponseOption> responseOptions = responseOptionByQuestionUseCase.execute(question.getId());
                     for (ResponseOption responseOption : responseOptions) {
@@ -181,50 +192,95 @@ public class LoginStartSurveyUI extends JFrame {
                         gbc.gridy = row++;
                         gbc.gridx = 1;
                         contentPanel.add(checkBox, gbc);
+
+                        // Save the selected response in the map
+                        checkBox.addActionListener(e -> {
+                            if (checkBox.isSelected()) {
+                                selectedResponseOptions.put(responseOption.getId(), responseOption.getOptionText());
+                            } else {
+                                selectedResponseOptions.remove(responseOption.getId());
+                            }
+                        });
+
                         List<SubResponseOption> subResponseOptions = findSubResponseOptionByResponseOptionUseCase.execute(responseOption.getId());
                         for (SubResponseOption subresponseOption : subResponseOptions) {
                             JCheckBox checkBoxSubRes = new JCheckBox(subresponseOption.getSubResponseText());
                             gbc.gridy = row++;
-                            gbc.gridx = 3;
+                            gbc.gridx = 2;
                             contentPanel.add(checkBoxSubRes, gbc);
+
+                            // Save the selected sub-response in the map
+                            checkBoxSubRes.addActionListener(e -> {
+                                if (checkBoxSubRes.isSelected()) {
+                                    selectedSubResponseOptions.put(subresponseOption.getId(), subresponseOption.getSubResponseText());
+                                } else {
+                                    selectedSubResponseOptions.remove(subresponseOption.getId());
+                                }
+                            });
                         }
                     }
+                } else {
+                    JTextField textField = new JTextField();
+                    gbc.gridy = row++;
+                    gbc.gridx = 1;
+                    contentPanel.add(textField, gbc);
 
-                } else{
-                    
-                        JTextField textField = new JTextField();
-                        gbc.gridy = row++;
-                        gbc.gridx = 1;
-                        contentPanel.add(textField, gbc);
-                    
-                        
-                    
+                    // Save the text input in the map (if required)
+                    textField.addFocusListener(new java.awt.event.FocusAdapter() {
+                        public void focusLost(java.awt.event.FocusEvent evt) {
+                            selectedResponseOptions.put(question.getId(), textField.getText());
+                        }
+                    });
                 }
             }
         }
 
-        // Crear el JScrollPane y agregar el contentPanel a él
         scrollPane = new JScrollPane(contentPanel);
-
-        // Configurar el layout del JFrame
         setLayout(new BorderLayout());
-        
-        // Añadir el título en la parte superior
         add(title, BorderLayout.NORTH);
-        
-        // Añadir el JScrollPane en el centro
         add(scrollPane, BorderLayout.CENTER);
         
-        // Crear y añadir el panel de botones en la parte inferior
         JPanel buttonPanel = new JPanel();
         Next = new JButton("Next");
         Goback = new JButton("🔙");
         Goback.addActionListener(e -> goback());
+        Next.addActionListener(e -> submitResponses()); // ActionListener for capturing responses
         buttonPanel.add(Next);
         buttonPanel.add(Goback);
         add(buttonPanel, BorderLayout.SOUTH);
 
         setLocationRelativeTo(null);
+    }
+
+    private void submitResponses() {
+        ResponseQuestionService responseQuestionService = new ResponseQuestionRepository();
+        CreateResponseQuestionUseCase createResponseQuestionUseCase = new CreateResponseQuestionUseCase(responseQuestionService);
+
+        // Handle selected ResponseOptions
+        System.out.println("Selected ResponseOptions:");
+        for (Map.Entry<Integer, String> entry : selectedResponseOptions.entrySet()) {
+            System.out.println("ResponseOption ID: " + entry.getKey() + ", Text: " + entry.getValue());
+            ResponseQuestion responseQuestion = new ResponseQuestion();
+            responseQuestion.setResponseId(entry.getKey() );
+            responseQuestion.setResponseText(entry.getValue());
+            responseQuestion.setSubresponseId(0);
+            createResponseQuestionUseCase.execute(responseQuestion);
+        }
+
+        // Handle selected SubResponseOptions
+        System.out.println("Selected SubResponseOptions:");
+        for (Map.Entry<Integer, String> entry : selectedSubResponseOptions.entrySet()) {
+            System.out.println("SubResponseOption ID: " + entry.getKey() + ", Text: " + entry.getValue());
+            ResponseQuestion responseQuestion = new ResponseQuestion();
+            responseQuestion.setResponseId(0);
+            responseQuestion.setResponseText(entry.getValue());
+            responseQuestion.setSubresponseId(entry.getKey());
+            createResponseQuestionUseCase.execute(responseQuestion);
+        }
+
+        // Continue with the survey flow (e.g., go to the next screen)
+        dispose(); // close current UI
+        // Open the next UI, for example
     }
 
     private void goback(){
