@@ -85,7 +85,7 @@ public class SubResponseOptionUi {
 
         JButton btnFind = createStyledButton("Find", buttonSize, buttonFont);
         btnFind.addActionListener(e -> {
-            FindSubResponseOptionUi findSubResponseOptionUi = new FindSubResponseOptionUi(findSubResponseOptionByIdUseCase, this);
+            FindSubResponseOptionUI findSubResponseOptionUi = new FindSubResponseOptionUI(findSubResponseOptionByIdUseCase, this);
             findSubResponseOptionUi.showFindSubResponseOption();
             frame.setVisible(false);
         });

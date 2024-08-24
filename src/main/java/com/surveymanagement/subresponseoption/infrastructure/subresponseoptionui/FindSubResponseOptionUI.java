@@ -33,7 +33,7 @@ import com.surveymanagement.question.domain.entity.Question;
 import com.surveymanagement.question.domain.service.QuestionService;
 import com.surveymanagement.question.infrastructure.QuestionRepository;
 
-public class FindSubResponseOptionUi extends JFrame{
+public class FindSubResponseOptionUI extends JFrame{
     private final FindSubResponseOptionByIdUseCase findSubResponseOptionByIdUseCase;
     private final SubResponseOptionUi responseOptionUi;
 
@@ -41,7 +41,7 @@ public class FindSubResponseOptionUi extends JFrame{
 
 
 
-    public FindSubResponseOptionUi(FindSubResponseOptionByIdUseCase findSubResponseOptionByIdUseCase, SubResponseOptionUi responseOptionUi) {
+    public FindSubResponseOptionUI(FindSubResponseOptionByIdUseCase findSubResponseOptionByIdUseCase, SubResponseOptionUi responseOptionUi) {
         this.findSubResponseOptionByIdUseCase = findSubResponseOptionByIdUseCase;
         this.responseOptionUi = responseOptionUi;
     }
