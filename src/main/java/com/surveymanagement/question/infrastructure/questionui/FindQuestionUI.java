@@ -38,7 +38,7 @@ public class FindQuestionUI extends JFrame{
     public void showFindQuestion(){
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Find Category Catalog");
+        setTitle("Find Question");
         setSize(500, 500);
         
         QuestionService questionService = new QuestionRepository();

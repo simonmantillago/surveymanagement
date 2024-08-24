@@ -56,7 +56,7 @@ public class DeleteCategoryCatalogUI extends JFrame{
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel titleLabel = new JLabel("Delete category catalog");
+        JLabel titleLabel = new JLabel("Delete Category catalog");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         addComponent(titleLabel, 0, 0, 2);

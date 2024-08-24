@@ -38,7 +38,7 @@ public class DeleteChapterUI extends JFrame{
     public void showDeleteChapter(){
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Delete Category Catalog");
+        setTitle("Delete Chapter");
         setSize(500, 500);
         
         ChapterService chapterService = new ChapterRepository();
@@ -54,7 +54,7 @@ public class DeleteChapterUI extends JFrame{
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel titleLabel = new JLabel("Delete Role");
+        JLabel titleLabel = new JLabel("Delete Chapter");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         addComponent(titleLabel, 0, 0, 2);

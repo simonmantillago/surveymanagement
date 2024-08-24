@@ -42,7 +42,7 @@ public class DeleteQuestionUI extends JFrame{
     public void showDeleteQuestion(){
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Delete Category Catalog");
+        setTitle("Delete Question");
         setSize(500, 500);
         
         QuestionService questionService = new QuestionRepository();
@@ -58,7 +58,7 @@ public class DeleteQuestionUI extends JFrame{
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel titleLabel = new JLabel("Delete Role");
+        JLabel titleLabel = new JLabel("Delete Question");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         addComponent(titleLabel, 0, 0, 2);

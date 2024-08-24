@@ -34,7 +34,7 @@ public class FindChapterUI extends JFrame{
     public void showFindChapter(){
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Find Category Catalog");
+        setTitle("Find Chapter");
         setSize(500, 500);
         
         ChapterService chapterService = new ChapterRepository();

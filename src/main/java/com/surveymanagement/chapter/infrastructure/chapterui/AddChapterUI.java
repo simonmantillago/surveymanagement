@@ -32,10 +32,10 @@ public class AddChapterUI extends JFrame {
 
     private void initComponents(){
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Create Role");
+        setTitle("Create Chapter");
         setSize(500, 500);
 
-        JLabel title = new JLabel("Create chapter");
+        JLabel title = new JLabel("Create Chapter");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
         title.setHorizontalAlignment(SwingConstants.CENTER);
 

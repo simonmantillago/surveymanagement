@@ -22,7 +22,7 @@ public class DeleteRoleUi extends JFrame {
         this.roleUiController = roleUiController;
     }
     
-    public void showDeleteCustomer() {
+    public void showDeleteRole() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("Delete Role");
         setSize(500, 500);

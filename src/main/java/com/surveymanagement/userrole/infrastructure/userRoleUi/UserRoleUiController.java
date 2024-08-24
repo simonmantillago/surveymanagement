@@ -37,7 +37,7 @@ public class UserRoleUiController {
     }
 
     public void showCrudOptions() {
-        frame = new JFrame("Assign Role");
+        frame = new JFrame("User Roles");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 500);
         frame.setLocationRelativeTo(null);
@@ -48,7 +48,7 @@ public class UserRoleUiController {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Añadir título grande
-        JLabel titleLabel = new JLabel("Assign Role");
+        JLabel titleLabel = new JLabel("User Roles");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(titleLabel);
@@ -73,7 +73,7 @@ public class UserRoleUiController {
         // buttonPanel.add(btnCreate);
         // buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnUpdate = createStyledButton("Update User Role", buttonSize, buttonFont);
+        JButton btnUpdate = createStyledButton("Update", buttonSize, buttonFont);
         btnUpdate.addActionListener(e -> {
             UpdateUserRoleUi updateUserRoleUi = new UpdateUserRoleUi(updateUserRoleUseCase, findUserRoleByIdUseCase, this);
             updateUserRoleUi.frmUpdateUserRole();
@@ -82,7 +82,7 @@ public class UserRoleUiController {
         buttonPanel.add(btnUpdate);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        JButton btnFind = createStyledButton("Find User Role", buttonSize, buttonFont);
+        JButton btnFind = createStyledButton("Find", buttonSize, buttonFont);
         btnFind.addActionListener(e -> {
             FindUserRoleByNameUi findUserRoleByNameUi = new FindUserRoleByNameUi(findUserRoleByIdUseCase, this);
             findUserRoleByNameUi.showFindUserRole();
@@ -92,7 +92,7 @@ public class UserRoleUiController {
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
 
-        JButton btnDelete = createStyledButton("Delete User Roler", buttonSize, buttonFont);
+        JButton btnDelete = createStyledButton("Delete", buttonSize, buttonFont);
         btnDelete.addActionListener(e -> {
             DeleteUserRoleUi deleteCustomerUi = new DeleteUserRoleUi(deleteUserRoleUseCase, this);
             deleteCustomerUi.showDeleteCustomer();

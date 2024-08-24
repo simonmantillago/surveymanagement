@@ -38,7 +38,7 @@ public class UpdateQuestionUI extends JFrame{
         private final FindQuestionByCodeUseCase findQuestionByCodeUseCase;
         private final QuestionUI questionUI;
     
-        private JComboBox<String> questionBox, surveyBox, chapterBox, updateSurveyBox, toupdatechapterBox, response_type;
+        private JComboBox<String> questionBox, surveyBox, chapterBox, toupdatechapterBox, response_type;
         private JTextField question_number, comment_question, question_text; //
         private JButton jButton1; // Save
         private JButton jButton2; // Save
@@ -97,19 +97,9 @@ public class UpdateQuestionUI extends JFrame{
         });
         addComponent(questionBox, 3, 1, 1);
             
-            updateSurveyBox = new JComboBox<>();
-            for (Survey survey : surveys) {
-                updateSurveyBox.addItem(String.valueOf(survey.getId())+". " + survey.getName());
-            }
-            
             
             toupdatechapterBox = new JComboBox<>();
-            updateSurveyBox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    updateNewChapterBox();
-                }
-            });
+    
             
             response_type = new JComboBox<>();
             response_type.addItem("single_choice");
@@ -136,12 +126,10 @@ public class UpdateQuestionUI extends JFrame{
             // Añadir los componentes al contenedor
             addComponent(jLabel1, 0, 0, 2);
             addComponent(jButton4, 4, 0, 2);
-            addComponent(updateSurveyBox, 5, 1, 1);
             addComponent(toupdatechapterBox, 6, 1, 1);
             addComponent(new JLabel("Survey:"), 1, 0, 1);
             addComponent(new JLabel("Chapter:"), 2, 0, 1);
             addComponent(new JLabel("Question:"), 3, 0, 1);
-            addComponent(new JLabel("Survey:"), 5, 0, 1);
             addComponent(new JLabel("Chapter:"), 6, 0, 1);
             addComponent(new JLabel("Number:"), 7, 0, 1);
             addComponent(question_number, 7, 1, 1);
@@ -196,6 +184,7 @@ public class UpdateQuestionUI extends JFrame{
         }
     
         private void findQuestion() {
+            updateNewChapterBox();
             int codeToUpdate = Integer.parseInt(TextBeforeDot(questionBox.getSelectedItem().toString()));
             Optional<Question> questionToUpdate = findQuestionByCodeUseCase.findQuestionByCode(codeToUpdate);
     
@@ -207,7 +196,6 @@ public class UpdateQuestionUI extends JFrame{
                 response_type.setSelectedItem(foundQuestion.getResponse_type());
                 comment_question.setText(foundQuestion.getComment_question());
                 question_text.setText(foundQuestion.getQuestion_text());
-                updateSurveyBox.setSelectedItem(String.valueOf(this.surveyID) + ". " + this.surveyName);
                 toupdatechapterBox.setSelectedItem(String.valueOf(this.chapterID) + ". " + this.chapterName);
                 surveyBox.setEditable(false);
                 questionBox.setEditable(false);
@@ -233,7 +221,6 @@ public class UpdateQuestionUI extends JFrame{
             question_text.setVisible(false);
             response_type.setVisible(false);
             toupdatechapterBox.setVisible(false);
-            updateSurveyBox.setVisible(false);
             jButton1.setVisible(false);
             jButton2.setVisible(false);
         }
@@ -243,7 +230,6 @@ public class UpdateQuestionUI extends JFrame{
             comment_question.setVisible(true);
             question_text.setVisible(true);
             response_type.setVisible(true);
-            updateSurveyBox.setVisible(true);
             toupdatechapterBox.setVisible(true);
             jButton1.setVisible(true);
             jButton2.setVisible(true);
